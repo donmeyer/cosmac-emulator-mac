@@ -1,0 +1,416 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B441B1D6A6B006724FC /* AppDelegate.m */; };
+		F6D63B471B1D6A6B006724FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B461B1D6A6B006724FC /* main.m */; };
+		F6D63B491B1D6A6C006724FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B481B1D6A6C006724FC /* Images.xcassets */; };
+		F6D63B4C1B1D6A6C006724FC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B4A1B1D6A6C006724FC /* MainMenu.xib */; };
+		F6D63B581B1D6A6C006724FC /* _802_EmulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B571B1D6A6C006724FC /* _802_EmulatorTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F6D63B521B1D6A6C006724FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6D63B361B1D6A6B006724FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F6D63B3D1B1D6A6B006724FC;
+			remoteInfo = "1802 Emulator";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F6D63B3E1B1D6A6B006724FC /* 1802 Emulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1802 Emulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6D63B421B1D6A6B006724FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6D63B431B1D6A6B006724FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F6D63B441B1D6A6B006724FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F6D63B461B1D6A6B006724FC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F6D63B481B1D6A6C006724FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F6D63B4B1B1D6A6C006724FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F6D63B511B1D6A6C006724FC /* 1802 EmulatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "1802 EmulatorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6D63B561B1D6A6C006724FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6D63B571B1D6A6C006724FC /* _802_EmulatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _802_EmulatorTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F6D63B3B1B1D6A6B006724FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6D63B4E1B1D6A6C006724FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F6D63B351B1D6A6B006724FC = {
+			isa = PBXGroup;
+			children = (
+				F6D63B401B1D6A6B006724FC /* 1802 Emulator */,
+				F6D63B541B1D6A6C006724FC /* 1802 EmulatorTests */,
+				F6D63B3F1B1D6A6B006724FC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F6D63B3F1B1D6A6B006724FC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F6D63B3E1B1D6A6B006724FC /* 1802 Emulator.app */,
+				F6D63B511B1D6A6C006724FC /* 1802 EmulatorTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F6D63B401B1D6A6B006724FC /* 1802 Emulator */ = {
+			isa = PBXGroup;
+			children = (
+				F6D63B431B1D6A6B006724FC /* AppDelegate.h */,
+				F6D63B441B1D6A6B006724FC /* AppDelegate.m */,
+				F6D63B481B1D6A6C006724FC /* Images.xcassets */,
+				F6D63B4A1B1D6A6C006724FC /* MainMenu.xib */,
+				F6D63B411B1D6A6B006724FC /* Supporting Files */,
+			);
+			path = "1802 Emulator";
+			sourceTree = "<group>";
+		};
+		F6D63B411B1D6A6B006724FC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F6D63B421B1D6A6B006724FC /* Info.plist */,
+				F6D63B461B1D6A6B006724FC /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F6D63B541B1D6A6C006724FC /* 1802 EmulatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				F6D63B571B1D6A6C006724FC /* _802_EmulatorTests.m */,
+				F6D63B551B1D6A6C006724FC /* Supporting Files */,
+			);
+			path = "1802 EmulatorTests";
+			sourceTree = "<group>";
+		};
+		F6D63B551B1D6A6C006724FC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F6D63B561B1D6A6C006724FC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F6D63B3D1B1D6A6B006724FC /* 1802 Emulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6D63B5B1B1D6A6C006724FC /* Build configuration list for PBXNativeTarget "1802 Emulator" */;
+			buildPhases = (
+				F6D63B3A1B1D6A6B006724FC /* Sources */,
+				F6D63B3B1B1D6A6B006724FC /* Frameworks */,
+				F6D63B3C1B1D6A6B006724FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "1802 Emulator";
+			productName = "1802 Emulator";
+			productReference = F6D63B3E1B1D6A6B006724FC /* 1802 Emulator.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F6D63B501B1D6A6C006724FC /* 1802 EmulatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6D63B5E1B1D6A6C006724FC /* Build configuration list for PBXNativeTarget "1802 EmulatorTests" */;
+			buildPhases = (
+				F6D63B4D1B1D6A6C006724FC /* Sources */,
+				F6D63B4E1B1D6A6C006724FC /* Frameworks */,
+				F6D63B4F1B1D6A6C006724FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F6D63B531B1D6A6C006724FC /* PBXTargetDependency */,
+			);
+			name = "1802 EmulatorTests";
+			productName = "1802 EmulatorTests";
+			productReference = F6D63B511B1D6A6C006724FC /* 1802 EmulatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F6D63B361B1D6A6B006724FC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Donald Meyer";
+				TargetAttributes = {
+					F6D63B3D1B1D6A6B006724FC = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					F6D63B501B1D6A6C006724FC = {
+						CreatedOnToolsVersion = 6.3.2;
+						TestTargetID = F6D63B3D1B1D6A6B006724FC;
+					};
+				};
+			};
+			buildConfigurationList = F6D63B391B1D6A6B006724FC /* Build configuration list for PBXProject "1802 Emulator" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F6D63B351B1D6A6B006724FC;
+			productRefGroup = F6D63B3F1B1D6A6B006724FC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F6D63B3D1B1D6A6B006724FC /* 1802 Emulator */,
+				F6D63B501B1D6A6C006724FC /* 1802 EmulatorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F6D63B3C1B1D6A6B006724FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6D63B491B1D6A6C006724FC /* Images.xcassets in Resources */,
+				F6D63B4C1B1D6A6C006724FC /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6D63B4F1B1D6A6C006724FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F6D63B3A1B1D6A6B006724FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6D63B471B1D6A6B006724FC /* main.m in Sources */,
+				F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6D63B4D1B1D6A6C006724FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6D63B581B1D6A6C006724FC /* _802_EmulatorTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F6D63B531B1D6A6C006724FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F6D63B3D1B1D6A6B006724FC /* 1802 Emulator */;
+			targetProxy = F6D63B521B1D6A6C006724FC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F6D63B4A1B1D6A6C006724FC /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F6D63B4B1B1D6A6C006724FC /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F6D63B591B1D6A6C006724FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F6D63B5A1B1D6A6C006724FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F6D63B5C1B1D6A6C006724FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "1802 Emulator/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F6D63B5D1B1D6A6C006724FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "1802 Emulator/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F6D63B5F1B1D6A6C006724FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "1802 EmulatorTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/1802 Emulator.app/Contents/MacOS/1802 Emulator";
+			};
+			name = Debug;
+		};
+		F6D63B601B1D6A6C006724FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "1802 EmulatorTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/1802 Emulator.app/Contents/MacOS/1802 Emulator";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6D63B391B1D6A6B006724FC /* Build configuration list for PBXProject "1802 Emulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6D63B591B1D6A6C006724FC /* Debug */,
+				F6D63B5A1B1D6A6C006724FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6D63B5B1B1D6A6C006724FC /* Build configuration list for PBXNativeTarget "1802 Emulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6D63B5C1B1D6A6C006724FC /* Debug */,
+				F6D63B5D1B1D6A6C006724FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F6D63B5E1B1D6A6C006724FC /* Build configuration list for PBXNativeTarget "1802 EmulatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6D63B5F1B1D6A6C006724FC /* Debug */,
+				F6D63B601B1D6A6C006724FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F6D63B361B1D6A6B006724FC /* Project object */;
+}
