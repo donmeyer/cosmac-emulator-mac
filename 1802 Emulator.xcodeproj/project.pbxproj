@@ -12,6 +12,7 @@
 		F6D63B491B1D6A6C006724FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B481B1D6A6C006724FC /* Images.xcassets */; };
 		F6D63B4C1B1D6A6C006724FC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B4A1B1D6A6C006724FC /* MainMenu.xib */; };
 		F6D63B581B1D6A6C006724FC /* _802_EmulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B571B1D6A6C006724FC /* _802_EmulatorTests.m */; };
+		F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B611B1D6B01006724FC /* CPU Emulation.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,9 @@
 		F6D63B511B1D6A6C006724FC /* 1802 EmulatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "1802 EmulatorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6D63B561B1D6A6C006724FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6D63B571B1D6A6C006724FC /* _802_EmulatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _802_EmulatorTests.m; sourceTree = "<group>"; };
+		F6D63B611B1D6B01006724FC /* CPU Emulation.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "CPU Emulation.c"; sourceTree = "<group>"; };
+		F6D63B631B1D6C19006724FC /* etypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = etypes.h; sourceTree = "<group>"; };
+		F6D63B641B1D6D69006724FC /* CPU Emulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPU Emulation.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,11 +80,14 @@
 		F6D63B401B1D6A6B006724FC /* 1802 Emulator */ = {
 			isa = PBXGroup;
 			children = (
+				F6D63B641B1D6D69006724FC /* CPU Emulation.h */,
+				F6D63B611B1D6B01006724FC /* CPU Emulation.c */,
 				F6D63B431B1D6A6B006724FC /* AppDelegate.h */,
 				F6D63B441B1D6A6B006724FC /* AppDelegate.m */,
 				F6D63B481B1D6A6C006724FC /* Images.xcassets */,
 				F6D63B4A1B1D6A6C006724FC /* MainMenu.xib */,
 				F6D63B411B1D6A6B006724FC /* Supporting Files */,
+				F6D63B631B1D6C19006724FC /* etypes.h */,
 			);
 			path = "1802 Emulator";
 			sourceTree = "<group>";
@@ -211,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6D63B471B1D6A6B006724FC /* main.m in Sources */,
+				F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */,
 				F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
