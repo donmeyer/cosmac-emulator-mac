@@ -31,6 +31,7 @@ struct CPU {
 	uint8_t T;	// 8-bits
 	
 	bool Q;		// 1-bit
+	bool EF[4];		//
 };
 
 

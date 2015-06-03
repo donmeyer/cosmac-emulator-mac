@@ -75,19 +75,6 @@ long getCycleCount()
 }
 
 
-static uint8_t read( uint16_t addr )
-{
-	return memory[addr];
-}
-
-
-static void write( uint16_t addr, uint8_t data )
-{
-	// TODO: check that the page is writeable!
-	memory[addr] = data;
-}
-
-
 void reset()
 {
 	cpu.I = 0;
@@ -106,6 +93,72 @@ void reset()
 	cycleCount = 0;
 }
 
+
+void step()
+{
+	fetch();
+	execute();
+}
+
+
+//======================================================================================
+//======================================================================================
+
+
+#pragma mark - Memory Access
+
+static uint8_t read( uint16_t addr )
+{
+	return memory[addr];
+}
+
+
+static void write( uint16_t addr, uint8_t data )
+{
+	// TODO: check that the page is writeable!
+	memory[addr] = data;
+}
+
+
+
+static uint8_t input( uint8_t port )
+{
+	// TODO: Implement
+	return 0;
+}
+
+
+static void output( uint8_t port, unit8_t data )
+{
+	// TODO: Implement
+}
+
+
+#pragma mark - Utility
+
+static void setRegLow( uint8_t reg, uint8_t data )
+{
+	cpu.reg[reg] &= 0xFF00;
+	cpu.reg[reg] |= data;
+}
+
+
+static void branch( bool f )
+{
+	if( f )
+	{
+		setRegLow( cpu.P, cpu.reg[cpu.P] );
+	}
+	else
+	{
+		cpu.reg[cpu.P]++;
+	}
+}
+
+
+
+
+#pragma mark - Processing
 
 static void fetch()
 {
@@ -128,20 +181,8 @@ static void execute()
 }
 
 
-void step()
-{
-	fetch();
-	execute();
-}
 
-
-
-static void setRegLow( uint8_t reg, uint8_t data )
-{
-	cpu.reg[reg] &= 0xFF00;
-	cpu.reg[reg] |= data;	
-}
-
+#pragma mark Opcodes
 
 static void opcode_0()
 {
@@ -171,19 +212,6 @@ static void opcode_2()
 }
 
 
-void branch( bool f )
-{
-	if( f )
-	{
-		setRegLow( cpu.P, cpu.reg[cpu.P] );
-	}
-	else
-	{
-		cpu.reg[cpu.P]++;
-	}
-}
-
-
 static void opcode_3()
 {
 	switch( cpu.N )
@@ -209,51 +237,63 @@ static void opcode_3()
 			break;
 
 		case 0x04:
-			// 
+			// B1
+			branch( cpu.EF[0] );
 			break;
 
 		case 0x05:
-			// 
+			// B2
+			branch( cpu.EF[1] );
 			break;
 
 		case 0x06:
-			// 
+			// B3
+			branch( cpu.EF[2] );
 			break;
 
 		case 0x07:
-			// 
+			// B4
+			branch( cpu.EF[3] );
 			break;
 
 		case 0x08:
-			// 
+			// SKP
+			cpu.reg[cpu.P]++;
 			break;
 
 		case 0x09:
-			// 
+			// BNQ
+			branch( ! cpu.Q );
 			break;
 
 		case 0x0A:
-			// 
+			// BNZ
+			branch( cpu.D != 0 );
 			break;
 
 		case 0x0B:
-			// 
+			// BNF
+			branch( ! cpu.DF == 0 );
 			break;
 
 		case 0x0C:
-			// 
+			// BN1
+			branch( ! cpu.EF[0] );
 			break;
 
 		case 0x0D:
-			// 
+			// BN2
+			branch( ! cpu.EF[1] );
 			break;
 
 		case 0x0E:
-			// 
+			// BN3
+			branch( ! cpu.EF[2] );
 			break;
 
 		case 0x0F:
-			// BR
+			// BN4
+			branch( ! cpu.EF[3] );
 			break;
 	}
 }
@@ -276,6 +316,29 @@ static void opcode_5()
 
 static void opcode_6()
 {
+	if( cpu.N == 0 )
+	{
+		// IRX
+		cpu.reg[cpu.X]++;
+	}
+	else if( cpu.N < 8 )
+	{
+		// Output 1-7
+		output( cpu.N, read( cpu.reg[cpu.X] ) );
+		cpu.reg[cpu.X]++;
+	}
+	else if( cpu.N > 8 )
+	{
+		// Input 1-7
+		uint8_t data = input( cpu.N - 8 );
+		write( cpu.reg[cpu.X], data );
+		cpu.D = data;
+	}
+	else
+	{
+		// Invalid Opcode
+		// TODO: Handle this as an error!
+	}
 }
 
 
