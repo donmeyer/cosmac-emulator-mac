@@ -13,6 +13,8 @@
 #define NUM_PAGES	( MEM_SIZE / PAGE_SIZE )
 
 
+static void fetch();
+static void execute();
 
 static void opcode_0();
 static void opcode_1();
@@ -36,7 +38,7 @@ static void opcode_F();
 
 static int pageWriteFlags[NUM_PAGES];		// True means the page is writeable
 
-uint8_t memory[MEM_SIZE];
+static uint8_t memory[MEM_SIZE];
 
 
 
@@ -68,14 +70,26 @@ static const op_func opfuncs[16] = {
 static long cycleCount;
 
 
+//======================================================================================
+//======================================================================================
 
-long getCycleCount()
+
+
+#pragma mark - Public API
+
+const CPU *CPU_getCPU()
+{
+	return &cpu;
+}
+
+
+long CPU_getCycleCount()
 {
 	return cycleCount;
 }
 
 
-void reset()
+void CPU_reset()
 {
 	cpu.I = 0;
 	cpu.N = 0;
@@ -89,20 +103,50 @@ void reset()
 	
 	cpu.reg[0] = 0;
 	
+	// Not sure the hardware does this, but we do, if only to make unit tests sane.
+	cpu.D = 0;
+	cpu.DF = 0;
+	
 	// Reset metadata
 	cycleCount = 0;
 }
 
 
-void step()
+void CPU_step()
 {
 	fetch();
 	execute();
 }
 
 
-//======================================================================================
-//======================================================================================
+int CPU_writeToMemory( const uint8_t *src, uint16_t addr, uint16_t length )
+{
+	while( length-- )
+	{
+		memory[addr] = *src;
+		src++;
+		addr++;
+	}
+	
+	// TODO: implement page checking
+	return 0;
+}
+
+
+int CPU_readFromMemory( uint16_t addr, uint16_t length, uint8_t *dest )
+{
+	// TODO: implement
+	return 0;
+}
+
+
+#pragma mark Unit Test Support
+
+CPU *CPU_getCPU_Unit_Test()
+{
+	return &cpu;
+}
+
 
 
 #pragma mark - Memory Access
@@ -128,7 +172,7 @@ static uint8_t input( uint8_t port )
 }
 
 
-static void output( uint8_t port, unit8_t data )
+static void output( uint8_t port, uint8_t data )
 {
 	// TODO: Implement
 }
@@ -163,7 +207,7 @@ static void branch( bool f )
 static void fetch()
 {
 	// Read opcode
-	uint8_t op = cpu.reg[cpu.P];
+	uint8_t op = read( cpu.reg[cpu.P] );
 
 	cpu.N = op & 0x0F;
 	cpu.I = op>>4 & 0x0F;
@@ -232,7 +276,7 @@ static void opcode_3()
 			break;
 
 		case 0x03:
-			// 
+			// BDF
 			branch( cpu.DF );
 			break;
 
@@ -347,67 +391,144 @@ static void opcode_7()
 	switch( cpu.N )
 	{
 		case 0x00:
-			// 
+			// RET
+			{
+			uint8_t b = read( cpu.reg[cpu.X] );
+			cpu.reg[cpu.X]++;
+			cpu.P = b & 0x0F;
+			cpu.X = (b>>4) & 0x0F;
+			cpu.IE = TRUE;
+			}
 			break;
 
 		case 0x01:
-			// 
+			// DIS
+			{
+			uint8_t b = read( cpu.reg[cpu.X] );
+			cpu.reg[cpu.X]++;
+			cpu.P = b & 0x0F;
+			cpu.X = (b>>4) & 0x0F;
+			cpu.IE = FALSE;
+			}
 			break;
 
 		case 0x02:
-			// 
+			// LDXA
+			cpu.D = read( cpu.reg[cpu.X] );
+			cpu.reg[cpu.X]++;
 			break;
 
 		case 0x03:
-			// 
+			// STXD
+			write( cpu.reg[cpu.X], cpu.D );
+			cpu.reg[cpu.X]--;
 			break;
 
 		case 0x04:
-			// 
+			// ADC
+			{
+				uint16_t accum = cpu.D;
+				accum += read( cpu.reg[cpu.P] );
+				accum += cpu.DF;
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+			}
 			break;
 
 		case 0x05:
-			// 
+			// SDB
+			{
+				uint16_t accum = read( cpu.reg[cpu.X] );
+				uint8_t nd = ~(cpu.D);
+				accum += nd;
+				accum += cpu.DF;
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+			}
 			break;
 
 		case 0x06:
-			// 
+			// SHRC
+			{
+				uint8_t df = cpu.D & 0x01;
+				cpu.D >>= 1;
+				if( cpu.DF )
+				{
+					cpu.D |= 0x80;
+				}
+				cpu.DF = df;
+			}
 			break;
 
 		case 0x07:
-			// 
+			// SMB
+			{
+				uint16_t accum = cpu.D;
+				uint8_t nd = ~read( cpu.reg[cpu.X] );
+				accum += nd;
+				accum += cpu.DF;
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+			}
 			break;
 
 		case 0x08:
-			// 
+			// SAV
+			write( cpu.reg[cpu.X], cpu.T );
 			break;
 
 		case 0x09:
-			// 
+			// MARK
 			break;
 
 		case 0x0A:
-			// 
+			// REQ
 			break;
 
 		case 0x0B:
-			// 
+			// SEQ
 			break;
 
 		case 0x0C:
-			// 
+			// ADCI
+			{
+			uint16_t accum = cpu.D;
+			accum += read( cpu.reg[cpu.P] );
+			accum += cpu.DF;
+			cpu.D = accum & 0xFF;
+			cpu.DF = accum > 0xFF ? 1 : 0;
+			cpu.reg[cpu.P]++;
+			}
 			break;
 
 		case 0x0D:
-			// 
+			// SDBI
+			{
+			uint16_t accum = read( cpu.reg[cpu.P] );
+			uint8_t nd = ~(cpu.D);
+			accum += nd;
+			accum += cpu.DF;
+			cpu.D = accum & 0xFF;
+			cpu.DF = accum > 0xFF ? 1 : 0;
+			cpu.reg[cpu.P]++;
+			}
 			break;
 
 		case 0x0E:
-			// 
+			// SHLC
 			break;
 
 		case 0x0F:
-			// BR
+			// SMBI
+			{
+				uint16_t accum = cpu.D;
+				uint8_t nd = ~read( cpu.reg[cpu.P] );
+				accum += nd;
+				accum += cpu.DF;
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+				cpu.reg[cpu.P]++;
+			}
 			break;
 	}
 }
@@ -447,67 +568,67 @@ static void opcode_C()
 	switch( cpu.N )
 	{
 		case 0x00:
-			// 
+			// LBR
 			break;
 
 		case 0x01:
-			// 
+			// LBQ
 			break;
 
 		case 0x02:
-			// 
+			// LBZ
 			break;
 
 		case 0x03:
-			// 
+			// LBDF
 			break;
 
 		case 0x04:
-			// 
+			// NOP
 			break;
 
 		case 0x05:
-			// 
+			// LSNQ
 			break;
 
 		case 0x06:
-			// 
+			// LSNZ
 			break;
 
 		case 0x07:
-			// 
+			// LSNF
 			break;
 
 		case 0x08:
-			// 
+			// LSKP
 			break;
 
 		case 0x09:
-			// 
+			// LBNQ
 			break;
 
 		case 0x0A:
-			// 
+			// LBNZ
 			break;
 
 		case 0x0B:
-			// 
+			// LBNF
 			break;
 
 		case 0x0C:
-			// 
+			// LSIE
 			break;
 
 		case 0x0D:
-			// 
+			// LSQ
 			break;
 
 		case 0x0E:
-			// 
+			// LSZ
 			break;
 
 		case 0x0F:
-			// BR
+			// LSDF
 			break;
 	}
 }
@@ -532,67 +653,68 @@ static void opcode_F()
 	switch( cpu.N )
 	{
 		case 0x00:
-			// 
+			// LDX
+			cpu.D = read( cpu.reg[cpu.X] );
 			break;
 
 		case 0x01:
-			// 
+			// OR
 			break;
 
 		case 0x02:
-			// 
+			// AND
 			break;
 
 		case 0x03:
-			// 
+			// XOR
 			break;
 
 		case 0x04:
-			// 
+			// ADD
 			break;
 
 		case 0x05:
-			// 
+			// SD
 			break;
 
 		case 0x06:
-			// 
+			// SHR
 			break;
 
 		case 0x07:
-			// 
+			// SM
 			break;
 
 		case 0x08:
-			// 
+			// LDI
 			break;
 
 		case 0x09:
-			// 
+			// ORI
 			break;
 
 		case 0x0A:
-			// 
+			// ANI
 			break;
 
 		case 0x0B:
-			// 
+			// XRI
 			break;
 
 		case 0x0C:
-			// 
+			// ADI
 			break;
 
 		case 0x0D:
-			// 
+			// SDI
 			break;
 
 		case 0x0E:
-			// 
+			// SHL
 			break;
 
 		case 0x0F:
-			// BR
+			// SMI
 			break;
 	}
 }

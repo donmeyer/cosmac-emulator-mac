@@ -39,15 +39,23 @@ typedef struct CPU  CPU;
 
 
 
-extern uint8_t memory[MEM_SIZE];
+
+int CPU_writeToMemory( const uint8_t *src, uint16_t addr, uint16_t length );
+
+int CPU_readFromMemory( uint16_t addr, uint16_t length, uint8_t *dest );
+
+
+void CPU_reset();
+
+void CPU_step();
+
+
+const CPU *CPU_getCPU();
+
+long CPU_getCycleCount();
 
 
 
-void reset();
-
-void step();
-
-long getCycleCount();
-
+CPU *CPU_getCPU_Unit_Test();
 
 #endif
