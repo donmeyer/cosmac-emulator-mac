@@ -13,6 +13,7 @@
 		F6D63B4C1B1D6A6C006724FC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B4A1B1D6A6C006724FC /* MainMenu.xib */; };
 		F6D63B581B1D6A6C006724FC /* _802_EmulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B571B1D6A6C006724FC /* _802_EmulatorTests.m */; };
 		F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B611B1D6B01006724FC /* CPU Emulation.c */; };
+		F6D63B671B200D8A006724FC /* HexLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B661B200D8A006724FC /* HexLoader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,8 @@
 		F6D63B611B1D6B01006724FC /* CPU Emulation.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "CPU Emulation.c"; sourceTree = "<group>"; };
 		F6D63B631B1D6C19006724FC /* etypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = etypes.h; sourceTree = "<group>"; };
 		F6D63B641B1D6D69006724FC /* CPU Emulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPU Emulation.h"; sourceTree = "<group>"; };
+		F6D63B651B200D8A006724FC /* HexLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexLoader.h; sourceTree = "<group>"; };
+		F6D63B661B200D8A006724FC /* HexLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexLoader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,8 @@
 				F6D63B4A1B1D6A6C006724FC /* MainMenu.xib */,
 				F6D63B411B1D6A6B006724FC /* Supporting Files */,
 				F6D63B631B1D6C19006724FC /* etypes.h */,
+				F6D63B651B200D8A006724FC /* HexLoader.h */,
+				F6D63B661B200D8A006724FC /* HexLoader.m */,
 			);
 			path = "1802 Emulator";
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 			files = (
 				F6D63B471B1D6A6B006724FC /* main.m in Sources */,
 				F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */,
+				F6D63B671B200D8A006724FC /* HexLoader.m in Sources */,
 				F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
