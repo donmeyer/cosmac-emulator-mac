@@ -8,13 +8,10 @@
 
 
 
-#define PAGE_SIZE	0x0800		// 1k
-
-#define NUM_PAGES	( MEM_SIZE / PAGE_SIZE )
-
-
 static void fetch();
 static void execute();
+
+static uint8_t getPageBits( uint16_t addr );
 
 static void opcode_0();
 static void opcode_1();
@@ -34,11 +31,13 @@ static void opcode_E();
 static void opcode_F();
 
 
+#define PAGE_READ		(1<<0)
+#define PAGE_WRITE		(1<<1)
 
 
-static int pageWriteFlags[NUM_PAGES];		// True means the page is writeable
+static int pageFlags[CPU_NUM_PAGES];		// True means the page is writeable
 
-static uint8_t memory[MEM_SIZE];
+static uint8_t memory[CPU_MEM_SIZE];
 
 
 
@@ -123,21 +122,41 @@ int CPU_writeToMemory( const uint8_t *src, uint16_t addr, uint16_t length )
 {
 	while( length-- )
 	{
+		uint8_t pageBits = getPageBits( addr );
+		if( ( pageBits & ( PAGE_READ | PAGE_WRITE ) ) == 0 )
+		{
+			// Invalid page
+			return -1;
+		}
+		
 		memory[addr] = *src;
 		src++;
 		addr++;
 	}
 	
-	// TODO: implement page checking
 	return 0;
 }
 
 
 int CPU_readFromMemory( uint16_t addr, uint16_t length, uint8_t *dest )
 {
-	// TODO: implement
+	while( length-- )
+	{
+		uint8_t pageBits = getPageBits( addr );
+		if( ( pageBits & ( PAGE_READ | PAGE_WRITE ) ) == 0 )
+		{
+			// Invalid page
+			return -1;
+		}
+		
+		*dest = memory[addr];
+		dest++;
+		addr++;
+	}
+
 	return 0;
 }
+
 
 
 #pragma mark Unit Test Support
@@ -153,16 +172,43 @@ CPU *CPU_getCPU_Unit_Test()
 
 static uint8_t read( uint16_t addr )
 {
+	uint8_t pageBits = getPageBits( addr );
+	if( ( pageBits & PAGE_READ ) == 0 )
+	{
+		// Invalid page
+		// TODO: trap error. Maybe set a global error flag we check during processing?
+		return 0;
+	}
+
 	return memory[addr];
 }
 
 
 static void write( uint16_t addr, uint8_t data )
 {
-	// TODO: check that the page is writeable!
+	uint8_t pageBits = getPageBits( addr );
+	if( ( pageBits & PAGE_WRITE ) == 0 )
+	{
+		// Invalid page
+		// TODO: trap error
+		return;
+	}
+
 	memory[addr] = data;
 }
 
+
+static uint8_t getPageBits( uint16_t addr )
+{
+	int page = addr / CPU_PAGE_SIZE;
+	if( page >= CPU_NUM_PAGES )
+	{
+		// Beyond memory bounds
+		return 0;
+	}
+
+	return 0xff;
+}
 
 
 static uint8_t input( uint8_t port )
@@ -187,6 +233,14 @@ static void setRegLow( uint8_t reg, uint8_t data )
 }
 
 
+static void setRegHigh( uint8_t reg, uint8_t data )
+{
+	cpu.reg[reg] &= 0x00FF;
+	uint16_t r = data;
+	cpu.reg[reg] |= (r<<8);
+}
+
+
 static void branch( bool f )
 {
 	if( f )
@@ -196,6 +250,30 @@ static void branch( bool f )
 	else
 	{
 		cpu.reg[cpu.P]++;
+	}
+}
+
+
+static void longBranch( bool f )
+{
+	if( f )
+	{
+		setRegHigh( cpu.P, cpu.reg[cpu.P] );
+		cpu.reg[cpu.P]++;
+		setRegLow( cpu.P, cpu.reg[cpu.P] );
+	}
+	else
+	{
+		cpu.reg[cpu.P] += 2;
+	}
+}
+
+
+static void longSkip( bool f )
+{
+	if( f )
+	{
+		cpu.reg[cpu.P] += 2;
 	}
 }
 
@@ -428,7 +506,7 @@ static void opcode_7()
 			// ADC
 			{
 				uint16_t accum = cpu.D;
-				accum += read( cpu.reg[cpu.P] );
+				accum += read( cpu.reg[cpu.X] );
 				accum += cpu.DF;
 				cpu.D = accum & 0xFF;
 				cpu.DF = accum > 0xFF ? 1 : 0;
@@ -479,43 +557,59 @@ static void opcode_7()
 
 		case 0x09:
 			// MARK
+			cpu.T = cpu.P;
+			cpu.T |= ((cpu.X)<<4);
+			write( cpu.reg[2], cpu.T );
+			cpu.X = cpu.P;
+			cpu.reg[2]--;
 			break;
 
 		case 0x0A:
 			// REQ
+			cpu.Q = 0;
 			break;
 
 		case 0x0B:
 			// SEQ
+			cpu.Q = 1;
 			break;
 
 		case 0x0C:
 			// ADCI
 			{
-			uint16_t accum = cpu.D;
-			accum += read( cpu.reg[cpu.P] );
-			accum += cpu.DF;
-			cpu.D = accum & 0xFF;
-			cpu.DF = accum > 0xFF ? 1 : 0;
-			cpu.reg[cpu.P]++;
+				uint16_t accum = cpu.D;
+				accum += read( cpu.reg[cpu.P] );
+				accum += cpu.DF;
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+				cpu.reg[cpu.P]++;
 			}
 			break;
 
 		case 0x0D:
 			// SDBI
 			{
-			uint16_t accum = read( cpu.reg[cpu.P] );
-			uint8_t nd = ~(cpu.D);
-			accum += nd;
-			accum += cpu.DF;
-			cpu.D = accum & 0xFF;
-			cpu.DF = accum > 0xFF ? 1 : 0;
-			cpu.reg[cpu.P]++;
+				uint16_t accum = read( cpu.reg[cpu.P] );
+				uint8_t nd = ~(cpu.D);
+				accum += nd;
+				accum += cpu.DF;
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+				cpu.reg[cpu.P]++;
 			}
 			break;
 
 		case 0x0E:
 			// SHLC
+			{
+				uint8_t df = cpu.D & 0x80 ? 1 : 0;
+				cpu.D <<= 1;
+				if( cpu.DF )
+				{
+					cpu.D |= 0x01;
+				}
+				cpu.DF = df;
+			}
 			break;
 
 		case 0x0F:
@@ -569,18 +663,22 @@ static void opcode_C()
 	{
 		case 0x00:
 			// LBR
+			longBranch( TRUE );
 			break;
 
 		case 0x01:
 			// LBQ
+			longBranch( cpu.Q );
 			break;
 
 		case 0x02:
 			// LBZ
+			longBranch( cpu.D == 0 );
 			break;
 
 		case 0x03:
 			// LBDF
+			longBranch( cpu.DF );
 			break;
 
 		case 0x04:
@@ -589,46 +687,57 @@ static void opcode_C()
 
 		case 0x05:
 			// LSNQ
+			longSkip( cpu.Q == 0 );
 			break;
 
 		case 0x06:
 			// LSNZ
+			longSkip( cpu.D != 0 );
 			break;
 
 		case 0x07:
 			// LSNF
+			longSkip( cpu.DF == 0 );
 			break;
 
 		case 0x08:
 			// LSKP
+			longSkip( TRUE );
 			break;
 
 		case 0x09:
 			// LBNQ
+			longBranch( cpu.Q == 0 );
 			break;
 
 		case 0x0A:
 			// LBNZ
+			longBranch( cpu.D != 0 );
 			break;
 
 		case 0x0B:
 			// LBNF
+			longBranch( cpu.DF == 0 );
 			break;
 
 		case 0x0C:
 			// LSIE
+			longSkip( cpu.IE == 1 );
 			break;
 
 		case 0x0D:
 			// LSQ
+			longSkip( cpu.Q == 1 );
 			break;
 
 		case 0x0E:
 			// LSZ
+			longSkip( cpu.D == 0 );
 			break;
 
 		case 0x0F:
 			// LSDF
+			longSkip( cpu.DF == 1 );
 			break;
 	}
 }
@@ -659,62 +768,120 @@ static void opcode_F()
 
 		case 0x01:
 			// OR
+			cpu.D |= read( cpu.reg[cpu.X] );
 			break;
 
 		case 0x02:
 			// AND
+			cpu.D &= read( cpu.reg[cpu.X] );
 			break;
 
 		case 0x03:
 			// XOR
+			cpu.D ^= read( cpu.reg[cpu.X] );
 			break;
 
 		case 0x04:
 			// ADD
+			{
+				uint16_t accum = cpu.D;
+				accum += read( cpu.reg[cpu.X] );
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+			}
 			break;
 
 		case 0x05:
 			// SD
+			{
+				uint16_t accum = read( cpu.reg[cpu.X] );
+				uint8_t nd = ~(cpu.D);
+				accum += nd;
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+			}
 			break;
 
 		case 0x06:
 			// SHR
+			cpu.DF = cpu.D & 0x01;
+			cpu.D >>= 1;
 			break;
 
 		case 0x07:
 			// SM
+			{
+				uint16_t accum = cpu.D;
+				uint8_t nd = ~read( cpu.reg[cpu.X] );
+				accum += nd;
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+			}
 			break;
 
 		case 0x08:
 			// LDI
+			cpu.D = read( cpu.reg[cpu.P] );
+			cpu.reg[cpu.P]++;
 			break;
 
 		case 0x09:
 			// ORI
+			cpu.D |= read( cpu.reg[cpu.P] );
+			cpu.reg[cpu.P]++;
 			break;
 
 		case 0x0A:
 			// ANI
+			cpu.D &= read( cpu.reg[cpu.P] );
+			cpu.reg[cpu.P]++;
 			break;
 
 		case 0x0B:
 			// XRI
+			cpu.D ^= read( cpu.reg[cpu.P] );
+			cpu.reg[cpu.P]++;
 			break;
 
 		case 0x0C:
 			// ADI
+			{
+				uint16_t accum = cpu.D;
+				accum += read( cpu.reg[cpu.P] );
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+				cpu.reg[cpu.P]++;
+			}
 			break;
 
 		case 0x0D:
 			// SDI
+			{
+				uint16_t accum = read( cpu.reg[cpu.P] );
+				uint8_t nd = ~(cpu.D);
+				accum += nd;
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+				cpu.reg[cpu.P]++;
+			}
 			break;
 
 		case 0x0E:
 			// SHL
+			cpu.DF = cpu.D & 0x80 ? 1 : 0;
+			cpu.D <<= 1;
 			break;
 
 		case 0x0F:
 			// SMI
+			{
+				uint16_t accum = cpu.D;
+				uint8_t nd = ~read( cpu.reg[cpu.P] );
+				accum += nd;
+				cpu.D = accum & 0xFF;
+				cpu.DF = accum > 0xFF ? 1 : 0;
+				cpu.reg[cpu.P]++;
+			}
 			break;
 	}
 }
