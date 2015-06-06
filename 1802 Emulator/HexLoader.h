@@ -8,6 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+
+
 @interface HexLoader : NSObject
+
+
+@property (nonatomic, assign, readonly) long byteCount;	// Count of bytes written to memory.
+
+
+- (id)initWithListingPath:(NSString*)path;
+
+- (id)initWithListingString:(NSString*)listingString;
+
+- (BOOL)load:(void (^)(long addr, unsigned char byte))writeBlock;
 
 @end
