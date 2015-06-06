@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BFC896B61B22375700627D5D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC896B41B22375700627D5D /* MainViewController.m */; };
+		BFC896B91B223AD900627D5D /* LoaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC896B81B223AD900627D5D /* LoaderTests.m */; };
 		F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B441B1D6A6B006724FC /* AppDelegate.m */; };
 		F6D63B471B1D6A6B006724FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B461B1D6A6B006724FC /* main.m */; };
 		F6D63B491B1D6A6C006724FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B481B1D6A6C006724FC /* Images.xcassets */; };
@@ -27,6 +29,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BFC896B31B22375700627D5D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		BFC896B41B22375700627D5D /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		BFC896B81B223AD900627D5D /* LoaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderTests.m; sourceTree = "<group>"; };
 		F6D63B3E1B1D6A6B006724FC /* 1802 Emulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1802 Emulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6D63B421B1D6A6B006724FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6D63B431B1D6A6B006724FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -89,6 +94,8 @@
 				F6D63B441B1D6A6B006724FC /* AppDelegate.m */,
 				F6D63B481B1D6A6C006724FC /* Images.xcassets */,
 				F6D63B4A1B1D6A6C006724FC /* MainMenu.xib */,
+				BFC896B31B22375700627D5D /* MainViewController.h */,
+				BFC896B41B22375700627D5D /* MainViewController.m */,
 				F6D63B411B1D6A6B006724FC /* Supporting Files */,
 				F6D63B631B1D6C19006724FC /* etypes.h */,
 				F6D63B651B200D8A006724FC /* HexLoader.h */,
@@ -110,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				F6D63B571B1D6A6C006724FC /* _802_EmulatorTests.m */,
+				BFC896B81B223AD900627D5D /* LoaderTests.m */,
 				F6D63B551B1D6A6C006724FC /* Supporting Files */,
 			);
 			path = "1802 EmulatorTests";
@@ -225,6 +233,7 @@
 				F6D63B471B1D6A6B006724FC /* main.m in Sources */,
 				F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */,
 				F6D63B671B200D8A006724FC /* HexLoader.m in Sources */,
+				BFC896B61B22375700627D5D /* MainViewController.m in Sources */,
 				F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFC896B91B223AD900627D5D /* LoaderTests.m in Sources */,
 				F6D63B581B1D6A6C006724FC /* _802_EmulatorTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +425,7 @@
 				F6D63B5D1B1D6A6C006724FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F6D63B5E1B1D6A6C006724FC /* Build configuration list for PBXNativeTarget "1802 EmulatorTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +434,7 @@
 				F6D63B601B1D6A6C006724FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
