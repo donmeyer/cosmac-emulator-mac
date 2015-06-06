@@ -43,9 +43,13 @@ typedef struct CPU  CPU;
 
 
 
+int CPU_makeReadPage( int page );
+int CPU_makeReadWritePage( int page );
 
+int CPU_writeByteToMemory( uint8_t data, uint16_t addr );
 int CPU_writeToMemory( const uint8_t *src, uint16_t addr, uint16_t length );
 
+int CPU_readByteFromMemory( uint16_t addr, uint8_t *data_p );
 int CPU_readFromMemory( uint16_t addr, uint16_t length, uint8_t *dest );
 
 

@@ -122,17 +122,30 @@ int CPU_writeToMemory( const uint8_t *src, uint16_t addr, uint16_t length )
 {
 	while( length-- )
 	{
-		uint8_t pageBits = getPageBits( addr );
-		if( ( pageBits & ( PAGE_READ | PAGE_WRITE ) ) == 0 )
+		int rc = CPU_writeByteToMemory( *src, addr );
+		if( rc != 0 )
 		{
-			// Invalid page
-			return -1;
+			return rc;
 		}
 		
-		memory[addr] = *src;
 		src++;
 		addr++;
 	}
+	
+	return 0;
+}
+
+
+int CPU_writeByteToMemory( uint8_t data, uint16_t addr )
+{
+	uint8_t pageBits = getPageBits( addr );
+	if( ( pageBits & ( PAGE_READ | PAGE_WRITE ) ) == 0 )
+	{
+		// Invalid page
+		return -1;
+	}
+	
+	memory[addr] = data;
 	
 	return 0;
 }
@@ -142,14 +155,12 @@ int CPU_readFromMemory( uint16_t addr, uint16_t length, uint8_t *dest )
 {
 	while( length-- )
 	{
-		uint8_t pageBits = getPageBits( addr );
-		if( ( pageBits & ( PAGE_READ | PAGE_WRITE ) ) == 0 )
+		int rc = CPU_readByteFromMemory( addr, dest );
+		if( rc != 0 )
 		{
-			// Invalid page
-			return -1;
+			return rc;
 		}
 		
-		*dest = memory[addr];
 		dest++;
 		addr++;
 	}
@@ -157,6 +168,44 @@ int CPU_readFromMemory( uint16_t addr, uint16_t length, uint8_t *dest )
 	return 0;
 }
 
+
+int CPU_readByteFromMemory( uint16_t addr, uint8_t *data_p )
+{
+	uint8_t pageBits = getPageBits( addr );
+	if( ( pageBits & ( PAGE_READ | PAGE_WRITE ) ) == 0 )
+	{
+		// Invalid page
+		return -1;
+	}
+	
+	*data_p = memory[addr];
+
+	return 0;
+}
+
+
+int CPU_makeReadPage( int page )
+{
+	if( page >= 0 && page < CPU_NUM_PAGES )
+	{
+		pageFlags[page] = PAGE_READ;
+		return 0;
+	}
+	
+	return -1;
+}
+
+
+int CPU_makeReadWritePage( int page )
+{
+	if( page >= 0 && page < CPU_NUM_PAGES )
+	{
+		pageFlags[page] = PAGE_READ | PAGE_WRITE;
+		return 0;
+	}
+	
+	return -1;
+}
 
 
 #pragma mark Unit Test Support
@@ -207,7 +256,7 @@ static uint8_t getPageBits( uint16_t addr )
 		return 0;
 	}
 
-	return 0xff;
+	return pageFlags[page];
 }
 
 
