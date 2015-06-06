@@ -38,31 +38,82 @@
 
 - (void)testLine_1
 {
-    XCTAssert(YES, @"Pass");
-	
-	do this with 1, 2, and 3 digit pairs
-	NSString *line = @"AA55 12FC;";
+	NSString *line = @"AA55 BD;";
 
 	HexLoader *loader = [[HexLoader alloc] initWithListingString:line];
 	
-	int byteCount = 0;
-	[loader load:(void (^)(long addr, unsigned char byte))
+	__block int byteCount = 0;
+	[loader load:^(long addr, unsigned char byte)
 	{
 		if( byteCount == 0 )
 		{
 			XCTAssertEqual( addr, 0xAA55, @"Address match" );
-			XCTAssertEqual( byte, 0x12, @"Data match" );
-		}
-		else if( byteCount == 1 )
-		{
-			XCTAssertEqual( addr, 0xAA56, @"Address match" );
-			XCTAssertEqual( byte, 0xFC, @"Data match" );
+			XCTAssertEqual( byte, 0xBD, @"Data match" );
 		}
 		
 		byteCount++;
 	}];
 	
+	XCTAssertEqual( byteCount, 1, @"Byte count" );
+}
+
+
+- (void)testLine_2
+{
+	NSString *line = @"AA55 12FC;";
+	
+	HexLoader *loader = [[HexLoader alloc] initWithListingString:line];
+	
+	__block int byteCount = 0;
+	[loader load:^(long addr, unsigned char byte)
+	 {
+		 if( byteCount == 0 )
+		 {
+			 XCTAssertEqual( addr, 0xAA55, @"Address match" );
+			 XCTAssertEqual( byte, 0x12, @"Data match" );
+		 }
+		 else if( byteCount == 1 )
+		 {
+			 XCTAssertEqual( addr, 0xAA56, @"Address match" );
+			 XCTAssertEqual( byte, 0xFC, @"Data match" );
+		 }
+		 
+		 byteCount++;
+	 }];
+	
 	XCTAssertEqual( byteCount, 2, @"Byte count" );
+}
+
+
+- (void)testLine_3
+{
+	NSString *line = @"AA55 12FCE9;";
+	
+	HexLoader *loader = [[HexLoader alloc] initWithListingString:line];
+	
+	__block int byteCount = 0;
+	[loader load:^(long addr, unsigned char byte)
+	 {
+		 if( byteCount == 0 )
+		 {
+			 XCTAssertEqual( addr, 0xAA55, @"Address match" );
+			 XCTAssertEqual( byte, 0x12, @"Data match" );
+		 }
+		 else if( byteCount == 1 )
+		 {
+			 XCTAssertEqual( addr, 0xAA56, @"Address match" );
+			 XCTAssertEqual( byte, 0xFC, @"Data match" );
+		 }
+		 else if( byteCount == 2 )
+		 {
+			 XCTAssertEqual( addr, 0xAA57, @"Address match" );
+			 XCTAssertEqual( byte, 0xE9, @"Data match" );
+		 }
+		 
+		 byteCount++;
+	 }];
+	
+	XCTAssertEqual( byteCount, 3, @"Byte count" );
 }
 
 
