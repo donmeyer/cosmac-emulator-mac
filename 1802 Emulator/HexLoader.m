@@ -45,7 +45,7 @@
 	if( s == nil )
 	{
 		// Error reading file
-		DDLogWarn(@"Unable to load listing");
+		DDLogWarn( @"Unable to load listing" );
 	}
 	
 	DDLogDebug( @"File %@ is a string of len %lu", path, [s length] );
@@ -89,37 +89,40 @@
 {
 	// We expect listing lines to look like:  "AA55 12FC;"
 	NSError *error = nil;
-	NSUInteger matchCount = NSNotFound;
-	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^([0-9a-fA-F]{4})\\s+([0-9a-fA-F]+)\\s*\\;.*" options:NSRegularExpressionDotMatchesLineSeparators error:&error];
-	if( regex && ! error )
-	{
-		matchCount = [regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)];
-	}
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^([0-9a-fA-F]{4})\\s+([0-9a-fA-F]+)\\s*\\;.*"
+																		   options:NSRegularExpressionDotMatchesLineSeparators
+																			 error:&error];
+	NSAssert( ( regex != nil && error == nil ), @"Error build regex: %@", error );
 	
-	DDLogDebug( @"Regex=%@", regex );
+//	NSUInteger matchCount = [regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)];	
+//	DDLogVerbose( @"Regex=%@, matchcount=%lu", regex, matchCount );
 
-
-	NSTextCheckingResult *result;
-	result = [regex firstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
-	DDLogVerbose( @"Date Result %@", result );
+	NSTextCheckingResult *result = [regex firstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
+	DDLogVerbose( @"Match Result %@", result );
 	if( result )
 	{
-		NSUInteger num = [result numberOfRanges];
-		NSRange range = [result rangeAtIndex:1];
-		NSString *cap = [line substringWithRange:range];
-		DDLogDebug( @"address num=%lu   cap = '%@'", (unsigned long)num, cap );
+		NSUInteger num = [result numberOfRanges];	// This is the number of capture groups plus the full match as rnage 0.
+		DDLogVerbose( @"Number of ranges=%lu", (unsigned long)num );
+
+		NSRange range;
+		NSString *cap;
+
+		// First capture group, the address
+		range = [result rangeAtIndex:0];
+		cap = [line substringWithRange:range];
+		DDLogVerbose( @"Range 1 capture '%@'", cap );
 
 		unsigned hexAddr;
-		if( [[NSScanner scannerWithString:cap] scanHexInt: &hexAddr] == NO )
+		if( [[NSScanner scannerWithString:cap] scanHexInt:&hexAddr] == NO )
 		{
 			// This is odd
-			DDLogDebug( @"Found hex address but failed to parse it!" );
+			DDLogError( @"Found hex address '%@' but failed to parse it!", cap );
 			return NO;
 		}
 	
 		range = [result rangeAtIndex:2];
 		cap = [line substringWithRange:range];
-		DDLogDebug( @"data num=%lu   cap = '%@'", (unsigned long)num, cap );
+		DDLogVerbose( @"Range 2 capture '%@'", cap );
 		
 		// Now find each pair of digits.
 		NSRange digitRange;
@@ -131,21 +134,23 @@
 			DDLogVerbose( @"Digit pair '%@'", digitPair );
 			
 			unsigned hexByte;
-			if( [[NSScanner scannerWithString:digitPair] scanHexInt: &hexByte] == NO )
+			if( [[NSScanner scannerWithString:digitPair] scanHexInt:&hexByte] == NO )
 			{
 				// This is odd
-				DDLogError( @"Found hex pair but failed to parse it!" );
+				DDLogError( @"Found hex pair '%@' but failed to parse it!", cap );
 				return NO;
 			}
 			
-			// Write to memory
+			// Call back to the write block (typically this would write to memory).
 			self.writeBlock( hexAddr, hexByte );
+			
 			hexAddr++;
 			
 			self.byteCount++;
 		}
 	}
 	
+	// Success is either a valid line parsed, or no match found.
 	return YES;
 }
 

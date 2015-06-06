@@ -36,6 +36,43 @@
 
 
 
+#pragma mark - negative tests
+
+- (void)testMalformed_1
+{
+	NSString *line = @"AA5 BD;";
+	
+	HexLoader *loader = [[HexLoader alloc] initWithListingString:line];
+	
+	__block int byteCount = 0;
+	[loader load:^(long addr, unsigned char byte)
+	 {
+		 byteCount++;
+	 }];
+	
+	XCTAssertEqual( byteCount, 0, @"Byte count" );
+}
+
+
+- (void)testMalformed_2
+{
+	NSString *line = @"AA55 BG;";
+	
+	HexLoader *loader = [[HexLoader alloc] initWithListingString:line];
+	
+	__block int byteCount = 0;
+	[loader load:^(long addr, unsigned char byte)
+	 {
+		 byteCount++;
+	 }];
+	
+	XCTAssertEqual( byteCount, 0, @"Byte count" );
+}
+
+
+
+#pragma mark - Positive tests
+
 - (void)testLine_1
 {
 	NSString *line = @"AA55 BD;";
