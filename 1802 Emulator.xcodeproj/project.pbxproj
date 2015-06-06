@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97821D5FC09020572E977C18 /* Pods_1802_Emulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8519CDBF2C179A7C929A5542 /* Pods_1802_Emulator.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BFC896B61B22375700627D5D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC896B41B22375700627D5D /* MainViewController.m */; };
 		BFC896B91B223AD900627D5D /* LoaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC896B81B223AD900627D5D /* LoaderTests.m */; };
 		F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B441B1D6A6B006724FC /* AppDelegate.m */; };
@@ -16,6 +17,7 @@
 		F6D63B581B1D6A6C006724FC /* _802_EmulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B571B1D6A6C006724FC /* _802_EmulatorTests.m */; };
 		F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B611B1D6B01006724FC /* CPU Emulation.c */; };
 		F6D63B671B200D8A006724FC /* HexLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B661B200D8A006724FC /* HexLoader.m */; };
+		F90259AECE4BA362BDF144DB /* Pods_1802_EmulatorTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAF866DE3A0EBD9C542BB66 /* Pods_1802_EmulatorTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,9 +31,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06CE66FDCAF2E4FD3FCEF453 /* Pods-1802 Emulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1802 Emulator.release.xcconfig"; path = "Pods/Target Support Files/Pods-1802 Emulator/Pods-1802 Emulator.release.xcconfig"; sourceTree = "<group>"; };
+		7EAF866DE3A0EBD9C542BB66 /* Pods_1802_EmulatorTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_1802_EmulatorTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8519CDBF2C179A7C929A5542 /* Pods_1802_Emulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_1802_Emulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB4C5DAFA90247DDEB679225 /* Pods-1802 EmulatorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1802 EmulatorTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-1802 EmulatorTests/Pods-1802 EmulatorTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BFC896B31B22375700627D5D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		BFC896B41B22375700627D5D /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		BFC896B81B223AD900627D5D /* LoaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderTests.m; sourceTree = "<group>"; };
+		DC4A3AB3CFB94D5CFAD01E2A /* Pods-1802 EmulatorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1802 EmulatorTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-1802 EmulatorTests/Pods-1802 EmulatorTests.release.xcconfig"; sourceTree = "<group>"; };
 		F6D63B3E1B1D6A6B006724FC /* 1802 Emulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1802 Emulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6D63B421B1D6A6B006724FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6D63B431B1D6A6B006724FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -47,6 +54,7 @@
 		F6D63B641B1D6D69006724FC /* CPU Emulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPU Emulation.h"; sourceTree = "<group>"; };
 		F6D63B651B200D8A006724FC /* HexLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexLoader.h; sourceTree = "<group>"; };
 		F6D63B661B200D8A006724FC /* HexLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexLoader.m; sourceTree = "<group>"; };
+		FFD5885656535656B032A668 /* Pods-1802 Emulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1802 Emulator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-1802 Emulator/Pods-1802 Emulator.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97821D5FC09020572E977C18 /* Pods_1802_Emulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,18 +70,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F90259AECE4BA362BDF144DB /* Pods_1802_EmulatorTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B76E8A8D21FB5A3A971D01B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FFD5885656535656B032A668 /* Pods-1802 Emulator.debug.xcconfig */,
+				06CE66FDCAF2E4FD3FCEF453 /* Pods-1802 Emulator.release.xcconfig */,
+				AB4C5DAFA90247DDEB679225 /* Pods-1802 EmulatorTests.debug.xcconfig */,
+				DC4A3AB3CFB94D5CFAD01E2A /* Pods-1802 EmulatorTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B61EF192F06C38A2C5DF1ACB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8519CDBF2C179A7C929A5542 /* Pods_1802_Emulator.framework */,
+				7EAF866DE3A0EBD9C542BB66 /* Pods_1802_EmulatorTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F6D63B351B1D6A6B006724FC = {
 			isa = PBXGroup;
 			children = (
 				F6D63B401B1D6A6B006724FC /* 1802 Emulator */,
 				F6D63B541B1D6A6C006724FC /* 1802 EmulatorTests */,
 				F6D63B3F1B1D6A6B006724FC /* Products */,
+				1B76E8A8D21FB5A3A971D01B /* Pods */,
+				B61EF192F06C38A2C5DF1ACB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,9 +170,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F6D63B5B1B1D6A6C006724FC /* Build configuration list for PBXNativeTarget "1802 Emulator" */;
 			buildPhases = (
+				18A4BDB22D73BF7D7BE0E228 /* Check Pods Manifest.lock */,
 				F6D63B3A1B1D6A6B006724FC /* Sources */,
 				F6D63B3B1B1D6A6B006724FC /* Frameworks */,
 				F6D63B3C1B1D6A6B006724FC /* Resources */,
+				49EE254A0BF46FDAB0A70A04 /* Copy Pods Resources */,
+				43401CDC1B0B3E88DF9DBB81 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -155,9 +190,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F6D63B5E1B1D6A6C006724FC /* Build configuration list for PBXNativeTarget "1802 EmulatorTests" */;
 			buildPhases = (
+				C5FD5C032531F3207A5EBA3C /* Check Pods Manifest.lock */,
 				F6D63B4D1B1D6A6C006724FC /* Sources */,
 				F6D63B4E1B1D6A6C006724FC /* Frameworks */,
 				F6D63B4F1B1D6A6C006724FC /* Resources */,
+				CFBDB40D491844D0153207A7 /* Copy Pods Resources */,
+				755B1CAE6ED990A6071554FA /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -224,6 +262,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		18A4BDB22D73BF7D7BE0E228 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		43401CDC1B0B3E88DF9DBB81 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-1802 Emulator/Pods-1802 Emulator-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49EE254A0BF46FDAB0A70A04 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-1802 Emulator/Pods-1802 Emulator-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		755B1CAE6ED990A6071554FA /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-1802 EmulatorTests/Pods-1802 EmulatorTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5FD5C032531F3207A5EBA3C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CFBDB40D491844D0153207A7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-1802 EmulatorTests/Pods-1802 EmulatorTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F6D63B3A1B1D6A6B006724FC /* Sources */ = {
@@ -350,6 +481,7 @@
 		};
 		F6D63B5C1B1D6A6C006724FC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FFD5885656535656B032A668 /* Pods-1802 Emulator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -361,6 +493,7 @@
 		};
 		F6D63B5D1B1D6A6C006724FC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06CE66FDCAF2E4FD3FCEF453 /* Pods-1802 Emulator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -372,6 +505,7 @@
 		};
 		F6D63B5F1B1D6A6C006724FC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB4C5DAFA90247DDEB679225 /* Pods-1802 EmulatorTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -392,6 +526,7 @@
 		};
 		F6D63B601B1D6A6C006724FC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC4A3AB3CFB94D5CFAD01E2A /* Pods-1802 EmulatorTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;

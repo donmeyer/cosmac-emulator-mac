@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Donald Meyer. All rights reserved.
 //
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
 #import "HexLoader.h"
 
 
@@ -15,7 +17,7 @@
 
 @property (nonatomic, assign) long byteCount;	// Count of bytes written to memory.
 
-@property (nonatomic, strong) (void (^)(long addr, unsigned char byte))writeBlock;
+@property (nonatomic, strong) void (^writeBlock)(long addr, unsigned char byte);
 	
 @end
 
@@ -30,7 +32,9 @@
 	if( self )
 	{
 		_listingString = listingString;
-	}	
+	}
+	
+	return self;
 }
 
 
@@ -44,7 +48,7 @@
 		DDLogWarn(@"Unable to load listing");
 	}
 	
-	DDLogDebug( @"File %@ is a string of len %d", path, [s length] );
+	DDLogDebug( @"File %@ is a string of len %lu", path, [s length] );
 	
 	return [self initWithListingString:s];
 }
@@ -72,7 +76,7 @@
 		{
 			if( [self processListingLine:line] == NO )
 			{
-				return NO:
+				return NO;
 			}
 		}
 	}
@@ -91,30 +95,31 @@
 	{
 		matchCount = [regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)];
 	}
-	MMLog( @"Regex=%@", regex );
+	
+	DDLogDebug( @"Regex=%@", regex );
 
 
 	NSTextCheckingResult *result;
 	result = [regex firstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
-	MMLogVerbose( @"Date Result %@", result );
+	DDLogVerbose( @"Date Result %@", result );
 	if( result )
 	{
 		NSUInteger num = [result numberOfRanges];
 		NSRange range = [result rangeAtIndex:1];
 		NSString *cap = [line substringWithRange:range];
-		MMLog( @"num=%lu   cap = '%@'", (unsigned long)num, cap );
+		DDLogDebug( @"address num=%lu   cap = '%@'", (unsigned long)num, cap );
 
 		unsigned hexAddr;
-		if( [[NSScanner scannerWithString: fullHex] scanHexInt: &hexAddr] == NO )
+		if( [[NSScanner scannerWithString:cap] scanHexInt: &hexAddr] == NO )
 		{
 			// This is odd
-			DDLog( @"Found hex address but failed to parse it!" );
+			DDLogDebug( @"Found hex address but failed to parse it!" );
 			return NO;
 		}
 	
 		range = [result rangeAtIndex:2];
 		cap = [line substringWithRange:range];
-		MMLog( @"num=%lu   cap = '%@'", (unsigned long)num, cap );
+		DDLogDebug( @"data num=%lu   cap = '%@'", (unsigned long)num, cap );
 		
 		// Now find each pair of digits.
 		NSRange digitRange;
@@ -122,13 +127,14 @@
 		for( int i=0; i<cap.length; i+=2 )
 		{
 			digitRange.location = i;
-			NSString *digitPair = [line substringWithRange:digitRange];
+			NSString *digitPair = [cap substringWithRange:digitRange];
+			DDLogVerbose( @"Digit pair '%@'", digitPair );
 			
 			unsigned hexByte;
 			if( [[NSScanner scannerWithString:digitPair] scanHexInt: &hexByte] == NO )
 			{
 				// This is odd
-				DDLog( @"Found hex pair but failed to parse it!" );
+				DDLogError( @"Found hex pair but failed to parse it!" );
 				return NO;
 			}
 			

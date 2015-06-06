@@ -1,0 +1,946 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02B6BC08F8BC07F1B575619C /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BB53BD9F0515A9349DB67CB /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		03727B51DD5EBAB29ED7BE4E /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A08A3C37F4A47CA24D5A0D63 /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		05482B9828E2EB4B51BC6A8A /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 01136F01FE948D5D2AA78057 /* DDASLLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0D84461691DDBCA5BB07FC17 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 65BAE682169235B4CA533E8E /* DDLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		161EEEDB40BAB0193086B80E /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A1C000DB2ED93C11E09C08 /* DDDispatchQueueLogFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		167F8F8C87DDE10D5A2EF71B /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 810BFC2356735D383189EB5B /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C0D159015A6A0E49CCE9225 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACBDC1F7E2C04638A63D863 /* DDMultiFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		1FB53CD09D78A27EC4AC41D5 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B04D8563E3598862B9702208 /* DDASLLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		20EF8C6B68216715D9F434A3 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED4615F6DF1AF01EA45A2DD7 /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		23E5AD1AD7F6B96172B9AC5A /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = ECC6A3F596CF41ECF2C01A3C /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2426A11DA20F1FBC6E27AEF5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A810A8E369B9C954DDEF4CDF /* Cocoa.framework */; };
+		2ACDDACAEFC933175B1AFC1E /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 3950A8EA1A0ED373D8C33AF0 /* DDLog.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		31DEBBF503C391996026E271 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5411C11999563730C7C30378 /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		35D974C1E45EFE6612DE66B1 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B2BBF5BACDDE46A88CE55D /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		4000411496D28D72834D0A11 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B2BBF5BACDDE46A88CE55D /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		41FEF784B7726A9A2734DC3C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A810A8E369B9C954DDEF4CDF /* Cocoa.framework */; };
+		451B22BBEE0A48FF3F843318 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 2167CC4DC90F74EA2604B42C /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4907FD6B9A2BB506ACB0E24E /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B285914F94396C8BE2A821AC /* DDFileLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		4B575F2518A0DBB3D4B2A201 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = F3878C02C34D6A9E4DE2450B /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D134B9A87C3325E01B90E03 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B04D8563E3598862B9702208 /* DDASLLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		5011536844139C7F75D957ED /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CCC609208C542F75B0B24C7 /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		508DA49B0A9DFB3C40E11429 /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 810BFC2356735D383189EB5B /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5B5C78FC85E921F71BCA040E /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 01136F01FE948D5D2AA78057 /* DDASLLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5CA9867EAEDDD7CC98EB90F3 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = E15FC23344FF19A6B8419718 /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		607143FC5FE08E2400597080 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5411C11999563730C7C30378 /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6212F47BFF1BC6BEC1D33D8D /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 7643106AD90B75F95536AC43 /* DDLogMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		656DBF2C69A81F9FFD8A8665 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 47E63B9F02761C24E782A4EF /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BAA32AF007836D7F4B0319E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A810A8E369B9C954DDEF4CDF /* Cocoa.framework */; };
+		6D0B5DD503A1E9AB05DD5B2C /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A08A3C37F4A47CA24D5A0D63 /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		6D9F74EF04D50BE20AD34D6E /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = E8DC65CF494C4906446EDBC7 /* DDASLLogCapture.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		74C21488A449CC8969AC1E5C /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A1C000DB2ED93C11E09C08 /* DDDispatchQueueLogFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		7899F14D242EBBFDAF41F4F7 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = E8DC65CF494C4906446EDBC7 /* DDASLLogCapture.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		8C833FC8A5081959FB20CEEA /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D91C719A2878EC291854DD46 /* DDContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		98154120EF2612D2CADFFB8B /* Pods-1802 EmulatorTests-CocoaLumberjack-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 33A33E675D02AAE37FFB89EE /* Pods-1802 EmulatorTests-CocoaLumberjack-dummy.m */; };
+		9B58CD343099C407BC2B0425 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 65BAE682169235B4CA533E8E /* DDLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9CBE7D4F8B7033F4C17E7A03 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BB53BD9F0515A9349DB67CB /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D325CB9F336AB75AFA12679 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B285914F94396C8BE2A821AC /* DDFileLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		9E89D56CC2185068088A85F4 /* Pods-1802 Emulator-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ACEBBE1902479CCA279CF372 /* Pods-1802 Emulator-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9F504FEC6CBA24F0D0871CA5 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = E15FC23344FF19A6B8419718 /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA79EF66068F46B55F2BF95E /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 7643106AD90B75F95536AC43 /* DDLogMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA8DAA0EF9F17E801A43C668 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FF7E5D811B7AF26CA3A31B /* DDFileLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AF98F7CA669C64A932DAEDDB /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 96FF7E5D811B7AF26CA3A31B /* DDFileLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD78DD9177C55E16B4D4A675 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CCC609208C542F75B0B24C7 /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BEE6D9CF7A8D2E1E714CD6AC /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = F3878C02C34D6A9E4DE2450B /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C45983A8B9B1824DEA884A3C /* Pods-1802 Emulator-CocoaLumberjack-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A02B470F4E3FE93970F06C1 /* Pods-1802 Emulator-CocoaLumberjack-dummy.m */; };
+		C4EEF6D0AB70F34E1B90CF7E /* Pods-1802 EmulatorTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AACA0392A8A839436421027 /* Pods-1802 EmulatorTests-dummy.m */; };
+		C5CF93F4B3FE565FE3726BD2 /* Pods-1802 Emulator-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 849868B97168C74BF7FC5E19 /* Pods-1802 Emulator-dummy.m */; };
+		CF64CE4BBC138FA8CCCF34EA /* Pods-1802 Emulator-CocoaLumberjack-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F42F60C234BA9428316066E /* Pods-1802 Emulator-CocoaLumberjack-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CFEC95FA230C55FAF88A5F4B /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 2167CC4DC90F74EA2604B42C /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D21D0E731365B60CB5E080CB /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = ECC6A3F596CF41ECF2C01A3C /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4B08BCC9AB5432BB055D4E3 /* Pods-1802 EmulatorTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 887DFCCBD477C2819E3437B6 /* Pods-1802 EmulatorTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E26F74C3CAAE89DDF2A46A89 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 47E63B9F02761C24E782A4EF /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC70FFB0EE7718C1B37F41BE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A810A8E369B9C954DDEF4CDF /* Cocoa.framework */; };
+		F46CD880038FFA19DADFF743 /* Pods-1802 EmulatorTests-CocoaLumberjack-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B557776B8BCA91A9727C5247 /* Pods-1802 EmulatorTests-CocoaLumberjack-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F941209C2DE6E4D401D4CDE9 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 3950A8EA1A0ED373D8C33AF0 /* DDLog.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		F9998FE8239EB3593C001573 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = ED4615F6DF1AF01EA45A2DD7 /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F99B80A5AEEE33BBE784E483 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACBDC1F7E2C04638A63D863 /* DDMultiFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		FC5F95FE04846A80423C7F19 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D91C719A2878EC291854DD46 /* DDContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		29D98D06F30B8FCE72DDB1B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBC87AE7B041E9BDAEC3C46F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 768EB2B697D204712A5EBDCA;
+			remoteInfo = "Pods-1802 EmulatorTests-CocoaLumberjack";
+		};
+		2C6474CC4CE6C5D0AB624FD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBC87AE7B041E9BDAEC3C46F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6C17401BA5045C6853B97414;
+			remoteInfo = "Pods-1802 Emulator-CocoaLumberjack";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01136F01FE948D5D2AA78057 /* DDASLLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Classes/DDASLLogger.h; sourceTree = "<group>"; };
+		034FA08E7250CB09BA6680EA /* Pods-1802 Emulator-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-1802 Emulator-frameworks.sh"; sourceTree = "<group>"; };
+		04B2BBF5BACDDE46A88CE55D /* DDTTYLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Classes/DDTTYLogger.m; sourceTree = "<group>"; };
+		0567BBC4F1889C491A612CD9 /* Pods-1802 Emulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-1802 Emulator.release.xcconfig"; sourceTree = "<group>"; };
+		0A02B470F4E3FE93970F06C1 /* Pods-1802 Emulator-CocoaLumberjack-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-1802 Emulator-CocoaLumberjack-dummy.m"; sourceTree = "<group>"; };
+		0CA46F3FDC84C2BCC2EEA2BA /* Pods_1802_Emulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_1802_Emulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2167CC4DC90F74EA2604B42C /* DDASLLogCapture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogCapture.h; path = Classes/DDASLLogCapture.h; sourceTree = "<group>"; };
+		334CB7497D4A819C14666C6A /* Pods-1802 Emulator-CocoaLumberjack.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-1802 Emulator-CocoaLumberjack.xcconfig"; sourceTree = "<group>"; };
+		33A33E675D02AAE37FFB89EE /* Pods-1802 EmulatorTests-CocoaLumberjack-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-1802 EmulatorTests-CocoaLumberjack-dummy.m"; path = "../Pods-1802 EmulatorTests-CocoaLumberjack/Pods-1802 EmulatorTests-CocoaLumberjack-dummy.m"; sourceTree = "<group>"; };
+		3480FC9C8D96C80A1B32935D /* Pods-1802 EmulatorTests-CocoaLumberjack.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1802 EmulatorTests-CocoaLumberjack.xcconfig"; path = "../Pods-1802 EmulatorTests-CocoaLumberjack/Pods-1802 EmulatorTests-CocoaLumberjack.xcconfig"; sourceTree = "<group>"; };
+		3950A8EA1A0ED373D8C33AF0 /* DDLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = Classes/DDLog.m; sourceTree = "<group>"; };
+		3C66D0C8C7E359BC9403B196 /* Pods-1802 EmulatorTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-1802 EmulatorTests-frameworks.sh"; sourceTree = "<group>"; };
+		3CCC609208C542F75B0B24C7 /* CocoaLumberjack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CocoaLumberjack.h; path = Classes/CocoaLumberjack.h; sourceTree = "<group>"; };
+		475A34D9C2DE2311DB99579D /* Pods-1802 EmulatorTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-1802 EmulatorTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		47E63B9F02761C24E782A4EF /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = Classes/DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		489F665DBDDBB0E2765D3360 /* Pods-1802 Emulator-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-1802 Emulator-environment.h"; sourceTree = "<group>"; };
+		4FFA8DA6D5CCE8F9C9BC8E56 /* Pods-1802 EmulatorTests-CocoaLumberjack-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1802 EmulatorTests-CocoaLumberjack-Private.xcconfig"; path = "../Pods-1802 EmulatorTests-CocoaLumberjack/Pods-1802 EmulatorTests-CocoaLumberjack-Private.xcconfig"; sourceTree = "<group>"; };
+		507033DD26CB8B31E45C1684 /* Pods-1802 Emulator-CocoaLumberjack-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-1802 Emulator-CocoaLumberjack-Private.xcconfig"; sourceTree = "<group>"; };
+		5411C11999563730C7C30378 /* DDLegacyMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLegacyMacros.h; path = Classes/DDLegacyMacros.h; sourceTree = "<group>"; };
+		5CE98A9BC52F945229597C7D /* Pods-1802 EmulatorTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-1802 EmulatorTests.modulemap"; sourceTree = "<group>"; };
+		5F42F60C234BA9428316066E /* Pods-1802 Emulator-CocoaLumberjack-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-1802 Emulator-CocoaLumberjack-umbrella.h"; sourceTree = "<group>"; };
+		5F6E46FF8798086DBF9FDA3A /* CocoaLumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65BAE682169235B4CA533E8E /* DDLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Classes/DDLog.h; sourceTree = "<group>"; };
+		7643106AD90B75F95536AC43 /* DDLogMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLogMacros.h; path = Classes/DDLogMacros.h; sourceTree = "<group>"; };
+		774C17EBA709952DB414EDD4 /* Pods_1802_EmulatorTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_1802_EmulatorTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A0BBBC43AEFD3ED868E187D /* Pods-1802 Emulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-1802 Emulator.debug.xcconfig"; sourceTree = "<group>"; };
+		7AACA0392A8A839436421027 /* Pods-1802 EmulatorTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-1802 EmulatorTests-dummy.m"; sourceTree = "<group>"; };
+		7BC36CABBFC91BC766F499FD /* Pods-1802 Emulator-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-1802 Emulator-acknowledgements.plist"; sourceTree = "<group>"; };
+		7CF35791EEE2343A368250A8 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		810BFC2356735D383189EB5B /* DDAssertMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAssertMacros.h; path = Classes/DDAssertMacros.h; sourceTree = "<group>"; };
+		849868B97168C74BF7FC5E19 /* Pods-1802 Emulator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-1802 Emulator-dummy.m"; sourceTree = "<group>"; };
+		887DFCCBD477C2819E3437B6 /* Pods-1802 EmulatorTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-1802 EmulatorTests-umbrella.h"; sourceTree = "<group>"; };
+		8941009A2ADA1E6F25D46D05 /* Pods-1802 EmulatorTests-CocoaLumberjack-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-1802 EmulatorTests-CocoaLumberjack-prefix.pch"; path = "../Pods-1802 EmulatorTests-CocoaLumberjack/Pods-1802 EmulatorTests-CocoaLumberjack-prefix.pch"; sourceTree = "<group>"; };
+		8CE9A7E13255E2394FEC1E30 /* Pods-1802 EmulatorTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-1802 EmulatorTests-resources.sh"; sourceTree = "<group>"; };
+		96FF7E5D811B7AF26CA3A31B /* DDFileLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = Classes/DDFileLogger.h; sourceTree = "<group>"; };
+		980B3DDB589CFD5988F7A88F /* Pods-1802 Emulator-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-1802 Emulator-resources.sh"; sourceTree = "<group>"; };
+		9ACBDC1F7E2C04638A63D863 /* DDMultiFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDMultiFormatter.m; path = Classes/Extensions/DDMultiFormatter.m; sourceTree = "<group>"; };
+		9BB53BD9F0515A9349DB67CB /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDDispatchQueueLogFormatter.h; path = Classes/Extensions/DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		A08A3C37F4A47CA24D5A0D63 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDAbstractDatabaseLogger.m; path = Classes/DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		A0F456198091D398F0CC980B /* CocoaLumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5AC885D5A400C0455D67D48 /* Pods-1802 Emulator-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-1802 Emulator-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A810A8E369B9C954DDEF4CDF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		AC3D43B3A91CBBC77CBEC84C /* Pods-1802 EmulatorTests-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-1802 EmulatorTests-environment.h"; sourceTree = "<group>"; };
+		ACEBBE1902479CCA279CF372 /* Pods-1802 Emulator-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-1802 Emulator-umbrella.h"; sourceTree = "<group>"; };
+		B04D8563E3598862B9702208 /* DDASLLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Classes/DDASLLogger.m; sourceTree = "<group>"; };
+		B0BF916F52148474E6BF82B4 /* Pods-1802 EmulatorTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-1802 EmulatorTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		B1A1C000DB2ED93C11E09C08 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDDispatchQueueLogFormatter.m; path = Classes/Extensions/DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		B285914F94396C8BE2A821AC /* DDFileLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Classes/DDFileLogger.m; sourceTree = "<group>"; };
+		B557776B8BCA91A9727C5247 /* Pods-1802 EmulatorTests-CocoaLumberjack-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Pods-1802 EmulatorTests-CocoaLumberjack-umbrella.h"; path = "../Pods-1802 EmulatorTests-CocoaLumberjack/Pods-1802 EmulatorTests-CocoaLumberjack-umbrella.h"; sourceTree = "<group>"; };
+		B77F9192EBF84F04DAA189F8 /* Pods-1802 Emulator-CocoaLumberjack.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-1802 Emulator-CocoaLumberjack.modulemap"; sourceTree = "<group>"; };
+		B7992F75DF83C778157C9ECE /* Pods-1802 EmulatorTests-CocoaLumberjack.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "Pods-1802 EmulatorTests-CocoaLumberjack.modulemap"; path = "../Pods-1802 EmulatorTests-CocoaLumberjack/Pods-1802 EmulatorTests-CocoaLumberjack.modulemap"; sourceTree = "<group>"; };
+		BD713CDC978A0E13DC7787EC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../Pods-1802 EmulatorTests-CocoaLumberjack/Info.plist"; sourceTree = "<group>"; };
+		C35CC51AC6092252E0FD7CC6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8A71A7C3B6AA40F01EFB60C /* Pods-1802 EmulatorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-1802 EmulatorTests.release.xcconfig"; sourceTree = "<group>"; };
+		D91C719A2878EC291854DD46 /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDContextFilterLogFormatter.m; path = Classes/Extensions/DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		DE60298AB4A9620204436986 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E15FC23344FF19A6B8419718 /* DDLog+LOGV.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DDLog+LOGV.h"; path = "Classes/DDLog+LOGV.h"; sourceTree = "<group>"; };
+		E8DC65CF494C4906446EDBC7 /* DDASLLogCapture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogCapture.m; path = Classes/DDASLLogCapture.m; sourceTree = "<group>"; };
+		ECC6A3F596CF41ECF2C01A3C /* DDTTYLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Classes/DDTTYLogger.h; sourceTree = "<group>"; };
+		ED4615F6DF1AF01EA45A2DD7 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDContextFilterLogFormatter.h; path = Classes/Extensions/DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		F3878C02C34D6A9E4DE2450B /* DDMultiFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDMultiFormatter.h; path = Classes/Extensions/DDMultiFormatter.h; sourceTree = "<group>"; };
+		F3F634D145523EED93A65A5B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5ACC8148D11DFF8E66DF90F /* Pods-1802 EmulatorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-1802 EmulatorTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F86EA4682B366339877AD0C7 /* Pods-1802 Emulator.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-1802 Emulator.modulemap"; sourceTree = "<group>"; };
+		FA570ED6C949CBB8236DB285 /* Pods-1802 Emulator-CocoaLumberjack-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-1802 Emulator-CocoaLumberjack-prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		10F170280446CFC716E7AA70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BAA32AF007836D7F4B0319E /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		887E1C0FEBA1AFF626C94DD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC70FFB0EE7718C1B37F41BE /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B8056E35DD3AFD4CBEE198C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2426A11DA20F1FBC6E27AEF5 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9450B65FF113D5A7E1B4D3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41FEF784B7726A9A2734DC3C /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00C79702F4461A19B4FCC2B2 /* Pods-1802 Emulator */ = {
+			isa = PBXGroup;
+			children = (
+				C35CC51AC6092252E0FD7CC6 /* Info.plist */,
+				F86EA4682B366339877AD0C7 /* Pods-1802 Emulator.modulemap */,
+				A5AC885D5A400C0455D67D48 /* Pods-1802 Emulator-acknowledgements.markdown */,
+				7BC36CABBFC91BC766F499FD /* Pods-1802 Emulator-acknowledgements.plist */,
+				849868B97168C74BF7FC5E19 /* Pods-1802 Emulator-dummy.m */,
+				489F665DBDDBB0E2765D3360 /* Pods-1802 Emulator-environment.h */,
+				034FA08E7250CB09BA6680EA /* Pods-1802 Emulator-frameworks.sh */,
+				980B3DDB589CFD5988F7A88F /* Pods-1802 Emulator-resources.sh */,
+				ACEBBE1902479CCA279CF372 /* Pods-1802 Emulator-umbrella.h */,
+				7A0BBBC43AEFD3ED868E187D /* Pods-1802 Emulator.debug.xcconfig */,
+				0567BBC4F1889C491A612CD9 /* Pods-1802 Emulator.release.xcconfig */,
+			);
+			name = "Pods-1802 Emulator";
+			path = "Target Support Files/Pods-1802 Emulator";
+			sourceTree = "<group>";
+		};
+		022BAC39D177B93B51DB1F62 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				A810A8E369B9C954DDEF4CDF /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		39D9CDF3232800508CE3FB94 /* Pods-1802 EmulatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				F3F634D145523EED93A65A5B /* Info.plist */,
+				5CE98A9BC52F945229597C7D /* Pods-1802 EmulatorTests.modulemap */,
+				475A34D9C2DE2311DB99579D /* Pods-1802 EmulatorTests-acknowledgements.markdown */,
+				B0BF916F52148474E6BF82B4 /* Pods-1802 EmulatorTests-acknowledgements.plist */,
+				7AACA0392A8A839436421027 /* Pods-1802 EmulatorTests-dummy.m */,
+				AC3D43B3A91CBBC77CBEC84C /* Pods-1802 EmulatorTests-environment.h */,
+				3C66D0C8C7E359BC9403B196 /* Pods-1802 EmulatorTests-frameworks.sh */,
+				8CE9A7E13255E2394FEC1E30 /* Pods-1802 EmulatorTests-resources.sh */,
+				887DFCCBD477C2819E3437B6 /* Pods-1802 EmulatorTests-umbrella.h */,
+				F5ACC8148D11DFF8E66DF90F /* Pods-1802 EmulatorTests.debug.xcconfig */,
+				C8A71A7C3B6AA40F01EFB60C /* Pods-1802 EmulatorTests.release.xcconfig */,
+			);
+			name = "Pods-1802 EmulatorTests";
+			path = "Target Support Files/Pods-1802 EmulatorTests";
+			sourceTree = "<group>";
+		};
+		4BFFCEC13599DBF6A719568D = {
+			isa = PBXGroup;
+			children = (
+				7CF35791EEE2343A368250A8 /* Podfile */,
+				DC857EEA22A3FFECD577F2C3 /* Frameworks */,
+				B5CA0166EED61694D5356573 /* Pods */,
+				6A39DECC8E22A67C74E996CD /* Products */,
+				C1EB4E1EF9F177A9D8D797B8 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		5753D652034497D5DC6380D3 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2167CC4DC90F74EA2604B42C /* DDASLLogCapture.h */,
+				E8DC65CF494C4906446EDBC7 /* DDASLLogCapture.m */,
+				01136F01FE948D5D2AA78057 /* DDASLLogger.h */,
+				B04D8563E3598862B9702208 /* DDASLLogger.m */,
+				47E63B9F02761C24E782A4EF /* DDAbstractDatabaseLogger.h */,
+				A08A3C37F4A47CA24D5A0D63 /* DDAbstractDatabaseLogger.m */,
+				810BFC2356735D383189EB5B /* DDAssertMacros.h */,
+				96FF7E5D811B7AF26CA3A31B /* DDFileLogger.h */,
+				B285914F94396C8BE2A821AC /* DDFileLogger.m */,
+				5411C11999563730C7C30378 /* DDLegacyMacros.h */,
+				65BAE682169235B4CA533E8E /* DDLog.h */,
+				3950A8EA1A0ED373D8C33AF0 /* DDLog.m */,
+				E15FC23344FF19A6B8419718 /* DDLog+LOGV.h */,
+				7643106AD90B75F95536AC43 /* DDLogMacros.h */,
+				ECC6A3F596CF41ECF2C01A3C /* DDTTYLogger.h */,
+				04B2BBF5BACDDE46A88CE55D /* DDTTYLogger.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		6A39DECC8E22A67C74E996CD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A0F456198091D398F0CC980B /* CocoaLumberjack.framework */,
+				5F6E46FF8798086DBF9FDA3A /* CocoaLumberjack.framework */,
+				0CA46F3FDC84C2BCC2EEA2BA /* Pods_1802_Emulator.framework */,
+				774C17EBA709952DB414EDD4 /* Pods_1802_EmulatorTests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6E049EAEC93815659BA7131D /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				3CCC609208C542F75B0B24C7 /* CocoaLumberjack.h */,
+			);
+			name = Default;
+			sourceTree = "<group>";
+		};
+		73AB425ED959E9504F315B97 /* CocoaLumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				5753D652034497D5DC6380D3 /* Core */,
+				6E049EAEC93815659BA7131D /* Default */,
+				90B607CBFD16649A801CB29E /* Extensions */,
+				9F846F11793E4952BE2621B6 /* Support Files */,
+			);
+			path = CocoaLumberjack;
+			sourceTree = "<group>";
+		};
+		90B607CBFD16649A801CB29E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ED4615F6DF1AF01EA45A2DD7 /* DDContextFilterLogFormatter.h */,
+				D91C719A2878EC291854DD46 /* DDContextFilterLogFormatter.m */,
+				9BB53BD9F0515A9349DB67CB /* DDDispatchQueueLogFormatter.h */,
+				B1A1C000DB2ED93C11E09C08 /* DDDispatchQueueLogFormatter.m */,
+				F3878C02C34D6A9E4DE2450B /* DDMultiFormatter.h */,
+				9ACBDC1F7E2C04638A63D863 /* DDMultiFormatter.m */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		9F846F11793E4952BE2621B6 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				DE60298AB4A9620204436986 /* Info.plist */,
+				BD713CDC978A0E13DC7787EC /* Info.plist */,
+				B77F9192EBF84F04DAA189F8 /* Pods-1802 Emulator-CocoaLumberjack.modulemap */,
+				334CB7497D4A819C14666C6A /* Pods-1802 Emulator-CocoaLumberjack.xcconfig */,
+				507033DD26CB8B31E45C1684 /* Pods-1802 Emulator-CocoaLumberjack-Private.xcconfig */,
+				0A02B470F4E3FE93970F06C1 /* Pods-1802 Emulator-CocoaLumberjack-dummy.m */,
+				FA570ED6C949CBB8236DB285 /* Pods-1802 Emulator-CocoaLumberjack-prefix.pch */,
+				5F42F60C234BA9428316066E /* Pods-1802 Emulator-CocoaLumberjack-umbrella.h */,
+				B7992F75DF83C778157C9ECE /* Pods-1802 EmulatorTests-CocoaLumberjack.modulemap */,
+				3480FC9C8D96C80A1B32935D /* Pods-1802 EmulatorTests-CocoaLumberjack.xcconfig */,
+				4FFA8DA6D5CCE8F9C9BC8E56 /* Pods-1802 EmulatorTests-CocoaLumberjack-Private.xcconfig */,
+				33A33E675D02AAE37FFB89EE /* Pods-1802 EmulatorTests-CocoaLumberjack-dummy.m */,
+				8941009A2ADA1E6F25D46D05 /* Pods-1802 EmulatorTests-CocoaLumberjack-prefix.pch */,
+				B557776B8BCA91A9727C5247 /* Pods-1802 EmulatorTests-CocoaLumberjack-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-1802 Emulator-CocoaLumberjack";
+			sourceTree = "<group>";
+		};
+		B5CA0166EED61694D5356573 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				73AB425ED959E9504F315B97 /* CocoaLumberjack */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C1EB4E1EF9F177A9D8D797B8 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				00C79702F4461A19B4FCC2B2 /* Pods-1802 Emulator */,
+				39D9CDF3232800508CE3FB94 /* Pods-1802 EmulatorTests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		DC857EEA22A3FFECD577F2C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				022BAC39D177B93B51DB1F62 /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		0C21F78B332B06DC02812140 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5011536844139C7F75D957ED /* CocoaLumberjack.h in Headers */,
+				CFEC95FA230C55FAF88A5F4B /* DDASLLogCapture.h in Headers */,
+				5B5C78FC85E921F71BCA040E /* DDASLLogger.h in Headers */,
+				656DBF2C69A81F9FFD8A8665 /* DDAbstractDatabaseLogger.h in Headers */,
+				508DA49B0A9DFB3C40E11429 /* DDAssertMacros.h in Headers */,
+				F9998FE8239EB3593C001573 /* DDContextFilterLogFormatter.h in Headers */,
+				9CBE7D4F8B7033F4C17E7A03 /* DDDispatchQueueLogFormatter.h in Headers */,
+				AA8DAA0EF9F17E801A43C668 /* DDFileLogger.h in Headers */,
+				31DEBBF503C391996026E271 /* DDLegacyMacros.h in Headers */,
+				5CA9867EAEDDD7CC98EB90F3 /* DDLog+LOGV.h in Headers */,
+				9B58CD343099C407BC2B0425 /* DDLog.h in Headers */,
+				6212F47BFF1BC6BEC1D33D8D /* DDLogMacros.h in Headers */,
+				4B575F2518A0DBB3D4B2A201 /* DDMultiFormatter.h in Headers */,
+				D21D0E731365B60CB5E080CB /* DDTTYLogger.h in Headers */,
+				CF64CE4BBC138FA8CCCF34EA /* Pods-1802 Emulator-CocoaLumberjack-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E079BA65164BAE6A5C8790D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E89D56CC2185068088A85F4 /* Pods-1802 Emulator-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		297F3367823535682D44E621 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD78DD9177C55E16B4D4A675 /* CocoaLumberjack.h in Headers */,
+				451B22BBEE0A48FF3F843318 /* DDASLLogCapture.h in Headers */,
+				05482B9828E2EB4B51BC6A8A /* DDASLLogger.h in Headers */,
+				E26F74C3CAAE89DDF2A46A89 /* DDAbstractDatabaseLogger.h in Headers */,
+				167F8F8C87DDE10D5A2EF71B /* DDAssertMacros.h in Headers */,
+				20EF8C6B68216715D9F434A3 /* DDContextFilterLogFormatter.h in Headers */,
+				02B6BC08F8BC07F1B575619C /* DDDispatchQueueLogFormatter.h in Headers */,
+				AF98F7CA669C64A932DAEDDB /* DDFileLogger.h in Headers */,
+				607143FC5FE08E2400597080 /* DDLegacyMacros.h in Headers */,
+				9F504FEC6CBA24F0D0871CA5 /* DDLog+LOGV.h in Headers */,
+				0D84461691DDBCA5BB07FC17 /* DDLog.h in Headers */,
+				AA79EF66068F46B55F2BF95E /* DDLogMacros.h in Headers */,
+				BEE6D9CF7A8D2E1E714CD6AC /* DDMultiFormatter.h in Headers */,
+				23E5AD1AD7F6B96172B9AC5A /* DDTTYLogger.h in Headers */,
+				F46CD880038FFA19DADFF743 /* Pods-1802 EmulatorTests-CocoaLumberjack-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7BCD9F730ABC0EFA8F8917B6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4B08BCC9AB5432BB055D4E3 /* Pods-1802 EmulatorTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2C344DBF602912765D422EB9 /* Pods-1802 Emulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B37DC7D5AE0842E3FBE53C71 /* Build configuration list for PBXNativeTarget "Pods-1802 Emulator" */;
+			buildPhases = (
+				4198F9257DFB0D101038A6A1 /* Sources */,
+				B9450B65FF113D5A7E1B4D3F /* Frameworks */,
+				1E079BA65164BAE6A5C8790D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C8A0EDCC7EA65DD64E031498 /* PBXTargetDependency */,
+			);
+			name = "Pods-1802 Emulator";
+			productName = "Pods-1802 Emulator";
+			productReference = 0CA46F3FDC84C2BCC2EEA2BA /* Pods_1802_Emulator.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		6C17401BA5045C6853B97414 /* Pods-1802 Emulator-CocoaLumberjack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A02B430792CFAA1F1C3C07A6 /* Build configuration list for PBXNativeTarget "Pods-1802 Emulator-CocoaLumberjack" */;
+			buildPhases = (
+				BB1796D1221DE517D99E06CB /* Sources */,
+				10F170280446CFC716E7AA70 /* Frameworks */,
+				0C21F78B332B06DC02812140 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-1802 Emulator-CocoaLumberjack";
+			productName = "Pods-1802 Emulator-CocoaLumberjack";
+			productReference = A0F456198091D398F0CC980B /* CocoaLumberjack.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		768EB2B697D204712A5EBDCA /* Pods-1802 EmulatorTests-CocoaLumberjack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A841046D2E50A77E6B50929A /* Build configuration list for PBXNativeTarget "Pods-1802 EmulatorTests-CocoaLumberjack" */;
+			buildPhases = (
+				179BCFEC214BEB35499E3D75 /* Sources */,
+				887E1C0FEBA1AFF626C94DD8 /* Frameworks */,
+				297F3367823535682D44E621 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-1802 EmulatorTests-CocoaLumberjack";
+			productName = "Pods-1802 EmulatorTests-CocoaLumberjack";
+			productReference = 5F6E46FF8798086DBF9FDA3A /* CocoaLumberjack.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		F0C6EA01BFD343302B17EBF3 /* Pods-1802 EmulatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D8C9BAC967D09317744527CA /* Build configuration list for PBXNativeTarget "Pods-1802 EmulatorTests" */;
+			buildPhases = (
+				B9722DC7CAC0677C7494FE9A /* Sources */,
+				9B8056E35DD3AFD4CBEE198C /* Frameworks */,
+				7BCD9F730ABC0EFA8F8917B6 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3B3D43A9575FB936B9F65D49 /* PBXTargetDependency */,
+			);
+			name = "Pods-1802 EmulatorTests";
+			productName = "Pods-1802 EmulatorTests";
+			productReference = 774C17EBA709952DB414EDD4 /* Pods_1802_EmulatorTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EBC87AE7B041E9BDAEC3C46F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+			};
+			buildConfigurationList = 45E950F9202496B9B3C64B88 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4BFFCEC13599DBF6A719568D;
+			productRefGroup = 6A39DECC8E22A67C74E996CD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2C344DBF602912765D422EB9 /* Pods-1802 Emulator */,
+				6C17401BA5045C6853B97414 /* Pods-1802 Emulator-CocoaLumberjack */,
+				F0C6EA01BFD343302B17EBF3 /* Pods-1802 EmulatorTests */,
+				768EB2B697D204712A5EBDCA /* Pods-1802 EmulatorTests-CocoaLumberjack */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		179BCFEC214BEB35499E3D75 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D9F74EF04D50BE20AD34D6E /* DDASLLogCapture.m in Sources */,
+				4D134B9A87C3325E01B90E03 /* DDASLLogger.m in Sources */,
+				6D0B5DD503A1E9AB05DD5B2C /* DDAbstractDatabaseLogger.m in Sources */,
+				8C833FC8A5081959FB20CEEA /* DDContextFilterLogFormatter.m in Sources */,
+				74C21488A449CC8969AC1E5C /* DDDispatchQueueLogFormatter.m in Sources */,
+				4907FD6B9A2BB506ACB0E24E /* DDFileLogger.m in Sources */,
+				2ACDDACAEFC933175B1AFC1E /* DDLog.m in Sources */,
+				F99B80A5AEEE33BBE784E483 /* DDMultiFormatter.m in Sources */,
+				4000411496D28D72834D0A11 /* DDTTYLogger.m in Sources */,
+				98154120EF2612D2CADFFB8B /* Pods-1802 EmulatorTests-CocoaLumberjack-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4198F9257DFB0D101038A6A1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5CF93F4B3FE565FE3726BD2 /* Pods-1802 Emulator-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9722DC7CAC0677C7494FE9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4EEF6D0AB70F34E1B90CF7E /* Pods-1802 EmulatorTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB1796D1221DE517D99E06CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7899F14D242EBBFDAF41F4F7 /* DDASLLogCapture.m in Sources */,
+				1FB53CD09D78A27EC4AC41D5 /* DDASLLogger.m in Sources */,
+				03727B51DD5EBAB29ED7BE4E /* DDAbstractDatabaseLogger.m in Sources */,
+				FC5F95FE04846A80423C7F19 /* DDContextFilterLogFormatter.m in Sources */,
+				161EEEDB40BAB0193086B80E /* DDDispatchQueueLogFormatter.m in Sources */,
+				9D325CB9F336AB75AFA12679 /* DDFileLogger.m in Sources */,
+				F941209C2DE6E4D401D4CDE9 /* DDLog.m in Sources */,
+				1C0D159015A6A0E49CCE9225 /* DDMultiFormatter.m in Sources */,
+				35D974C1E45EFE6612DE66B1 /* DDTTYLogger.m in Sources */,
+				C45983A8B9B1824DEA884A3C /* Pods-1802 Emulator-CocoaLumberjack-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3B3D43A9575FB936B9F65D49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-1802 EmulatorTests-CocoaLumberjack";
+			target = 768EB2B697D204712A5EBDCA /* Pods-1802 EmulatorTests-CocoaLumberjack */;
+			targetProxy = 29D98D06F30B8FCE72DDB1B4 /* PBXContainerItemProxy */;
+		};
+		C8A0EDCC7EA65DD64E031498 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-1802 Emulator-CocoaLumberjack";
+			target = 6C17401BA5045C6853B97414 /* Pods-1802 Emulator-CocoaLumberjack */;
+			targetProxy = 2C6474CC4CE6C5D0AB624FD2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		128E9DA08C9E0211766116AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 507033DD26CB8B31E45C1684 /* Pods-1802 Emulator-CocoaLumberjack-Private.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-1802 Emulator-CocoaLumberjack/Pods-1802 Emulator-CocoaLumberjack-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Pods-1802 Emulator-CocoaLumberjack/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Target Support Files/Pods-1802 Emulator-CocoaLumberjack/Pods-1802 Emulator-CocoaLumberjack.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = CocoaLumberjack;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4A7CD4E94F544581DFF6EC60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FFA8DA6D5CCE8F9C9BC8E56 /* Pods-1802 EmulatorTests-CocoaLumberjack-Private.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-1802 EmulatorTests-CocoaLumberjack/Pods-1802 EmulatorTests-CocoaLumberjack-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Pods-1802 EmulatorTests-CocoaLumberjack/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Target Support Files/Pods-1802 EmulatorTests-CocoaLumberjack/Pods-1802 EmulatorTests-CocoaLumberjack.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = CocoaLumberjack;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4DBC8CBAA1AB098FFC64D20F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8A71A7C3B6AA40F01EFB60C /* Pods-1802 EmulatorTests.release.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-1802 EmulatorTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Target Support Files/Pods-1802 EmulatorTests/Pods-1802 EmulatorTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_1802_EmulatorTests;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		6682AC9D1FD5BC90461EF908 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FFA8DA6D5CCE8F9C9BC8E56 /* Pods-1802 EmulatorTests-CocoaLumberjack-Private.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-1802 EmulatorTests-CocoaLumberjack/Pods-1802 EmulatorTests-CocoaLumberjack-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Pods-1802 EmulatorTests-CocoaLumberjack/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Target Support Files/Pods-1802 EmulatorTests-CocoaLumberjack/Pods-1802 EmulatorTests-CocoaLumberjack.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = CocoaLumberjack;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8B2071FB0EDDEFBCE67EFAC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ABECEA5B0D43185255979577 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 507033DD26CB8B31E45C1684 /* Pods-1802 Emulator-CocoaLumberjack-Private.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-1802 Emulator-CocoaLumberjack/Pods-1802 Emulator-CocoaLumberjack-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Pods-1802 Emulator-CocoaLumberjack/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Target Support Files/Pods-1802 Emulator-CocoaLumberjack/Pods-1802 Emulator-CocoaLumberjack.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = CocoaLumberjack;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B2209EC549EC5C3F98AB5AE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5ACC8148D11DFF8E66DF90F /* Pods-1802 EmulatorTests.debug.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-1802 EmulatorTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Target Support Files/Pods-1802 EmulatorTests/Pods-1802 EmulatorTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_1802_EmulatorTests;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D975367AD8E0EC44F8290487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A0BBBC43AEFD3ED868E187D /* Pods-1802 Emulator.debug.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-1802 Emulator/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Target Support Files/Pods-1802 Emulator/Pods-1802 Emulator.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_1802_Emulator;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DAE9AE8FCA1F2381A7A00FD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		EAAA5BCD2680E030266DA23B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0567BBC4F1889C491A612CD9 /* Pods-1802 Emulator.release.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "Target Support Files/Pods-1802 Emulator/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MODULEMAP_FILE = "Target Support Files/Pods-1802 Emulator/Pods-1802 Emulator.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_1802_Emulator;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		45E950F9202496B9B3C64B88 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAE9AE8FCA1F2381A7A00FD8 /* Debug */,
+				8B2071FB0EDDEFBCE67EFAC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A02B430792CFAA1F1C3C07A6 /* Build configuration list for PBXNativeTarget "Pods-1802 Emulator-CocoaLumberjack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABECEA5B0D43185255979577 /* Debug */,
+				128E9DA08C9E0211766116AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A841046D2E50A77E6B50929A /* Build configuration list for PBXNativeTarget "Pods-1802 EmulatorTests-CocoaLumberjack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6682AC9D1FD5BC90461EF908 /* Debug */,
+				4A7CD4E94F544581DFF6EC60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B37DC7D5AE0842E3FBE53C71 /* Build configuration list for PBXNativeTarget "Pods-1802 Emulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D975367AD8E0EC44F8290487 /* Debug */,
+				EAAA5BCD2680E030266DA23B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D8C9BAC967D09317744527CA /* Build configuration list for PBXNativeTarget "Pods-1802 EmulatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B2209EC549EC5C3F98AB5AE8 /* Debug */,
+				4DBC8CBAA1AB098FFC64D20F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EBC87AE7B041E9BDAEC3C46F /* Project object */;
+}
