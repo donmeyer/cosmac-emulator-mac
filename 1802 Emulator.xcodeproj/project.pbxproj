@@ -10,6 +10,7 @@
 		97821D5FC09020572E977C18 /* Pods_1802_Emulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8519CDBF2C179A7C929A5542 /* Pods_1802_Emulator.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BFC896B61B22375700627D5D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC896B41B22375700627D5D /* MainViewController.m */; };
 		BFC896B91B223AD900627D5D /* LoaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC896B81B223AD900627D5D /* LoaderTests.m */; };
+		F66F6DCF1B24C668000ABAC6 /* RegistersView.m in Sources */ = {isa = PBXBuildFile; fileRef = F66F6DCE1B24C668000ABAC6 /* RegistersView.m */; };
 		F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B441B1D6A6B006724FC /* AppDelegate.m */; };
 		F6D63B471B1D6A6B006724FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B461B1D6A6B006724FC /* main.m */; };
 		F6D63B491B1D6A6C006724FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B481B1D6A6C006724FC /* Images.xcassets */; };
@@ -39,6 +40,8 @@
 		BFC896B41B22375700627D5D /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		BFC896B81B223AD900627D5D /* LoaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderTests.m; sourceTree = "<group>"; };
 		DC4A3AB3CFB94D5CFAD01E2A /* Pods-1802 EmulatorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1802 EmulatorTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-1802 EmulatorTests/Pods-1802 EmulatorTests.release.xcconfig"; sourceTree = "<group>"; };
+		F66F6DCD1B24C668000ABAC6 /* RegistersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistersView.h; sourceTree = "<group>"; };
+		F66F6DCE1B24C668000ABAC6 /* RegistersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistersView.m; sourceTree = "<group>"; };
 		F6D63B3E1B1D6A6B006724FC /* 1802 Emulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1802 Emulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6D63B421B1D6A6B006724FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6D63B431B1D6A6B006724FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -128,6 +131,8 @@
 				F6D63B4A1B1D6A6C006724FC /* MainMenu.xib */,
 				BFC896B31B22375700627D5D /* MainViewController.h */,
 				BFC896B41B22375700627D5D /* MainViewController.m */,
+				F66F6DCD1B24C668000ABAC6 /* RegistersView.h */,
+				F66F6DCE1B24C668000ABAC6 /* RegistersView.m */,
 				F6D63B411B1D6A6B006724FC /* Supporting Files */,
 				F6D63B631B1D6C19006724FC /* etypes.h */,
 				F6D63B651B200D8A006724FC /* HexLoader.h */,
@@ -362,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6D63B471B1D6A6B006724FC /* main.m in Sources */,
+				F66F6DCF1B24C668000ABAC6 /* RegistersView.m in Sources */,
 				F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */,
 				F6D63B671B200D8A006724FC /* HexLoader.m in Sources */,
 				BFC896B61B22375700627D5D /* MainViewController.m in Sources */,
