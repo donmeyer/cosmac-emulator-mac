@@ -1,10 +1,7 @@
 // CPU Emulation.c
 
 
-#include "etypes.h"
-
 #include "CPU Emulation.h"
-
 
 
 
@@ -68,11 +65,19 @@ static const op_func opfuncs[16] = {
 
 static long cycleCount;
 
+static outputCallback_t outputCallback;
+
+static void *outputCallbackUserdata;
+
+
+static inputCallback_t inputCallback;
+
+static void *inputCallbackUserdata;
+
+
 
 //======================================================================================
 //======================================================================================
-
-
 
 #pragma mark - Public API
 
@@ -208,6 +213,30 @@ int CPU_makeReadWritePage( int page )
 }
 
 
+void CPU_makeAllPagesRAM()
+{
+	for( int i=0; i<CPU_NUM_PAGES; i++ )
+	{
+		pageFlags[i] = PAGE_READ | PAGE_WRITE;
+	}
+}
+
+
+void CPU_setInputCallback( inputCallback_t callback, void *userData )
+{
+	inputCallback = callback;
+	inputCallbackUserdata = userData;
+}
+
+
+void CPU_setOutputCallback( outputCallback_t callback, void *userData )
+{
+	outputCallback = callback;
+	outputCallbackUserdata = userData;
+}
+
+
+
 #pragma mark Unit Test Support
 
 CPU *CPU_getCPU_Unit_Test()
@@ -262,15 +291,28 @@ static uint8_t getPageBits( uint16_t addr )
 
 static uint8_t input( uint8_t port )
 {
-	// TODO: Implement
-	return 0;
+	if( inputCallback )
+	{
+		return (inputCallback)( outputCallbackUserdata, port );
+	}
+	else
+	{
+		// TODO: flag an error?
+		return 0;
+	}
 }
 
 
 static void output( uint8_t port, uint8_t data )
 {
-	// TODO: Implement
+	if( outputCallback )
+	{
+		(outputCallback)( outputCallbackUserdata, port, data );
+	}
+
+	// TODO: flag an error?
 }
+
 
 
 #pragma mark - Utility
@@ -290,11 +332,11 @@ static void setRegHigh( uint8_t reg, uint8_t data )
 }
 
 
-static void branch( bool f )
+static void branch( int f )
 {
 	if( f )
 	{
-		setRegLow( cpu.P, cpu.reg[cpu.P] );
+		setRegLow( cpu.P, read( cpu.reg[cpu.P] ) );
 	}
 	else
 	{
@@ -303,13 +345,13 @@ static void branch( bool f )
 }
 
 
-static void longBranch( bool f )
+static void longBranch( int f )
 {
 	if( f )
 	{
-		setRegHigh( cpu.P, cpu.reg[cpu.P] );
+		setRegHigh( cpu.P, read( cpu.reg[cpu.P] ) );
 		cpu.reg[cpu.P]++;
-		setRegLow( cpu.P, cpu.reg[cpu.P] );
+		setRegLow( cpu.P, read( cpu.reg[cpu.P] ) );
 	}
 	else
 	{
@@ -318,7 +360,7 @@ static void longBranch( bool f )
 }
 
 
-static void longSkip( bool f )
+static void longSkip( int f )
 {
 	if( f )
 	{

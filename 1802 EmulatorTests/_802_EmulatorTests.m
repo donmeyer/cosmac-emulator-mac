@@ -52,6 +52,8 @@ CPU *cpu;
 
 
 
+#pragma mark - Math Instructions
+
 - (void)testSubtraction_1
 {
 	cpu->D = 0x20;
@@ -111,6 +113,8 @@ CPU *cpu;
 
 
 
+#pragma mark - Logic Instructions
+
 - (void)testSHRC
 {
 	const uint8_t pgm[] = { 0x76 };
@@ -156,5 +160,39 @@ CPU *cpu;
 }
 
 
+
+#pragma mark - IO Instructions
+
+static void *ioUserdata;
+static int ioPort;
+static int ioData;
+
+static void ocb( void *userData, uint8_t port, uint8_t data )
+{
+//	NSLog( @"Output port %d  data 0x%02X", port, data );
+	ioUserdata = userData;
+	ioPort = port;
+	ioData = data;
+}
+
+- (void)testOutput
+{
+	const uint8_t pgm[] = { 0x61, 0x22 };
+	CPU_writeToMemory( pgm, 0x0000, 2 );
+
+	CPU_setOutputCallback( ocb, (void*)123 );
+
+	CPU_step();
+	
+	XCTAssertEqual( ioUserdata, (void*)123, @"User Data" );
+	XCTAssertEqual( ioPort, 1, @"Port" );
+	XCTAssertEqual( ioData, 0x22, @"Data byte" );
+}
+
+
+- (void)testInput
+{
+	// TODO: Implement
+}
 
 @end
