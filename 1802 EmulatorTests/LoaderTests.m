@@ -92,6 +92,7 @@
 	}];
 	
 	XCTAssertEqual( byteCount, 1, @"Byte count" );
+	XCTAssertEqual( loader.byteCount, byteCount, @"Byte count" );
 }
 
 
@@ -119,6 +120,7 @@
 	 }];
 	
 	XCTAssertEqual( byteCount, 2, @"Byte count" );
+	XCTAssertEqual( loader.byteCount, byteCount, @"Byte count" );
 }
 
 
@@ -151,6 +153,7 @@
 	 }];
 	
 	XCTAssertEqual( byteCount, 3, @"Byte count" );
+	XCTAssertEqual( loader.byteCount, byteCount, @"Byte count" );
 }
 
 
