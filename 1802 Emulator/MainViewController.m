@@ -6,13 +6,35 @@
 //  Copyright (c) 2015 Donald Meyer. All rights reserved.
 //
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
 #import "MainViewController.h"
+
+#import "CPU Emulation.h"
+#import "HexLoader.h"
+#import "RegistersView.h"
 
 
 
 @interface MainViewController ()
 
-@property (weak) IBOutlet NSTextField *foo;
+//
+// Status
+//
+@property (weak) IBOutlet NSTextField *programCounter;
+
+
+//
+// Registers
+//
+@property (weak) IBOutlet NSBox *registersBox;
+@property (weak) IBOutlet RegistersView *registersView;
+
+
+//
+// Timing
+//
+@property (weak) IBOutlet NSTextField *totalCyclesField;
 
 @end
 
@@ -33,7 +55,17 @@
 {
 	[super viewWillAppear];
 	
-	self.foo.objectValue = @"Rats";
+}
+
+
+
+#pragma mark - State
+
+- (void)updateState
+{
+	const CPU *cpu = CPU_getCPU();
+	
+	[self.programCounter setIntegerValue:cpu->reg[cpu->P]];
 }
 
 
@@ -42,26 +74,65 @@
 
 - (IBAction)stepAction:(id)sender
 {
-	NSLog( @"Step" );
+	DDLogDebug( @"Step" );
+	CPU_step();
+	[self updateState];
 }
 
 
 - (IBAction)runAction:(id)sender
 {
-	NSLog( @"Run" );
+	DDLogDebug( @"Run" );
+
+	NSTimer *timer = [NSTimer timerWithTimeInterval:0.001 target:self selector:@selector(performStep:) userInfo:nil repeats:YES];
+
+	[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+}
+
+
+- (void)performStep:(NSTimer*)timer
+{
+	CPU_step();
+	[self updateState];
+}
+
+
+
+static void ocb( void *userData, uint8_t port, uint8_t data )
+{
+	DDLogDebug( @"Output port %d  data 0x%02X  '%c'", port, data, data );
 }
 
 
 - (IBAction)pauseAction:(id)sender
 {
-	NSLog( @"Pause" );
+	DDLogDebug( @"Pause" );
+
+	CPU_makeAllPagesRAM();
+	
+	CPU_setOutputCallback( ocb, (__bridge void *)(self) );
+	
+//	HexLoader *loader = [[HexLoader alloc] initWithListingPath:@"/Users/don/Code/Cosmac_1802/toggleQ.lst"];
+//	HexLoader *loader = [[HexLoader alloc] initWithListingPath:@"/Users/don/Code/Cosmac_1802/FIG-Forth/FIG_Forth.lst"];
+	HexLoader *loader = [[HexLoader alloc] initWithListingPath:@"/Users/don/Dropbox/Documents/RCA 1802/FIG_2/FIG311.LST"];
+	
+	[loader load:^(long addr, unsigned char byte)
+	 {
+		 CPU_writeByteToMemory( byte, addr);
+	 }];
+	
+	DDLogDebug( @"Listing loaded into memory, %lu bytes", loader.byteCount );
+	
+	[self updateState];
 }
 
 
 
 - (IBAction)resetAction:(id)sender
 {
-	NSLog( @"Reset" );
+	DDLogDebug( @"Reset" );
+	CPU_reset();
+	[self updateState];
 }
 
 
