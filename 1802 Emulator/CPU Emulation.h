@@ -18,10 +18,13 @@
 
 #define CPU_NUM_PAGES	( CPU_MEM_SIZE / CPU_PAGE_SIZE )
 
+#define CPU_NUM_REGS	16
+
+
 
 struct CPU {
-	uint16_t reg[16];	// 16-bits
-	
+	uint16_t reg[CPU_NUM_REGS];	// 16-bits
+
 	uint8_t I;	// 4-bits
 	uint8_t N;	// 4-bits
 	
