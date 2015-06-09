@@ -1,0 +1,8 @@
+
+
+Hex Loader should store raw text as strings, cfreating an index from adddress to source line.
+
+Turn down the log level for loader.
+
+
+
