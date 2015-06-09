@@ -8,6 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "CPU Emulation.h"
+
+
+
 @interface RegistersView : NSView
+
+- (void)setDescription:(NSString*)desc forReg:(int)reg;
+
+- (void)updateRegisters:(const CPU*)cpu;
 
 @end

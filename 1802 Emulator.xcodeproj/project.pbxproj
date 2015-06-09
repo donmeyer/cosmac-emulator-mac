@@ -39,6 +39,7 @@
 		BFC896B31B22375700627D5D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		BFC896B41B22375700627D5D /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		BFC896B81B223AD900627D5D /* LoaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderTests.m; sourceTree = "<group>"; };
+		BFC897131B25EB2000627D5D /* 1802 Emulator.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "1802 Emulator.txt"; sourceTree = "<group>"; };
 		DC4A3AB3CFB94D5CFAD01E2A /* Pods-1802 EmulatorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1802 EmulatorTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-1802 EmulatorTests/Pods-1802 EmulatorTests.release.xcconfig"; sourceTree = "<group>"; };
 		F66F6DCD1B24C668000ABAC6 /* RegistersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistersView.h; sourceTree = "<group>"; };
 		F66F6DCE1B24C668000ABAC6 /* RegistersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistersView.m; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 				F6D63B631B1D6C19006724FC /* etypes.h */,
 				F6D63B651B200D8A006724FC /* HexLoader.h */,
 				F6D63B661B200D8A006724FC /* HexLoader.m */,
+				BFC897131B25EB2000627D5D /* 1802 Emulator.txt */,
 			);
 			path = "1802 Emulator";
 			sourceTree = "<group>";
