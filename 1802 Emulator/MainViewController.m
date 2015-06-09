@@ -75,9 +75,6 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 	
 	CPU_setOutputCallback( ocb, (__bridge void *)(self) );
 	
-	[self.registersView setDescription:@"Rats" forReg:0x00];
-
-	[self.registersView setDescription:@"UP" forReg:0x0D];
 }
 
 
@@ -85,6 +82,9 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 {
 	[super viewWillAppear];
 	
+	[self.registersView setDescription:@"Rats" forReg:0x00];
+	
+	[self.registersView setDescription:@"UP" forReg:0x0D];
 }
 
 

@@ -40,7 +40,7 @@
 
 @implementation RegistersView
 
--(instancetype)initWithFrame:(NSRect)frameRect
+- (instancetype)initWithFrame:(NSRect)frameRect
 {
 	self = [super initWithFrame:frameRect];
 	if( self )
@@ -158,6 +158,10 @@
 			rowStr = @"";
 		}
 		rowRect.origin.y = VERT_INSET + ( i * self.rowHeight );
+
+		[[NSColor brownColor] set];
+		NSRectFill( rowRect );
+		
 		[rowStr drawInRect:rowRect withAttributes:self.labelAttr];
 	}
 }
