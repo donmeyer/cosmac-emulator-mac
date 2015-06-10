@@ -6,13 +6,17 @@
 //  Copyright (c) 2015 Donald Meyer. All rights reserved.
 //
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "DDLog.h"
 
 #import "MainViewController.h"
 
 #import "CPU Emulation.h"
 #import "HexLoader.h"
 #import "RegistersView.h"
+
+
+
+const DDLogLevel ddLogLevel = DDLogLevelAll;
 
 
 

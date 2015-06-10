@@ -6,9 +6,13 @@
 //  Copyright (c) 2015 Donald Meyer. All rights reserved.
 //
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "DDLog.h"
 
 #import "HexLoader.h"
+
+
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+
 
 
 @interface HexLoader ()
