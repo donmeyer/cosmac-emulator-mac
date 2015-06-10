@@ -26,7 +26,8 @@ const DDLogLevel ddLogLevel = DDLogLevelAll;
 // Status
 //
 @property (weak) IBOutlet NSTextField *programCounter;
-
+@property (weak) IBOutlet NSTextField *dLabel;
+@property (weak) IBOutlet NSTextField *dfLabel;
 
 //
 // Registers
@@ -102,6 +103,12 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 	NSString *pcStr = [NSString stringWithFormat:@"%04X", cpu->reg[cpu->P]];
 	[self.programCounter setStringValue:pcStr];
 
+	NSString *dStr = [NSString stringWithFormat:@"%02X", cpu->D];
+	[self.dLabel setStringValue:dStr];
+
+	NSString *dfStr = [NSString stringWithFormat:@"%X", cpu->DF];
+	[self.dfLabel setStringValue:dfStr];
+	
 	[self.registersView updateRegisters:cpu];
 }
 

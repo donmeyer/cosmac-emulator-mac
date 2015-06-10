@@ -1,8 +1,16 @@
 
 
-Hex Loader should store raw text as strings, cfreating an index from adddress to source line.
+Hex Loader should store raw text as strings, creating an index from address to source line.
 
 Turn down the log level for loader.
 
+
+Breakpoints for several addresses, with a checkbox
+
+Breakpoints on IO ports, with checkboxs
+
+Load symbol table, and display it in a useful format.
+
+Register changes should be hilighted
 
 
