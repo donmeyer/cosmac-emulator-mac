@@ -115,9 +115,9 @@ CPU *cpu;
 
 #pragma mark - Logic Instructions
 
-- (void)testSHRC
+- (void)testSHR
 {
-	const uint8_t pgm[] = { 0x76 };
+	const uint8_t pgm[] = { 0xF6 };
 	CPU_writeToMemory( pgm, 0x0000, 1 );
 	
 	cpu->D = 0x81;
@@ -125,7 +125,7 @@ CPU *cpu;
 	
 	CPU_step();
 	
-	XCTAssertEqual( cpu->D, 0xC0, @"D contents" );
+	XCTAssertEqual( cpu->D, 0x40, @"D contents" );
 	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
 
 
@@ -135,7 +135,7 @@ CPU *cpu;
 	
 	CPU_step();
 	
-	XCTAssertEqual( cpu->D, 0xC0, @"D contents" );
+	XCTAssertEqual( cpu->D, 0x40, @"D contents" );
 	XCTAssertEqual( cpu->DF, 0, @"DF contents" );
 
 
@@ -149,6 +149,52 @@ CPU *cpu;
 	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
 
 
+	CPU_reset();
+	cpu->D = 0x80;
+	cpu->DF = 0;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x40, @"D contents" );
+	XCTAssertEqual( cpu->DF, 0, @"DF contents" );
+}
+
+
+
+- (void)testSHRC
+{
+	const uint8_t pgm[] = { 0x76 };
+	CPU_writeToMemory( pgm, 0x0000, 1 );
+	
+	cpu->D = 0x81;
+	cpu->DF = 1;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0xC0, @"D contents" );
+	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
+	
+	
+	CPU_reset();
+	cpu->D = 0x80;
+	cpu->DF = 1;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0xC0, @"D contents" );
+	XCTAssertEqual( cpu->DF, 0, @"DF contents" );
+	
+	
+	CPU_reset();
+	cpu->D = 0x81;
+	cpu->DF = 0;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x40, @"D contents" );
+	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
+	
+	
 	CPU_reset();
 	cpu->D = 0x80;
 	cpu->DF = 0;
