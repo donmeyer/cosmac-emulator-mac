@@ -1,0 +1,23 @@
+//
+//  Prefix.pch
+//  
+//
+//  Created by Donald Meyer on 6/10/15.
+//
+//
+
+#ifndef _Prefix_pch
+#define _Prefix_pch
+
+
+#ifdef __OBJC__
+
+#import <Foundation/Foundation.h>
+
+#define LOG_LEVEL_DEF ddLogLevel
+
+#import "CocoaLumberjack.h"
+
+#endif
+
+#endif

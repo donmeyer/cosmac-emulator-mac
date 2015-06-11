@@ -43,6 +43,8 @@
 		DC4A3AB3CFB94D5CFAD01E2A /* Pods-1802 EmulatorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1802 EmulatorTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-1802 EmulatorTests/Pods-1802 EmulatorTests.release.xcconfig"; sourceTree = "<group>"; };
 		F66F6DCD1B24C668000ABAC6 /* RegistersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistersView.h; sourceTree = "<group>"; };
 		F66F6DCE1B24C668000ABAC6 /* RegistersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistersView.m; sourceTree = "<group>"; };
+		F66F6DD01B293A01000ABAC6 /* 1802 Emulator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "1802 Emulator.entitlements"; sourceTree = "<group>"; };
+		F66F6DD11B2941FC000ABAC6 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		F6D63B3E1B1D6A6B006724FC /* 1802 Emulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1802 Emulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6D63B421B1D6A6B006724FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6D63B431B1D6A6B006724FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 		F6D63B351B1D6A6B006724FC = {
 			isa = PBXGroup;
 			children = (
+				F66F6DD11B2941FC000ABAC6 /* Prefix.pch */,
 				F6D63B401B1D6A6B006724FC /* 1802 Emulator */,
 				F6D63B541B1D6A6C006724FC /* 1802 EmulatorTests */,
 				F6D63B3F1B1D6A6B006724FC /* Products */,
@@ -124,6 +127,7 @@
 		F6D63B401B1D6A6B006724FC /* 1802 Emulator */ = {
 			isa = PBXGroup;
 			children = (
+				F66F6DD01B293A01000ABAC6 /* 1802 Emulator.entitlements */,
 				F6D63B641B1D6D69006724FC /* CPU Emulation.h */,
 				F6D63B611B1D6B01006724FC /* CPU Emulation.c */,
 				F6D63B431B1D6A6B006724FC /* AppDelegate.h */,
@@ -225,6 +229,12 @@
 				TargetAttributes = {
 					F6D63B3D1B1D6A6B006724FC = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = G262JF38AQ;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 					F6D63B501B1D6A6C006724FC = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -433,6 +443,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -475,6 +487,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Prefix.pch;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

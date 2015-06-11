@@ -6,15 +6,21 @@
 //  Copyright (c) 2015 Donald Meyer. All rights reserved.
 //
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
+//#import <CocoaLumberjack/CocoaLumberjack.h>
 
 #import "AppDelegate.h"
+#import "MainViewController.h"
 
+
+
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 
 @interface AppDelegate ()
 
 @property (weak) IBOutlet NSWindow *window;
+
+@property (weak) IBOutlet MainViewController *mainViewController;
 
 @end
 
@@ -30,6 +36,34 @@
 
 	[DDLog addLogger:[DDASLLogger sharedInstance]];
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+}
+
+
+// Called when the user double-clicks or does a drag/drop.
+- (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename
+{
+	if( [filename hasSuffix:@".lst"] == NO )
+	{
+		return NO;
+	}
+	
+	// Make sure file open modal goes away first
+	[self.mainViewController performSelector:@selector(openFile:) withObject:filename afterDelay:0.2];
+	
+	return YES;
+}
+
+
+- (void)openDocument:(id)sender
+{
+	DDLogDebug( @"Open document" );
+	[self.mainViewController openDocument];
+}
+
+- (void)showHelp:(id)sender
+{
+	NSURL *guideURL = [NSURL URLWithString:@"http://www.sgsw.com/emu1802/help"];
+	[[NSWorkspace sharedWorkspace] openURL:guideURL];
 }
 
 

@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Donald Meyer. All rights reserved.
 //
 
-#import "DDLog.h"
-
 #import "MainViewController.h"
 
 #import "CPU Emulation.h"
@@ -16,7 +14,7 @@
 
 
 
-const DDLogLevel ddLogLevel = DDLogLevelAll;
+const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 
 
@@ -165,27 +163,23 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 
 - (IBAction)importAction:(id)sender
 {
-	CPU_reset();
+	[self openDocument];
+}
 
+
+
+#pragma mark Ask For File
+
+- (void)openDocument
+{
+	CPU_reset();
+	
 	[self browseForListingWithCompletion:^(NSURL *url) {
 		// Do this next runloop to let the file chooser go away!
 		dispatch_async( dispatch_get_main_queue(), ^(void){
 			if( url )
 			{
-				//	HexLoader *loader = [[HexLoader alloc] initWithListingPath:@"/Users/don/Code/Cosmac_1802/toggleQ.lst"];
-				//	HexLoader *loader = [[HexLoader alloc] initWithListingPath:@"/Users/don/Code/Cosmac_1802/FIG-Forth/FIG_Forth.lst"];
-//				HexLoader *loader = [[HexLoader alloc] initWithListingPath:@"/Users/don/Dropbox/Documents/RCA 1802/FIG_2/FIG311.LST"];
-				
-				HexLoader *loader = [[HexLoader alloc] initWithListingPath:[url path]];
-				
-				[loader load:^(long addr, unsigned char byte)
-				 {
-					 CPU_writeByteToMemory( byte, addr);
-				 }];
-				
-				DDLogDebug( @"Listing loaded into memory, %lu bytes", loader.byteCount );
-				
-				[self updateState];
+				[self loadFile:[url path]];
 			}
 			else
 			{
@@ -195,8 +189,24 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 	}];
 }
 
+- (void)loadFile:(NSString*)path
+{
+	//	HexLoader *loader = [[HexLoader alloc] initWithListingPath:@"/Users/don/Code/Cosmac_1802/toggleQ.lst"];
+	//	HexLoader *loader = [[HexLoader alloc] initWithListingPath:@"/Users/don/Code/Cosmac_1802/FIG-Forth/FIG_Forth.lst"];
+	//				HexLoader *loader = [[HexLoader alloc] initWithListingPath:@"/Users/don/Dropbox/Documents/RCA 1802/FIG_2/FIG311.LST"];
+	
+	HexLoader *loader = [[HexLoader alloc] initWithListingPath:path];
+	
+	[loader load:^(long addr, unsigned char byte)
+	 {
+		 CPU_writeByteToMemory( byte, addr);
+	 }];
+	
+	DDLogDebug( @"Listing loaded into memory, %lu bytes", loader.byteCount );
+	
+	[self updateState];
+}
 
-#pragma mark Ask For File
 
 /**
  * Ask the user for a file which is then read into a string.

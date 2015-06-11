@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Prefix.pch">
+   </FileRef>
+   <FileRef
       location = "group:1802 Emulator.xcodeproj">
    </FileRef>
    <FileRef

@@ -8,6 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+
 @interface MainViewController : NSViewController
+
+- (void)loadFile:(NSString*)path;
+
+- (void)openDocument;
 
 @end
