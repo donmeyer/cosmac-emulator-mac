@@ -486,7 +486,7 @@ static void opcode_3()
 
 		case 0x0B:
 			// BNF
-			branch( ! cpu.DF == 0 );
+			branch( cpu.DF == 0 );
 			break;
 
 		case 0x0C:
