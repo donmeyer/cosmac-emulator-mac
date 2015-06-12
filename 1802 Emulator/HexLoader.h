@@ -10,10 +10,23 @@
 
 
 
+
+@interface Symbol : NSObject
+
+@property (strong) NSString *name;
+@property (assign) unsigned int addr;
+
+- (instancetype)initWithName:(NSString*)name addr:(unsigned int) addr;
+
+@end
+
+
+
 @interface HexLoader : NSObject
 
-
 @property (nonatomic, assign, readonly) long byteCount;	// Count of bytes written to memory.
+
+@property (strong, readonly) NSMutableArray *symbols;
 
 
 - (id)initWithListingPath:(NSString*)path;

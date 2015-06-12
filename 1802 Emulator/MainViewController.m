@@ -49,8 +49,12 @@ const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 @property (weak) IBOutlet NSButton *outputPort2Checkbox;
 
 @property (weak) IBOutlet NSTextField *stastusLabel;
+@property (weak) IBOutlet NSTextField *symbolLabel;
 
 @property ( strong) NSTimer *cycleTimer;
+
+
+@property (strong) HexLoader *loader;
 
 @end
 
@@ -94,6 +98,21 @@ static uint8_t icb( void *userData, uint8_t port )
 	}
 
 	return 0;
+}
+
+
+- (NSString*)symbolForAddr:(unsigned int)addr
+{
+	for( Symbol *sym in self.loader.symbols )
+	{
+		if( addr >= sym.addr )
+		{
+			// Bingo
+			return sym.name;
+		}
+	}
+	
+	return @"none";
 }
 
 
@@ -152,6 +171,9 @@ static uint8_t icb( void *userData, uint8_t port )
 	[self.dfLabel setStringValue:dfStr];
 	
 	[self.registersView updateRegisters:cpu];
+	
+	NSString *symName = [self symbolForAddr:cpu->reg[cpu->P]];
+	[self.symbolLabel setStringValue:symName];
 }
 
 
@@ -263,14 +285,14 @@ static uint8_t icb( void *userData, uint8_t port )
 	//	HexLoader *loader = [[HexLoader alloc] initWithListingPath:@"/Users/don/Code/Cosmac_1802/FIG-Forth/FIG_Forth.lst"];
 	//				HexLoader *loader = [[HexLoader alloc] initWithListingPath:@"/Users/don/Dropbox/Documents/RCA 1802/FIG_2/FIG311.LST"];
 	
-	HexLoader *loader = [[HexLoader alloc] initWithListingPath:path];
+	self.loader = [[HexLoader alloc] initWithListingPath:path];
 	
-	[loader load:^(long addr, unsigned char byte)
+	[self.loader load:^(long addr, unsigned char byte)
 	 {
 		 CPU_writeByteToMemory( byte, addr);
 	 }];
 	
-	DDLogDebug( @"Listing loaded into memory, %lu bytes", loader.byteCount );
+	DDLogDebug( @"Listing loaded into memory, %lu bytes", self.loader.byteCount );
 	
 	[self updateState];
 }

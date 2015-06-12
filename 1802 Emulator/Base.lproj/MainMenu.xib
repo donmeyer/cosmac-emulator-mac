@@ -917,6 +917,14 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMU-mW-qyZ">
+                        <rect key="frame" x="46" y="133" width="168" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;symbol&gt;" id="SVm-sf-pO8">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <point key="canvasLocation" x="692.5" y="704"/>
@@ -934,6 +942,7 @@
                 <outlet property="registersBox" destination="Ovo-3W-JdH" id="gfF-2E-9bF"/>
                 <outlet property="registersView" destination="Pt0-2P-gaY" id="pD9-65-8gg"/>
                 <outlet property="stastusLabel" destination="Odv-2V-cgT" id="7nF-4y-HP0"/>
+                <outlet property="symbolLabel" destination="SMU-mW-qyZ" id="QM4-3M-Njc"/>
                 <outlet property="totalCyclesField" destination="GjQ-OV-56M" id="Glo-c3-jwc"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="vw0-K7-Jt1"/>
             </connections>

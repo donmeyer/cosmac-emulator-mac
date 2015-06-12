@@ -15,6 +15,28 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 
 
 
+
+
+@implementation Symbol
+
+- (instancetype)initWithName:(NSString*)name addr:(unsigned int) addr
+{
+	self = [super init];
+	if( self )
+	{
+		_name = name;
+		_addr = addr;
+	}
+	
+	return self;
+}
+
+@end
+
+
+
+
+
 @interface HexLoader ()
 
 @property (nonatomic, strong) NSString *listingString;
@@ -22,7 +44,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 @property (nonatomic, assign) long byteCount;	// Count of bytes written to memory.
 
 @property (nonatomic, strong) void (^writeBlock)(long addr, unsigned char byte);
-	
+
+@property (strong, readwrite) NSMutableArray *symbols;
+
 @end
 
 
@@ -36,6 +60,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 	if( self )
 	{
 		_listingString = listingString;
+		_symbols = [[NSMutableArray alloc] init];
 	}
 	
 	return self;
@@ -80,13 +105,30 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 		{
 			if( [self processListingLine:line] == NO )
 			{
-				return NO;
+				[self processSymbolTableLine:line];
 			}
 		}
 	}
 	
+	// Sort the symbols
+	[self.symbols sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+		if( [obj1 addr] > [obj2 addr] )
+		{
+			return NSOrderedAscending;
+		}
+		else if( [obj1 addr] < [obj2 addr] )
+		{
+			return NSOrderedDescending;
+		}
+		else
+		{
+			return NSOrderedSame;
+		}
+	}];
+	
 	return YES;
 }
+
 
 
 - (BOOL)processListingLine:(NSString*)line
@@ -98,24 +140,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 																			 error:&error];
 	NSAssert( ( regex != nil && error == nil ), @"Error build regex: %@", error );
 	
-//	NSUInteger matchCount = [regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)];	
-//	DDLogVerbose( @"Regex=%@, matchcount=%lu", regex, matchCount );
-
+	//	NSUInteger matchCount = [regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)];
+	//	DDLogVerbose( @"Regex=%@, matchcount=%lu", regex, matchCount );
+	
 	NSTextCheckingResult *result = [regex firstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
 	DDLogVerbose( @"Match Result %@", result );
 	if( result )
 	{
 		NSUInteger num = [result numberOfRanges];	// This is the number of capture groups plus the full match as rnage 0.
 		DDLogVerbose( @"Number of ranges=%lu", (unsigned long)num );
-
+		
 		NSRange range;
 		NSString *cap;
-
+		
 		// First capture group, the address
 		range = [result rangeAtIndex:0];
 		cap = [line substringWithRange:range];
 		DDLogVerbose( @"Range 1 capture '%@'", cap );
-
+		
 		unsigned hexAddr;
 		if( [[NSScanner scannerWithString:cap] scanHexInt:&hexAddr] == NO )
 		{
@@ -123,7 +165,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 			DDLogError( @"Found hex address '%@' but failed to parse it!", cap );
 			return NO;
 		}
-	
+		
 		range = [result rangeAtIndex:2];
 		cap = [line substringWithRange:range];
 		DDLogVerbose( @"Range 2 capture '%@'", cap );
@@ -152,8 +194,62 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 			
 			self.byteCount++;
 		}
+		
+		return YES;
 	}
 	
+	return NO;
+}
+
+
+
+- (BOOL)processSymbolTableLine:(NSString*)line
+{
+	// We expect symbol lines to look like:  "FOO : 12FC"
+	NSError *error = nil;
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^(.+) : ([0-9a-fA-F]{4}).*"
+																		   options:NSRegularExpressionDotMatchesLineSeparators
+																			 error:&error];
+	NSAssert( ( regex != nil && error == nil ), @"Error build regex: %@", error );
+	
+//	NSUInteger matchCount = [regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)];	
+//	DDLogVerbose( @"Regex=%@, matchcount=%lu", regex, matchCount );
+
+	NSTextCheckingResult *result = [regex firstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
+	DDLogVerbose( @"Symbol Match Result %@", result );
+	if( result )
+	{
+		NSUInteger num = [result numberOfRanges];	// This is the number of capture groups plus the full match as rnage 0.
+		DDLogVerbose( @"Number of ranges=%lu", (unsigned long)num );
+
+		NSRange range;
+		NSString *cap;
+
+		// First capture group, the name
+		range = [result rangeAtIndex:0];
+		cap = [line substringWithRange:range];
+		DDLogVerbose( @"Range 1 capture '%@'", cap );
+
+		NSString *name = cap;
+	
+		// Second capture group, the address
+		range = [result rangeAtIndex:2];
+		cap = [line substringWithRange:range];
+		DDLogVerbose( @"Range 2 capture '%@'", cap );
+		
+		unsigned hexAddr;
+		if( [[NSScanner scannerWithString:cap] scanHexInt:&hexAddr] == NO )
+		{
+			// This is odd
+			DDLogError( @"Found hex address '%@' but failed to parse it!", cap );
+			return NO;
+		}
+		
+		// Add entry to table
+		Symbol *sym = [[Symbol alloc] initWithName:name addr:hexAddr];
+		[self.symbols addObject:sym];
+	}
+
 	// Success is either a valid line parsed, or no match found.
 	return YES;
 }
