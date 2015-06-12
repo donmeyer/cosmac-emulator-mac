@@ -40,6 +40,16 @@ const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 @property (weak) IBOutlet NSTextField *totalCyclesField;
 
 
+@property (weak) IBOutlet NSTextField *breakpoint1Field;
+@property (weak) IBOutlet NSButton *breakpoint1Checkbox;
+
+@property (weak) IBOutlet NSTextField *breakpoint2Field;
+@property (weak) IBOutlet NSButton *breakpoint2Checkbox;
+
+@property (weak) IBOutlet NSButton *outputPort2Checkbox;
+
+@property (weak) IBOutlet NSTextField *stastusLabel;
+
 @property ( strong) NSTimer *cycleTimer;
 
 @end
@@ -54,6 +64,36 @@ const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 static void ocb( void *userData, uint8_t port, uint8_t data )
 {
 	DDLogDebug( @"Output port %d  data 0x%02X  '%c'", port, data, data );
+	
+	MainViewController *mvc = (__bridge MainViewController*)userData;
+	
+	if( mvc.outputPort2Checkbox.state == NSOnState )
+	{
+		[mvc.stastusLabel setStringValue:@"Breakpoint: Output Port 2"];
+		
+		[mvc.cycleTimer invalidate];
+	}
+}
+
+
+
+static uint8_t icb( void *userData, uint8_t port )
+{
+	DDLogDebug( @"Input port %d", port );
+	
+	MainViewController *mvc = (__bridge MainViewController*)userData;
+	
+	if( port == 3 )
+	{
+		return 0x81;
+	}
+
+	if( port == 2 )
+	{
+		return 0x0D;
+	}
+
+	return 0;
 }
 
 
@@ -77,7 +117,9 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 	CPU_makeAllPagesRAM();
 	
 	CPU_setOutputCallback( ocb, (__bridge void *)(self) );
-	
+
+	CPU_setInputCallback( icb, (__bridge void *)(self) );
+
 }
 
 
@@ -88,6 +130,8 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 	[self.registersView setDescription:@"Rats" forReg:0x00];
 	
 	[self.registersView setDescription:@"UP" forReg:0x0D];
+	
+	[self.stastusLabel setStringValue:@""];
 }
 
 
@@ -133,12 +177,31 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 {
 	DDLogDebug( @"Run" );
 
+	[self.stastusLabel setStringValue:@"Running"];
+
 	[self startCycleTimer];
 }
 
 
 - (void)performStep:(NSTimer*)timer
 {
+	const CPU *cpu = CPU_getCPU();
+
+	if( self.breakpoint1Checkbox.state == NSOnState )
+	{
+		NSString *s = self.breakpoint1Field.stringValue;
+		unsigned hexAddr;
+		if( [[NSScanner scannerWithString:s] scanHexInt:&hexAddr] == YES )
+		{
+			if( hexAddr == cpu->reg[cpu->P] )
+			{
+				[self.stastusLabel setStringValue:@"Breakpoint: Adder 1"];
+		
+				[self.cycleTimer invalidate];
+			}
+		}
+	}
+	
 	CPU_step();
 	[self updateState];
 }
@@ -148,6 +211,8 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 {
 	DDLogDebug( @"Pause" );
 
+	[self.stastusLabel setStringValue:@"Paused"];
+
 	[self.cycleTimer invalidate];
 }
 
@@ -156,6 +221,9 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 - (IBAction)resetAction:(id)sender
 {
 	DDLogDebug( @"Reset" );
+	
+	[self.stastusLabel setStringValue:@"Reset"];
+
 	CPU_reset();
 	[self updateState];
 }

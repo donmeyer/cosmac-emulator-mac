@@ -780,6 +780,30 @@
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="253" height="264"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oex-7H-SkD">
+                                    <rect key="frame" x="45" y="184" width="65" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Output" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gCK-c0-xVE">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Efb-FN-JPA">
+                                    <rect key="frame" x="11" y="186" width="12" height="17"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="2" id="aBu-fB-Qf1">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hsW-9d-hAh">
+                                    <rect key="frame" x="47" y="153" width="65" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Output" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="4eP-i8-wWk">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                </button>
+                            </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -849,21 +873,67 @@
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="253" height="264"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Twf-Tb-jjO">
+                                    <rect key="frame" x="18" y="224" width="96" height="22"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="r1o-PB-8Hp">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3xN-oM-8xd">
+                                    <rect key="frame" x="128" y="226" width="73" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Wmo-Aa-1wq">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                </button>
+                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JCC-4d-fFc">
+                                    <rect key="frame" x="18" y="183" width="96" height="22"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="aXR-YZ-nOT">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7cH-ed-jtl">
+                                    <rect key="frame" x="128" y="185" width="73" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kQD-EE-0aO">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                </button>
+                            </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Odv-2V-cgT">
+                        <rect key="frame" x="35" y="38" width="246" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;status&gt;" id="6fi-Jx-iih">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <point key="canvasLocation" x="692.5" y="704"/>
         </window>
         <viewController nibName="MainMenu" id="WHe-6D-iyZ" customClass="MainViewController">
             <connections>
+                <outlet property="breakpoint1Checkbox" destination="3xN-oM-8xd" id="abB-5X-TTg"/>
+                <outlet property="breakpoint1Field" destination="Twf-Tb-jjO" id="jbQ-td-K6m"/>
+                <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="b6j-Xi-g3O"/>
+                <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="dmB-48-fgE"/>
                 <outlet property="dLabel" destination="xYh-iz-Bpu" id="b3H-Z1-Lv5"/>
                 <outlet property="dfLabel" destination="6bs-zH-Rtp" id="ggK-xU-1No"/>
+                <outlet property="outputPort2Checkbox" destination="Oex-7H-SkD" id="nF7-po-R0I"/>
                 <outlet property="programCounter" destination="Z8d-j6-0im" id="pqH-SX-qWN"/>
                 <outlet property="registersBox" destination="Ovo-3W-JdH" id="gfF-2E-9bF"/>
                 <outlet property="registersView" destination="Pt0-2P-gaY" id="pD9-65-8gg"/>
+                <outlet property="stastusLabel" destination="Odv-2V-cgT" id="7nF-4y-HP0"/>
                 <outlet property="totalCyclesField" destination="GjQ-OV-56M" id="Glo-c3-jwc"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="vw0-K7-Jt1"/>
             </connections>
