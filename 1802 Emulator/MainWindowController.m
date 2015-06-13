@@ -1,24 +1,23 @@
 //
-//  MainViewController.m
+//  MainWindowController.m
 //  1802 Emulator
 //
-//  Created by Donald Meyer on 6/5/15.
+//  Created by Donald Meyer on 6/12/15.
 //  Copyright (c) 2015 Donald Meyer. All rights reserved.
 //
 
-#import "MainViewController.h"
-
+#import "MainWindowController.h"
 #import "CPU Emulation.h"
 #import "HexLoader.h"
 #import "RegistersView.h"
 
 
 
-const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 
 
-@interface MainViewController ()
+@interface MainWindowController ()
 
 //
 // Status
@@ -60,7 +59,32 @@ const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 
 
-@implementation MainViewController
+
+@implementation MainWindowController
+
+- (void)windowDidLoad
+{
+    [super windowDidLoad];
+    
+    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+	CPU_makeAllPagesRAM();
+	
+	CPU_setOutputCallback( ocb, (__bridge void *)(self) );
+	
+	CPU_setInputCallback( icb, (__bridge void *)(self) );
+}
+
+
+- (void)awakeFromNib
+{
+	[self.registersView setDescription:@"Rats" forReg:0x00];
+	
+	[self.registersView setDescription:@"UP" forReg:0x0D];
+	
+	[self.stastusLabel setStringValue:@""];
+}
+
+
 
 #pragma mark - View Lifecycle
 
@@ -69,7 +93,7 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 {
 	DDLogDebug( @"Output port %d  data 0x%02X  '%c'", port, data, data );
 	
-	MainViewController *mvc = (__bridge MainViewController*)userData;
+	MainWindowController *mvc = (__bridge MainWindowController*)userData;
 	
 	if( mvc.outputPort2Checkbox.state == NSOnState )
 	{
@@ -85,18 +109,18 @@ static uint8_t icb( void *userData, uint8_t port )
 {
 	DDLogDebug( @"Input port %d", port );
 	
-	MainViewController *mvc = (__bridge MainViewController*)userData;
+	MainWindowController *mvc = (__bridge MainWindowController*)userData;
 	
 	if( port == 3 )
 	{
 		return 0x81;
 	}
-
+	
 	if( port == 2 )
 	{
 		return 0x0D;
 	}
-
+	
 	return 0;
 }
 
@@ -116,43 +140,6 @@ static uint8_t icb( void *userData, uint8_t port )
 }
 
 
--(instancetype)init
-{
-	self = [super init];
-	if( self )
-	{
-		
-	}
-	
-	return self;
-}
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do view setup here.
-
-	CPU_makeAllPagesRAM();
-	
-	CPU_setOutputCallback( ocb, (__bridge void *)(self) );
-
-	CPU_setInputCallback( icb, (__bridge void *)(self) );
-
-}
-
-
--(void)viewWillAppear
-{
-	[super viewWillAppear];
-	
-	[self.registersView setDescription:@"Rats" forReg:0x00];
-	
-	[self.registersView setDescription:@"UP" forReg:0x0D];
-	
-	[self.stastusLabel setStringValue:@""];
-}
-
 
 
 #pragma mark - State
@@ -163,10 +150,10 @@ static uint8_t icb( void *userData, uint8_t port )
 	
 	NSString *pcStr = [NSString stringWithFormat:@"%04X", cpu->reg[cpu->P]];
 	[self.programCounter setStringValue:pcStr];
-
+	
 	NSString *dStr = [NSString stringWithFormat:@"%02X", cpu->D];
 	[self.dLabel setStringValue:dStr];
-
+	
 	NSString *dfStr = [NSString stringWithFormat:@"%X", cpu->DF];
 	[self.dfLabel setStringValue:dfStr];
 	
@@ -198,9 +185,9 @@ static uint8_t icb( void *userData, uint8_t port )
 - (IBAction)runAction:(id)sender
 {
 	DDLogDebug( @"Run" );
-
+	
 	[self.stastusLabel setStringValue:@"Running"];
-
+	
 	[self startCycleTimer];
 }
 
@@ -208,7 +195,7 @@ static uint8_t icb( void *userData, uint8_t port )
 - (void)performStep:(NSTimer*)timer
 {
 	const CPU *cpu = CPU_getCPU();
-
+	
 	if( self.breakpoint1Checkbox.state == NSOnState )
 	{
 		NSString *s = self.breakpoint1Field.stringValue;
@@ -218,7 +205,7 @@ static uint8_t icb( void *userData, uint8_t port )
 			if( hexAddr == cpu->reg[cpu->P] )
 			{
 				[self.stastusLabel setStringValue:@"Breakpoint: Adder 1"];
-		
+				
 				[self.cycleTimer invalidate];
 			}
 		}
@@ -229,14 +216,6 @@ static uint8_t icb( void *userData, uint8_t port )
 }
 
 
-- (IBAction)pauseAction:(id)sender
-{
-	DDLogDebug( @"Pause" );
-
-	[self.stastusLabel setStringValue:@"Paused"];
-
-	[self.cycleTimer invalidate];
-}
 
 
 
@@ -245,7 +224,7 @@ static uint8_t icb( void *userData, uint8_t port )
 	DDLogDebug( @"Reset" );
 	
 	[self.stastusLabel setStringValue:@"Reset"];
-
+	
 	CPU_reset();
 	[self updateState];
 }
@@ -311,7 +290,7 @@ static uint8_t icb( void *userData, uint8_t port )
 	[panel setCanChooseFiles:YES];
 	[panel setAllowedFileTypes:allowedFileTypes];
 	
-	[panel beginSheetModalForWindow:[self.view window]
+	[panel beginSheetModalForWindow:[self window]
 				  completionHandler:^(NSInteger result) {
 					  
 					  if( result != NSFileHandlingPanelOKButton ) {
@@ -327,5 +306,13 @@ static uint8_t icb( void *userData, uint8_t port )
 				  }];
 }
 
+- (IBAction)pauseAction:(id)sender
+{
+	DDLogDebug( @"Pause" );
+	
+//	[self.stastusLabel setStringValue:@"Paused"];
+//	
+//	[self.cycleTimer invalidate];
+}
 
 @end

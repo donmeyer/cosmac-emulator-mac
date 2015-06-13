@@ -9,7 +9,7 @@
 //#import <CocoaLumberjack/CocoaLumberjack.h>
 
 #import "AppDelegate.h"
-#import "MainViewController.h"
+#import "MainWindowController.h"
 
 
 
@@ -20,7 +20,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @property (weak) IBOutlet NSWindow *window;
 
-@property (weak) IBOutlet MainViewController *mainViewController;
+@property (strong) MainWindowController *mainWindowController;
 
 @end
 
@@ -36,6 +36,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 	[DDLog addLogger:[DDASLLogger sharedInstance]];
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+	
+	self.mainWindowController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
+
+	[self.mainWindowController showWindow:self];
 }
 
 
@@ -48,7 +52,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 	}
 	
 	// Make sure file open modal goes away first
-	[self.mainViewController performSelector:@selector(openFile:) withObject:filename afterDelay:0.2];
+	[self.mainWindowController performSelector:@selector(openFile:) withObject:filename afterDelay:0.2];
 	
 	return YES;
 }
@@ -57,7 +61,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (void)openDocument:(id)sender
 {
 	DDLogDebug( @"Open document" );
-	[self.mainViewController openDocument];
+	[self.mainWindowController openDocument];
 }
 
 - (void)showHelp:(id)sender
