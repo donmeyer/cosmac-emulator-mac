@@ -9,7 +9,8 @@
 #import "MainWindowController.h"
 #import "CPU Emulation.h"
 #import "HexLoader.h"
-#import "RegistersView.h"
+#import "ScratchpadRegistersView.h"
+#import "RegistersViewController.h"
 
 
 
@@ -22,15 +23,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 //
 // Status
 //
-@property (weak) IBOutlet NSTextField *programCounter;
-@property (weak) IBOutlet NSTextField *dLabel;
-@property (weak) IBOutlet NSTextField *dfLabel;
-
-//
-// Registers
-//
-@property (weak) IBOutlet NSBox *registersBox;
-@property (weak) IBOutlet RegistersView *registersView;
+@property (strong) IBOutlet RegistersViewController *registersViewController;
+@property (weak) IBOutlet NSView *regView;
 
 
 //
@@ -50,8 +44,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 @property (weak) IBOutlet NSTextField *stastusLabel;
 @property (weak) IBOutlet NSTextField *symbolLabel;
 
-@property ( strong) NSTimer *cycleTimer;
 
+@property ( strong) NSTimer *cycleTimer;
 
 @property (strong) HexLoader *loader;
 
@@ -72,15 +66,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 	CPU_setOutputCallback( ocb, (__bridge void *)(self) );
 	
 	CPU_setInputCallback( icb, (__bridge void *)(self) );
+		
+	self.registersViewController = [[RegistersViewController alloc] initWithNibName:@"RegistersView" bundle:nil];
+//	self.registersViewController.view = self.regView;
+
+	[self.regView addSubview:[self.registersViewController view]];
 }
 
 
 - (void)awakeFromNib
 {
-	[self.registersView setDescription:@"Rats" forReg:0x00];
-	
-	[self.registersView setDescription:@"UP" forReg:0x0D];
-	
 	[self.stastusLabel setStringValue:@""];
 }
 
@@ -147,20 +142,7 @@ static uint8_t icb( void *userData, uint8_t port )
 - (void)updateState
 {
 	const CPU *cpu = CPU_getCPU();
-	
-	NSString *pcStr = [NSString stringWithFormat:@"%04X", cpu->reg[cpu->P]];
-	[self.programCounter setStringValue:pcStr];
-	
-	NSString *dStr = [NSString stringWithFormat:@"%02X", cpu->D];
-	[self.dLabel setStringValue:dStr];
-	
-	NSString *dfStr = [NSString stringWithFormat:@"%X", cpu->DF];
-	[self.dfLabel setStringValue:dfStr];
-	
-	[self.registersView updateRegisters:cpu];
-	
-	NSString *symName = [self symbolForAddr:cpu->reg[cpu->P]];
-	[self.symbolLabel setStringValue:symName];
+	[self.registersViewController updateCPUState:cpu];
 }
 
 

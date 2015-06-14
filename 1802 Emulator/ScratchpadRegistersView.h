@@ -1,5 +1,5 @@
 //
-//  RegistersView.h
+//  ScratchpadRegistersView.h
 //  1802 Emulator
 //
 //  Created by Donald Meyer on 6/7/15.
@@ -12,7 +12,7 @@
 
 
 
-@interface RegistersView : NSView
+@interface ScratchpadRegistersView : NSView
 
 - (void)setDescription:(NSString*)desc forReg:(int)reg;
 

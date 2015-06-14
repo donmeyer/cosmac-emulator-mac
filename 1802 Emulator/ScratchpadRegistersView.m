@@ -1,12 +1,12 @@
 //
-//  RegistersView.m
+//  ScratchpadRegistersView.m
 //  1802 Emulator
 //
 //  Created by Donald Meyer on 6/7/15.
 //  Copyright (c) 2015 Donald Meyer. All rights reserved.
 //
 
-#import "RegistersView.h"
+#import "ScratchpadRegistersView.h"
 
 #import "CPU Emulation.h"
 
@@ -17,7 +17,7 @@
 
 
 
-@interface RegistersView ()
+@interface ScratchpadRegistersView ()
 
 @property (nonatomic, assign) const CPU *cpu;
 
@@ -38,7 +38,7 @@
 
 
 
-@implementation RegistersView
+@implementation ScratchpadRegistersView
 
 - (instancetype)initWithFrame:(NSRect)frameRect
 {
