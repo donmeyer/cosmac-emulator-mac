@@ -54,9 +54,124 @@ CPU *cpu;
 
 #pragma mark - Math Instructions
 
-- (void)testSubtraction_1
+// ADD 1-4
+- (void)test_ADD_1
 {
 	cpu->D = 0x20;
+	cpu->DF = 0;
+	
+	const uint8_t pgm[] = { 0xF4, 0x43 };
+	CPU_writeToMemory( pgm, 0x0000, 2 );
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x63, @"D contents" );
+	XCTAssertEqual( cpu->DF, 0, @"DF contents" );
+}
+
+// ADD 2-4
+- (void)test_ADD_2
+{
+	cpu->D = 0xC1;
+	cpu->DF = 0;
+	
+	const uint8_t pgm[] = { 0xF4, 0x4A };
+	CPU_writeToMemory( pgm, 0x0000, 2 );
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x0B, @"D contents" );
+	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
+}
+
+
+// ADD 3-4
+- (void)test_ADD_3
+{
+	cpu->D = 0x40;
+	cpu->DF = 1;
+	
+	const uint8_t pgm[] = { 0xF4, 0x21 };
+	CPU_writeToMemory( pgm, 0x0000, 2 );
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x61, @"D contents" );
+	XCTAssertEqual( cpu->DF, 0, @"DF contents" );
+}
+
+
+// ADD 4-4
+- (void)test_ADD_4
+{
+	cpu->D = 0xC1;
+	cpu->DF = 1;
+	
+	const uint8_t pgm[] = { 0xF4, 0x4A };
+	CPU_writeToMemory( pgm, 0x0000, 2 );
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x0B, @"D contents" );
+	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
+}
+
+
+
+// SD 1-4
+- (void)testSubtraction_SD_1
+{
+	cpu->D = 0x0E;
+	cpu->DF = 0;
+	
+	const uint8_t pgm[] = { 0xF5, 0x42 };
+	CPU_writeToMemory( pgm, 0x0000, 2 );
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x34, @"D contents" );
+	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
+}
+
+// SB 2-4
+- (void)testSubtraction_SD_2
+{
+	cpu->D = 0x42;
+	cpu->DF = 0;
+	
+	const uint8_t pgm[] = { 0xF5, 0x42 };
+	CPU_writeToMemory( pgm, 0x0000, 2 );
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x00, @"D contents" );
+	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
+}
+
+
+// SB 3-4
+- (void)testSubtraction_SD_3
+{
+	cpu->D = 0x77;
+	cpu->DF = 1;
+	
+	const uint8_t pgm[] = { 0xF5, 0x42 };
+	CPU_writeToMemory( pgm, 0x0000, 2 );
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0xCB, @"D contents" );
+	XCTAssertEqual( cpu->DF, 0, @"DF contents" );
+}
+
+
+
+
+// SDB 1-4
+- (void)testSubtraction_SDB_1
+{
+	cpu->D = 0x20;
+	cpu->DF = 0;
 	
 	const uint8_t pgm[] = { 0x75, 0x40 };
 	CPU_writeToMemory( pgm, 0x0000, 2 );
@@ -67,10 +182,11 @@ CPU *cpu;
 	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
 }
 
-
-- (void)testSubtraction_2
+// SDB 2-4
+- (void)testSubtraction_SDB_2
 {
 	cpu->D = 0xC1;
+	cpu->DF = 0;
 	
 	const uint8_t pgm[] = { 0x75, 0x4A };
 	CPU_writeToMemory( pgm, 0x0000, 2 );
@@ -82,7 +198,8 @@ CPU *cpu;
 }
 
 
-- (void)testSubtraction_3
+// SDB 3-4
+- (void)testSubtraction_SDB_3
 {
 	cpu->D = 0x32;
 	cpu->DF = 1;
@@ -97,7 +214,8 @@ CPU *cpu;
 }
 
 
-- (void)testSubtraction_4
+// SDB 4-4
+- (void)testSubtraction_SDB_4
 {
 	cpu->D = 0xF2;
 	cpu->DF = 1;
@@ -115,7 +233,98 @@ CPU *cpu;
 
 #pragma mark - Logic Instructions
 
-- (void)testSHR
+
+- (void)test_SHL
+{
+	const uint8_t pgm[] = { 0xFE };
+	CPU_writeToMemory( pgm, 0x0000, 1 );
+	
+	cpu->D = 0x81;
+	cpu->DF = 1;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x02, @"D contents" );
+	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
+
+
+	CPU_reset();
+	cpu->D = 0x01;
+	cpu->DF = 1;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x02, @"D contents" );
+	XCTAssertEqual( cpu->DF, 0, @"DF contents" );
+
+
+	CPU_reset();
+	cpu->D = 0x81;
+	cpu->DF = 0;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x02, @"D contents" );
+	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
+
+
+	CPU_reset();
+	cpu->D = 0x01;
+	cpu->DF = 0;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x02, @"D contents" );
+	XCTAssertEqual( cpu->DF, 0, @"DF contents" );
+}
+
+
+- (void)test_SHLC
+{
+	const uint8_t pgm[] = { 0x7E };
+	CPU_writeToMemory( pgm, 0x0000, 1 );
+	
+	cpu->D = 0x81;
+	cpu->DF = 1;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x03, @"D contents" );
+	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
+
+
+	CPU_reset();
+	cpu->D = 0x01;
+	cpu->DF = 1;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x03, @"D contents" );
+	XCTAssertEqual( cpu->DF, 0, @"DF contents" );
+
+
+	CPU_reset();
+	cpu->D = 0x81;
+	cpu->DF = 0;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x02, @"D contents" );
+	XCTAssertEqual( cpu->DF, 1, @"DF contents" );
+
+
+	CPU_reset();
+	cpu->D = 0x01;
+	cpu->DF = 0;
+	
+	CPU_step();
+	
+	XCTAssertEqual( cpu->D, 0x02, @"D contents" );
+	XCTAssertEqual( cpu->DF, 0, @"DF contents" );
+}
+
+
+- (void)test_SHR
 {
 	const uint8_t pgm[] = { 0xF6 };
 	CPU_writeToMemory( pgm, 0x0000, 1 );
@@ -161,7 +370,7 @@ CPU *cpu;
 
 
 
-- (void)testSHRC
+- (void)test_SHRC
 {
 	const uint8_t pgm[] = { 0x76 };
 	CPU_writeToMemory( pgm, 0x0000, 1 );
