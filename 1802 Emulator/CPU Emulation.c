@@ -349,9 +349,10 @@ static void longBranch( int f )
 {
 	if( f )
 	{
-		setRegHigh( cpu.P, read( cpu.reg[cpu.P] ) );
-		cpu.reg[cpu.P]++;
-		setRegLow( cpu.P, read( cpu.reg[cpu.P] ) );
+		uint16_t p = cpu.reg[cpu.P];
+		
+		setRegHigh( cpu.P, read( p ) );
+		setRegLow( cpu.P, read( p + 1 ) );
 	}
 	else
 	{
