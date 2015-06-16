@@ -887,6 +887,7 @@ static void opcode_F()
 				uint16_t accum = read( cpu.reg[cpu.X] );
 				uint8_t nd = ~(cpu.D);
 				accum += nd;
+				accum += 1;
 				cpu.D = accum & 0xFF;
 				cpu.DF = accum > 0xFF ? 1 : 0;
 			}
@@ -904,6 +905,7 @@ static void opcode_F()
 				uint16_t accum = cpu.D;
 				uint8_t nd = ~read( cpu.reg[cpu.X] );
 				accum += nd;
+				accum += 1;
 				cpu.D = accum & 0xFF;
 				cpu.DF = accum > 0xFF ? 1 : 0;
 			}
@@ -950,6 +952,7 @@ static void opcode_F()
 				uint16_t accum = read( cpu.reg[cpu.P] );
 				uint8_t nd = ~(cpu.D);
 				accum += nd;
+				accum += 1;
 				cpu.D = accum & 0xFF;
 				cpu.DF = accum > 0xFF ? 1 : 0;
 				cpu.reg[cpu.P]++;
@@ -968,6 +971,7 @@ static void opcode_F()
 				uint16_t accum = cpu.D;
 				uint8_t nd = ~read( cpu.reg[cpu.P] );
 				accum += nd;
+				accum += 1;
 				cpu.D = accum & 0xFF;
 				cpu.DF = accum > 0xFF ? 1 : 0;
 				cpu.reg[cpu.P]++;
