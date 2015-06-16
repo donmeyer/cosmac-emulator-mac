@@ -371,7 +371,6 @@ static void longSkip( int f )
 
 
 
-
 #pragma mark - Processing
 
 static void fetch()
@@ -432,7 +431,7 @@ static void opcode_3()
 	{
 		case 0x00:
 			// BR
-			branch( TRUE );
+			branch( 1 );
 			break;
 
 		case 0x01:
@@ -744,8 +743,7 @@ static void opcode_A()
 static void opcode_B()
 {
 	// PHI
-	cpu.reg[cpu.N] &= 0x00FF;
-	cpu.reg[cpu.N] |= cpu.D<<8;	
+	setRegHigh( cpu.N, cpu.D );
 }
 
 
