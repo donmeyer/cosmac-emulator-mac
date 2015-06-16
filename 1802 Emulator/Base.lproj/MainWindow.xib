@@ -6,7 +6,15 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController">
             <connections>
+                <outlet property="breakpoint1Checkbox" destination="3xN-oM-8xd" id="EKV-1w-VC4"/>
+                <outlet property="breakpoint1Field" destination="Twf-Tb-jjO" id="uqs-hx-Ilt"/>
+                <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="0qX-gT-rp1"/>
+                <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="OpW-7F-HnW"/>
+                <outlet property="outputPort2Checkbox" destination="Oex-7H-SkD" id="rnQ-HI-ohm"/>
                 <outlet property="regView" destination="kB2-Tk-jcu" id="LCc-gp-RUJ"/>
+                <outlet property="statusLabel" destination="Odv-2V-cgT" id="CC5-Jo-hmn"/>
+                <outlet property="symbolLabel" destination="SMU-mW-qyZ" id="eMN-N7-Ke1"/>
+                <outlet property="totalCyclesField" destination="GjQ-OV-56M" id="uRL-j8-QP9"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="63F-zY-dLP"/>
             </connections>
         </customObject>
@@ -29,6 +37,16 @@
                         </buttonCell>
                         <connections>
                             <action selector="stepAction:" target="-2" id="ybF-if-6EK"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UgB-Q4-Nk6">
+                        <rect key="frame" x="107" y="29" width="150" height="32"/>
+                        <buttonCell key="cell" type="push" title="Step next Symbol" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ugZ-jr-oqW">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="stepNextSymbolAction:" target="-2" id="o4Q-i3-qDZ"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uBR-sd-2dX">
@@ -61,6 +79,20 @@
                             <action selector="pauseAction:" target="-2" id="JPZ-ap-7nG"/>
                         </connections>
                     </button>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" title="Status" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="V7W-FL-Yod">
+                        <rect key="frame" x="17" y="258" width="411" height="406"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="409" height="390"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <customView autoresizesSubviews="NO" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kB2-Tk-jcu">
+                                    <rect key="frame" x="18" y="14" width="373" height="366"/>
+                                </customView>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
                     <box autoresizesSubviews="NO" fixedFrame="YES" title="I/O Ports" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="hNe-ID-37A">
                         <rect key="frame" x="463" y="379" width="255" height="280"/>
                         <view key="contentView">
@@ -182,7 +214,7 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Odv-2V-cgT">
-                        <rect key="frame" x="35" y="38" width="246" height="17"/>
+                        <rect key="frame" x="35" y="153" width="246" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;status&gt;" id="6fi-Jx-iih">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -190,27 +222,23 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMU-mW-qyZ">
-                        <rect key="frame" x="464" y="40" width="168" height="17"/>
+                        <rect key="frame" x="154" y="215" width="168" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;symbol&gt;" id="SVm-sf-pO8">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <box autoresizesSubviews="NO" fixedFrame="YES" title="Status" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="V7W-FL-Yod">
-                        <rect key="frame" x="17" y="258" width="411" height="406"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="409" height="390"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kB2-Tk-jcu">
-                                    <rect key="frame" x="18" y="14" width="373" height="366"/>
-                                </customView>
-                            </subviews>
-                        </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </box>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ha-54-ZZ6">
+                        <rect key="frame" x="450" y="29" width="209" height="32"/>
+                        <buttonCell key="cell" type="push" title="Ignore symbol, step to next" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wgk-nM-9Ue">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="ignoreStepNextAction:" target="-2" id="VUJ-jo-unz"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <connections>

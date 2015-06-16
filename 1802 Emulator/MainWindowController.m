@@ -41,13 +41,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @property (weak) IBOutlet NSButton *outputPort2Checkbox;
 
-@property (weak) IBOutlet NSTextField *stastusLabel;
+@property (weak) IBOutlet NSTextField *statusLabel;
 @property (weak) IBOutlet NSTextField *symbolLabel;
 
 
-@property ( strong) NSTimer *cycleTimer;
+@property (strong) NSTimer *cycleTimer;
 
 @property (strong) HexLoader *loader;
+
+@property (readonly) NSString *currentSymbol;
+
+@property (strong) NSString *stepTrapSymbol;	// If set, step until symbol no longer matchs this one
+
+@property (strong) NSMutableSet *stepIgnoreSymbols;
 
 @end
 
@@ -76,7 +82,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)awakeFromNib
 {
-	[self.stastusLabel setStringValue:@""];
+	[self.statusLabel setStringValue:@""];
+	
+	self.stepIgnoreSymbols = [[NSMutableSet alloc] init];
 }
 
 
@@ -92,7 +100,7 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 	
 	if( mvc.outputPort2Checkbox.state == NSOnState )
 	{
-		[mvc.stastusLabel setStringValue:@"Breakpoint: Output Port 2"];
+		[mvc.statusLabel setStringValue:@"Breakpoint: Output Port 2"];
 		
 		[mvc.cycleTimer invalidate];
 	}
@@ -104,7 +112,7 @@ static uint8_t icb( void *userData, uint8_t port )
 {
 	DDLogDebug( @"Input port %d", port );
 	
-	MainWindowController *mvc = (__bridge MainWindowController*)userData;
+//	MainWindowController *mvc = (__bridge MainWindowController*)userData;
 	
 	if( port == 3 )
 	{
@@ -113,6 +121,7 @@ static uint8_t icb( void *userData, uint8_t port )
 	
 	if( port == 2 )
 	{
+		DDLogDebug( @"Sending a CR to Forth!" );
 		return 0x0D;
 	}
 	
@@ -135,6 +144,13 @@ static uint8_t icb( void *userData, uint8_t port )
 }
 
 
+- (NSString*)currentSymbol
+{
+	// TODO: cache this, but update cache when addr moves out of range.
+	const CPU *cpu = CPU_getCPU();
+	return [self symbolForAddr:cpu->reg[cpu->P]];
+}
+
 
 
 #pragma mark - State
@@ -143,6 +159,8 @@ static uint8_t icb( void *userData, uint8_t port )
 {
 	const CPU *cpu = CPU_getCPU();
 	[self.registersViewController updateCPUState:cpu];
+	
+	[self.symbolLabel setStringValue:self.currentSymbol];
 }
 
 
@@ -164,11 +182,33 @@ static uint8_t icb( void *userData, uint8_t port )
 }
 
 
+- (IBAction)stepNextSymbolAction:(id)sender
+{
+	self.stepTrapSymbol = self.currentSymbol;
+	
+	[self startCycleTimer];
+}
+
+
+- (IBAction)ignoreStepNextAction:(id)sender
+{
+	[self.stepIgnoreSymbols addObject:self.currentSymbol];
+
+	DDLogDebug( @"Add ignored symbol %@", self.currentSymbol );
+
+	self.stepTrapSymbol = self.currentSymbol;
+	
+	[self startCycleTimer];
+}
+
+
 - (IBAction)runAction:(id)sender
 {
 	DDLogDebug( @"Run" );
 	
-	[self.stastusLabel setStringValue:@"Running"];
+	self.stepTrapSymbol = nil;
+	
+	[self.statusLabel setStringValue:@"Running"];
 	
 	[self startCycleTimer];
 }
@@ -186,7 +226,7 @@ static uint8_t icb( void *userData, uint8_t port )
 		{
 			if( hexAddr == cpu->reg[cpu->P] )
 			{
-				[self.stastusLabel setStringValue:@"Breakpoint: Adder 1"];
+				[self.statusLabel setStringValue:@"Breakpoint: Adder 1"];
 				
 				[self.cycleTimer invalidate];
 			}
@@ -194,10 +234,63 @@ static uint8_t icb( void *userData, uint8_t port )
 	}
 	
 	CPU_step();
+	
 	[self updateState];
+	
+	
+#if 0
+	// Hack
+	static int nestLevel = 0;
+	static NSString *lastSymbol;
+	if( cpu->reg[cpu->P] == 0x123 )
+	{
+		// Nest
+		nestLevel++;
+	}
+	else if( cpu->reg[cpu->P] == 0x509 )
+	{
+		// Un-Nest
+		nestLevel--;
+	}
+
+	if( [lastSymbol isEqualToString:self.currentSymbol] == NO )
+	{
+		DDLogDebug( @"---%d--- %@", nestLevel, self.currentSymbol );
+		lastSymbol = self.currentSymbol;
+	}
+#endif
+	
+	if( self.stepTrapSymbol )
+	{
+		if( [self.stepTrapSymbol isEqualToString:self.currentSymbol] == NO )
+		{
+			// Ok, new symbol. Is it one we ignore?
+			if( [self.stepIgnoreSymbols containsObject:self.currentSymbol] )
+			{
+				// It is
+				self.stepTrapSymbol = self.currentSymbol;
+			}
+			else
+			{
+				// Break
+				[self.statusLabel setStringValue:@"Breakpoint: next symbol"];
+				DDLogDebug( @"Stopped on symbol %@", self.currentSymbol );
+			
+				[self.cycleTimer invalidate];
+			}
+		}
+	}
 }
 
 
+- (IBAction)pauseAction:(id)sender
+{
+	DDLogDebug( @"Pause" );
+	
+	[self.statusLabel setStringValue:@"Paused"];
+	
+	[self.cycleTimer invalidate];
+}
 
 
 
@@ -205,7 +298,7 @@ static uint8_t icb( void *userData, uint8_t port )
 {
 	DDLogDebug( @"Reset" );
 	
-	[self.stastusLabel setStringValue:@"Reset"];
+	[self.statusLabel setStringValue:@"Reset"];
 	
 	CPU_reset();
 	[self updateState];
@@ -239,6 +332,7 @@ static uint8_t icb( void *userData, uint8_t port )
 		});
 	}];
 }
+
 
 - (void)loadFile:(NSString*)path
 {
@@ -286,15 +380,6 @@ static uint8_t icb( void *userData, uint8_t port )
 						  completion( url );
 					  }
 				  }];
-}
-
-- (IBAction)pauseAction:(id)sender
-{
-	DDLogDebug( @"Pause" );
-	
-//	[self.stastusLabel setStringValue:@"Paused"];
-//	
-//	[self.cycleTimer invalidate];
 }
 
 @end

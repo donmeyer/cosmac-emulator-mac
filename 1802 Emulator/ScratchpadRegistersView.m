@@ -12,6 +12,8 @@
 
 
 
+#define COLOR_DEBUG		0
+
 #define VERT_INSET		20
 #define HORIZ_INSET		20
 
@@ -77,7 +79,7 @@
 	
 	self.labelSize = NSMakeSize( fs.width * 2,fs.height );
 	self.regSize = NSMakeSize( fs.width * 4, fs.height );
-	self.descSize = NSMakeSize( fs.width * 16, fs.height );	// TODO: this should be remainder of space
+	self.descSize = NSMakeSize( fs.width * 20, fs.height );	// TODO: this should be remainder of space
 
 	self.rowHeight = fs.height + 5;
 }
@@ -111,8 +113,10 @@
 		
 		rowRect.origin.y = VERT_INSET + ( i * self.rowHeight );
 		
+#if COLOR_DEBUG
 		[[NSColor greenColor] set];
 		NSRectFill( rowRect );
+#endif
 		
 		[rowStr drawInRect:rowRect withAttributes:self.labelAttr];
 	}
@@ -126,7 +130,7 @@
 		return;
 	}
 	
-	CGFloat x = HORIZ_INSET + self.labelSize.width + 10;
+	CGFloat x = HORIZ_INSET + self.labelSize.width + 6;
 	
 	NSRect rowRect = NSMakeRect( x, 0, self.regSize.width, self.regSize.height );
 	
@@ -136,9 +140,11 @@
 		
 		rowRect.origin.y = VERT_INSET + ( i * self.rowHeight );
 		
+#if COLOR_DEBUG
 		[[NSColor yellowColor] set];
 		NSRectFill( rowRect );
-
+#endif
+		
 		[rowStr drawInRect:rowRect withAttributes:self.labelAttr];
 	}
 }
@@ -146,7 +152,7 @@
 
 - (void)drawDescs
 {
-	CGFloat x = HORIZ_INSET + self.labelSize.width + 10 + self.regSize.width + 10;
+	CGFloat x = HORIZ_INSET + self.labelSize.width + 10 + self.regSize.width + 4;
 	
 	NSRect rowRect = NSMakeRect( x, 0, self.descSize.width, self.descSize.height );
 	
@@ -159,8 +165,10 @@
 		}
 		rowRect.origin.y = VERT_INSET + ( i * self.rowHeight );
 
+#if COLOR_DEBUG
 		[[NSColor brownColor] set];
 		NSRectFill( rowRect );
+#endif
 		
 		[rowStr drawInRect:rowRect withAttributes:self.labelAttr];
 	}

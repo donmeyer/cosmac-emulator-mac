@@ -22,7 +22,12 @@
 
 @property (weak) IBOutlet NSTextField *dfField;
 
-
+@property (weak) IBOutlet NSTextField *iField;
+@property (weak) IBOutlet NSTextField *nField;
+@property (weak) IBOutlet NSTextField *xField;
+@property (weak) IBOutlet NSTextField *pField;
+@property (weak) IBOutlet NSTextField *ieField;
+@property (weak) IBOutlet NSTextField *tField;
 
 @end
 
@@ -39,9 +44,26 @@
 
 - (void)awakeFromNib
 {
-	[self.scratchpadView setDescription:@"zero" forReg:0x00];
+	[self.scratchpadView setDescription:@"DMA" forReg:0x00];
+
+	[self.scratchpadView setDescription:@"Interupt PC" forReg:0x01];
+
+	[self.scratchpadView setDescription:@"RP" forReg:0x02];
+	[self.scratchpadView setDescription:@"Primitive PC" forReg:0x03];
 	
+	[self.scratchpadView setDescription:@"Scratch Accum" forReg:0x07];
+	[self.scratchpadView setDescription:@"Scratch Accum" forReg:0x08];
+
+	[self.scratchpadView setDescription:@"SP" forReg:0x09];
+	
+	[self.scratchpadView setDescription:@"IP" forReg:0x0A];
+	[self.scratchpadView setDescription:@"W (CFA)" forReg:0x0B];
+
+	[self.scratchpadView setDescription:@"PC for NEXT" forReg:0x0C];
+
 	[self.scratchpadView setDescription:@"UP" forReg:0x0D];
+
+	[self.scratchpadView setDescription:@"Interupt SP" forReg:0x0E];
 }
 
 
@@ -50,14 +72,34 @@
 	[self.scratchpadView updateRegisters:cpu];
 
 
-	NSString *pcStr = [NSString stringWithFormat:@"%04X", cpu->reg[cpu->P]];
-	[self.pcField setStringValue:pcStr];
+	NSString *str;
+ 
+	str = [NSString stringWithFormat:@"%04X", cpu->reg[cpu->P]];
+	[self.pcField setStringValue:str];
 	
-	NSString *dStr = [NSString stringWithFormat:@"%02X", cpu->D];
-	[self.dField setStringValue:dStr];
+	str = [NSString stringWithFormat:@"%02X", cpu->D];
+	[self.dField setStringValue:str];
 	
-	NSString *dfStr = [NSString stringWithFormat:@"%X", cpu->DF];
-	[self.dfField setStringValue:dfStr];
+	str = [NSString stringWithFormat:@"%X", cpu->DF];
+	[self.dfField setStringValue:str];
+
+	str = [NSString stringWithFormat:@"%X", cpu->X];
+	[self.xField setStringValue:str];
+
+	str = [NSString stringWithFormat:@"%X", cpu->P];
+	[self.pField setStringValue:str];
+
+	str = [NSString stringWithFormat:@"%X", cpu->N];
+	[self.nField setStringValue:str];
+	
+	str = [NSString stringWithFormat:@"%X", cpu->I];
+	[self.iField setStringValue:str];
+
+	str = [NSString stringWithFormat:@"%X", cpu->IE];
+	[self.ieField setStringValue:str];
+
+	str = [NSString stringWithFormat:@"%02X", cpu->T];
+	[self.tField setStringValue:str];
 }
 
 
