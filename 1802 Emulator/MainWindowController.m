@@ -55,6 +55,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @property (strong) NSMutableSet *stepIgnoreSymbols;
 
+
+@property (weak) IBOutlet NSTextField *cmdLineField;
+@property (weak) IBOutlet NSTextField *terminalField;
+
+
+@property (strong) NSMutableString *terminalString;
+
+@property (strong) NSMutableString *cmdString;
+
 @end
 
 
@@ -77,6 +86,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 //	self.registersViewController.view = self.regView;
 
 	[self.regView addSubview:[self.registersViewController view]];
+
+
+	CPU_reset();
+	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
+	
+	[self.cmdString setString:@".\r"];
 }
 
 
@@ -85,6 +100,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 	[self.statusLabel setStringValue:@""];
 	
 	self.stepIgnoreSymbols = [[NSMutableSet alloc] init];
+
+	self.terminalString = [[NSMutableString alloc] init];
+
+	self.cmdString = [[NSMutableString alloc] init];
 }
 
 
@@ -98,6 +117,11 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 	
 	MainWindowController *mvc = (__bridge MainWindowController*)userData;
 	
+	if( port == 2 )
+	{
+		[mvc emitTerminalCharacter:data];
+	}
+	
 	if( mvc.outputPort2Checkbox.state == NSOnState )
 	{
 		[mvc.statusLabel setStringValue:@"Breakpoint: Output Port 2"];
@@ -107,22 +131,37 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 }
 
 
-
 static uint8_t icb( void *userData, uint8_t port )
 {
-	DDLogDebug( @"Input port %d", port );
+//	DDLogDebug( @"Input port %d", port );
 	
-//	MainWindowController *mvc = (__bridge MainWindowController*)userData;
+	MainWindowController *mvc = (__bridge MainWindowController*)userData;
 	
 	if( port == 3 )
 	{
-		return 0x81;
+		if( [mvc hasCmdChar] )
+		{
+			return 0x81;
+		}
+		else
+		{
+			return 0x80;
+		}
 	}
 	
 	if( port == 2 )
 	{
-		DDLogDebug( @"Sending a CR to Forth!" );
-		return 0x0D;
+		int c = [mvc nextCommandChar];
+		if( c >= 0 )
+		{
+			DDLogDebug( @"Sending a character to Forth!" );
+			return c;
+		}
+		else
+		{
+			DDLogWarn( @"Read char but none available" );
+			return 0;
+		}
 	}
 	
 	return 0;
@@ -149,6 +188,55 @@ static uint8_t icb( void *userData, uint8_t port )
 	// TODO: cache this, but update cache when addr moves out of range.
 	const CPU *cpu = CPU_getCPU();
 	return [self symbolForAddr:cpu->reg[cpu->P]];
+}
+
+
+- (void)emitTerminalText:(NSString*)text
+{
+	[self.terminalString appendString:text];
+	[self.terminalField setStringValue:self.terminalString];
+}
+
+
+- (void)emitTerminalCharacter:(char)c
+{
+	[self.terminalString appendFormat:@"%c", c];
+	[self.terminalField setStringValue:self.terminalString];
+}
+
+
+- (BOOL)hasCmdChar
+{
+	return self.cmdString.length > 0 ? YES : NO;
+}
+
+
+/// returns -1 if none
+- (int)nextCommandChar
+{
+	if( self.cmdString.length )
+	{
+		int c = [self.cmdString characterAtIndex:0];
+
+		NSRange range;
+		range.length = 1;
+		range.location = 0;
+		[self.cmdString deleteCharactersInRange:range];
+		
+		return c;
+	}
+	
+	return -1;
+}
+
+
+- (IBAction)cmdEnteredAction:(id)sender
+{
+	NSTextField *field = (NSTextField*)sender;
+	NSString *buf = [NSString stringWithFormat:@"%@\r", field.stringValue];
+	[self.cmdString setString:buf];
+	
+	[field setStringValue:@""];
 }
 
 
@@ -307,6 +395,7 @@ static uint8_t icb( void *userData, uint8_t port )
 
 - (IBAction)importAction:(id)sender
 {
+	CPU_reset();
 	[self openDocument];
 }
 
@@ -316,8 +405,6 @@ static uint8_t icb( void *userData, uint8_t port )
 
 - (void)openDocument
 {
-	CPU_reset();
-	
 	[self browseForListingWithCompletion:^(NSURL *url) {
 		// Do this next runloop to let the file chooser go away!
 		dispatch_async( dispatch_get_main_queue(), ^(void){

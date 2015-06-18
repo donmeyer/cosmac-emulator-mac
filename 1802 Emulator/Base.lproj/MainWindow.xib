@@ -14,6 +14,7 @@
                 <outlet property="regView" destination="kB2-Tk-jcu" id="LCc-gp-RUJ"/>
                 <outlet property="statusLabel" destination="Odv-2V-cgT" id="CC5-Jo-hmn"/>
                 <outlet property="symbolLabel" destination="SMU-mW-qyZ" id="eMN-N7-Ke1"/>
+                <outlet property="terminalField" destination="ZQS-Ko-J1m" id="o2f-Wv-nuh"/>
                 <outlet property="totalCyclesField" destination="GjQ-OV-56M" id="uRL-j8-QP9"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="63F-zY-dLP"/>
             </connections>
@@ -153,15 +154,6 @@
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xhq-vn-qgS">
-                        <rect key="frame" x="526" y="80" width="96" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="eNp-Cq-cdN">
-                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="fBv-7J-zq7"/>
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XiB-5E-iyo">
                         <rect key="frame" x="311" y="29" width="81" height="32"/>
                         <buttonCell key="cell" type="push" title="Import" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HUP-Kd-iHS">
@@ -170,6 +162,16 @@
                         </buttonCell>
                         <connections>
                             <action selector="importAction:" target="-2" id="5Nv-S1-foZ"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ha-54-ZZ6">
+                        <rect key="frame" x="450" y="29" width="209" height="32"/>
+                        <buttonCell key="cell" type="push" title="Ignore symbol, step to next" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wgk-nM-9Ue">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="ignoreStepNextAction:" target="-2" id="VUJ-jo-unz"/>
                         </connections>
                     </button>
                     <box autoresizesSubviews="NO" fixedFrame="YES" title="Breakpoints" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="aBZ-ou-lRU">
@@ -229,16 +231,26 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ha-54-ZZ6">
-                        <rect key="frame" x="450" y="29" width="209" height="32"/>
-                        <buttonCell key="cell" type="push" title="Ignore symbol, step to next" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wgk-nM-9Ue">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQS-Ko-J1m">
+                        <rect key="frame" x="737" y="69" width="300" height="427"/>
+                        <textFieldCell key="cell" lineBreakMode="charWrapping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="KUD-fV-PSq">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="5bC-g2-zki"/>
                             <font key="font" metaFont="system"/>
-                        </buttonCell>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jFs-dY-YyJ">
+                        <rect key="frame" x="702" y="35" width="335" height="22"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="hJM-9B-zft">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
                         <connections>
-                            <action selector="ignoreStepNextAction:" target="-2" id="VUJ-jo-unz"/>
+                            <action selector="cmdEnteredAction:" target="-2" id="6Jh-Pw-jwM"/>
                         </connections>
-                    </button>
+                    </textField>
                 </subviews>
             </view>
             <connections>
