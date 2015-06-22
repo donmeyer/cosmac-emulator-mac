@@ -14,6 +14,6 @@
 
 @interface RegistersViewController : NSViewController
 
-- (void)updateCPUState:(const CPU*)cpu;
+- (void)updateCPUState:(const CPU*)cpu force:(BOOL)force;
 
 @end

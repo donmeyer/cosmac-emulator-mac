@@ -17,6 +17,12 @@
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 
+NS_ENUM( NSInteger, RunMode ) {
+	RunModePause,
+	RunModeStepping,
+	RunModeRunning
+};
+
 
 @interface MainWindowController ()
 
@@ -45,6 +51,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 @property (weak) IBOutlet NSTextField *symbolLabel;
 
 
+//
+// Buttons
+//
+@property (weak) IBOutlet NSButton *resetButton;
+@property (weak) IBOutlet NSButton *stepButton;
+@property (weak) IBOutlet NSButton *runButton;
+@property (weak) IBOutlet NSButton *importButton;
+
+
 @property (strong) NSTimer *cycleTimer;
 
 @property (strong) HexLoader *loader;
@@ -63,6 +78,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 @property (strong) NSMutableString *terminalString;
 
 @property (strong) NSMutableString *cmdString;
+
+@property (assign) enum RunMode runmode;
 
 @end
 
@@ -246,59 +263,49 @@ static uint8_t icb( void *userData, uint8_t port )
 - (void)updateState
 {
 	const CPU *cpu = CPU_getCPU();
-	[self.registersViewController updateCPUState:cpu];
 	
-	[self.symbolLabel setStringValue:self.currentSymbol];
+	BOOL stepping = self.runmode != RunModeRunning;
+	
+	[self.registersViewController updateCPUState:cpu force:stepping];
+	
+	if( stepping )
+	{
+		[self.symbolLabel setStringValue:self.currentSymbol];
+	}
 }
 
 
 - (void)startCycleTimer
 {
+	self.runmode = RunModeRunning;
 	self.cycleTimer = [NSTimer timerWithTimeInterval:0.00001 target:self selector:@selector(performStep:) userInfo:nil repeats:YES];
 	[[NSRunLoop mainRunLoop] addTimer:self.cycleTimer forMode:NSDefaultRunLoopMode];
 }
 
 
-
-#pragma mark - Actions
-
-- (IBAction)stepAction:(id)sender
+- (void)setRunmode:(enum RunMode)runmode
 {
-	DDLogDebug( @"Step" );
-	CPU_step();
-	[self updateState];
-}
-
-
-- (IBAction)stepNextSymbolAction:(id)sender
-{
-	self.stepTrapSymbol = self.currentSymbol;
+	_runmode = runmode;
 	
-	[self startCycleTimer];
-}
-
-
-- (IBAction)ignoreStepNextAction:(id)sender
-{
-	[self.stepIgnoreSymbols addObject:self.currentSymbol];
-
-	DDLogDebug( @"Add ignored symbol %@", self.currentSymbol );
-
-	self.stepTrapSymbol = self.currentSymbol;
-	
-	[self startCycleTimer];
-}
-
-
-- (IBAction)runAction:(id)sender
-{
-	DDLogDebug( @"Run" );
-	
-	self.stepTrapSymbol = nil;
-	
-	[self.statusLabel setStringValue:@"Running"];
-	
-	[self startCycleTimer];
+	switch (runmode)
+	{
+		case RunModePause:
+			self.resetButton.enabled = YES;
+			self.importButton.enabled = YES;
+			self.stepButton.enabled = YES;
+			self.runButton.title = @"Run";
+			break;
+			
+		case RunModeRunning:
+			self.resetButton.enabled = NO;
+			self.importButton.enabled = NO;
+			self.stepButton.enabled = NO;
+			self.runButton.title = @"Pause";
+			break;
+			
+		default:
+			break;
+	}
 }
 
 
@@ -340,7 +347,7 @@ static uint8_t icb( void *userData, uint8_t port )
 		// Un-Nest
 		nestLevel--;
 	}
-
+	
 	if( [lastSymbol isEqualToString:self.currentSymbol] == NO )
 	{
 		DDLogDebug( @"---%d--- %@", nestLevel, self.currentSymbol );
@@ -363,10 +370,70 @@ static uint8_t icb( void *userData, uint8_t port )
 				// Break
 				[self.statusLabel setStringValue:@"Breakpoint: next symbol"];
 				DDLogDebug( @"Stopped on symbol %@", self.currentSymbol );
-			
+				
 				[self.cycleTimer invalidate];
 			}
 		}
+	}
+}
+
+
+
+#pragma mark - Actions
+
+- (IBAction)stepAction:(id)sender
+{
+	DDLogDebug( @"Step" );
+	self.runmode = RunModeStepping;
+	CPU_step();
+	[self updateState];
+}
+
+
+- (IBAction)stepNextSymbolAction:(id)sender
+{
+	self.stepTrapSymbol = self.currentSymbol;
+	
+	[self startCycleTimer];
+}
+
+
+- (IBAction)ignoreStepNextAction:(id)sender
+{
+	[self.stepIgnoreSymbols addObject:self.currentSymbol];
+
+	DDLogDebug( @"Add ignored symbol %@", self.currentSymbol );
+
+	self.stepTrapSymbol = self.currentSymbol;
+	
+	[self startCycleTimer];
+}
+
+
+- (IBAction)runAction:(id)sender
+{
+	if( self.runmode == RunModeRunning )
+	{
+		// Pause
+		DDLogDebug( @"Pause" );
+		
+		[self.statusLabel setStringValue:@"Paused"];
+		
+		[self.cycleTimer invalidate];
+		
+		self.runmode = RunModePause;
+		
+		[self updateState];
+	}
+	else
+	{
+		DDLogDebug( @"Run" );
+		
+		self.stepTrapSymbol = nil;
+		
+		[self.statusLabel setStringValue:@"Running"];
+		
+		[self startCycleTimer];
 	}
 }
 
@@ -378,6 +445,10 @@ static uint8_t icb( void *userData, uint8_t port )
 	[self.statusLabel setStringValue:@"Paused"];
 	
 	[self.cycleTimer invalidate];
+
+	self.runmode = RunModePause;
+	
+	[self updateState];
 }
 
 

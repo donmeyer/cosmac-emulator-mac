@@ -10,9 +10,13 @@
                 <outlet property="breakpoint1Field" destination="Twf-Tb-jjO" id="uqs-hx-Ilt"/>
                 <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="0qX-gT-rp1"/>
                 <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="OpW-7F-HnW"/>
+                <outlet property="importButton" destination="XiB-5E-iyo" id="JM3-7l-rot"/>
                 <outlet property="outputPort2Checkbox" destination="Oex-7H-SkD" id="rnQ-HI-ohm"/>
                 <outlet property="regView" destination="kB2-Tk-jcu" id="LCc-gp-RUJ"/>
+                <outlet property="resetButton" destination="uBR-sd-2dX" id="NtV-dn-ea3"/>
+                <outlet property="runButton" destination="st7-FM-QOH" id="ov9-b6-mOr"/>
                 <outlet property="statusLabel" destination="Odv-2V-cgT" id="CC5-Jo-hmn"/>
+                <outlet property="stepButton" destination="6aV-Ov-fuP" id="Bxc-uu-JDN"/>
                 <outlet property="symbolLabel" destination="SMU-mW-qyZ" id="eMN-N7-Ke1"/>
                 <outlet property="terminalField" destination="ZQS-Ko-J1m" id="o2f-Wv-nuh"/>
                 <outlet property="totalCyclesField" destination="GjQ-OV-56M" id="uRL-j8-QP9"/>
@@ -50,16 +54,6 @@
                             <action selector="stepNextSymbolAction:" target="-2" id="o4Q-i3-qDZ"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uBR-sd-2dX">
-                        <rect key="frame" x="31" y="74" width="76" height="32"/>
-                        <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NO8-GY-wsG">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="resetAction:" target="-2" id="3xi-H0-zRW"/>
-                        </connections>
-                    </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="st7-FM-QOH">
                         <rect key="frame" x="220" y="74" width="65" height="32"/>
                         <buttonCell key="cell" type="push" title="Run" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="agt-mN-dhv">
@@ -71,7 +65,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7g-w6-qmI">
-                        <rect key="frame" x="305" y="74" width="79" height="32"/>
+                        <rect key="frame" x="14" y="13" width="79" height="32"/>
                         <buttonCell key="cell" type="push" title="Pause" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SVT-NG-ddn">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -231,7 +225,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQS-Ko-J1m">
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQS-Ko-J1m">
                         <rect key="frame" x="737" y="69" width="300" height="427"/>
                         <textFieldCell key="cell" lineBreakMode="charWrapping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="KUD-fV-PSq">
                             <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="5bC-g2-zki"/>
@@ -251,6 +245,16 @@
                             <action selector="cmdEnteredAction:" target="-2" id="6Jh-Pw-jwM"/>
                         </connections>
                     </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uBR-sd-2dX">
+                        <rect key="frame" x="43" y="74" width="76" height="32"/>
+                        <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NO8-GY-wsG">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="resetAction:" target="-2" id="3xi-H0-zRW"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <connections>

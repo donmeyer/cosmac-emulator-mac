@@ -29,6 +29,8 @@
 @property (weak) IBOutlet NSTextField *ieField;
 @property (weak) IBOutlet NSTextField *tField;
 
+@property (weak) IBOutlet NSButton *liveUpdateCheckbox;
+
 @end
 
 
@@ -67,8 +69,13 @@
 }
 
 
-- (void)updateCPUState:(const CPU*)cpu
+- (void)updateCPUState:(const CPU*)cpu force:(BOOL)force
 {
+	if( ! force && self.liveUpdateCheckbox.state == 0 )
+	{
+		return;
+	}
+
 	[self.scratchpadView updateRegisters:cpu];
 
 
