@@ -141,9 +141,7 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 	
 	if( mvc.outputPort2Checkbox.state == NSOnState )
 	{
-		[mvc.statusLabel setStringValue:@"Breakpoint: Output Port 2"];
-		
-		[mvc.cycleTimer invalidate];
+		[mvc doBreakpointWithTitle:@"Output Port 2"];
 	}
 }
 
@@ -326,9 +324,7 @@ static uint8_t icb( void *userData, uint8_t port )
 		{
 			if( hexAddr == cpu->reg[cpu->P] )
 			{
-				[self.statusLabel setStringValue:@"Breakpoint: Adder 1"];
-				
-				[self.cycleTimer invalidate];
+				[self doBreakpointWithTitle:@"Address 1"];
 			}
 		}
 	}
@@ -373,13 +369,21 @@ static uint8_t icb( void *userData, uint8_t port )
 			else
 			{
 				// Break
-				[self.statusLabel setStringValue:@"Breakpoint: next symbol"];
 				DDLogDebug( @"Stopped on symbol %@", self.currentSymbol );
-				
-				[self.cycleTimer invalidate];
+				[self doBreakpointWithTitle:@"Next Symbol"];
 			}
 		}
 	}
+}
+
+
+- (void)doBreakpointWithTitle:(NSString*)title
+{
+	[self.statusLabel setStringValue:[NSString stringWithFormat:@"Breakpoint: %@", title]];
+	
+	[self.cycleTimer invalidate];
+
+	[self setRunmode:RunModePause];
 }
 
 
