@@ -79,7 +79,7 @@ NS_ENUM( NSInteger, RunMode ) {
 
 @property (strong) NSMutableString *cmdString;
 
-@property (assign) enum RunMode runmode;
+@property (nonatomic, assign) enum RunMode runmode;
 
 @end
 
@@ -125,7 +125,7 @@ NS_ENUM( NSInteger, RunMode ) {
 
 
 
-#pragma mark - View Lifecycle
+#pragma mark - IO Port Emulation
 
 
 static void ocb( void *userData, uint8_t port, uint8_t data )
@@ -185,28 +185,7 @@ static uint8_t icb( void *userData, uint8_t port )
 }
 
 
-- (NSString*)symbolForAddr:(unsigned int)addr
-{
-	for( Symbol *sym in self.loader.symbols )
-	{
-		if( addr >= sym.addr )
-		{
-			// Bingo
-			return sym.name;
-		}
-	}
-	
-	return @"none";
-}
-
-
-- (NSString*)currentSymbol
-{
-	// TODO: cache this, but update cache when addr moves out of range.
-	const CPU *cpu = CPU_getCPU();
-	return [self symbolForAddr:cpu->reg[cpu->P]];
-}
-
+#pragma mark - Terminal Emulation
 
 - (void)emitTerminalText:(NSString*)text
 {
@@ -254,6 +233,32 @@ static uint8_t icb( void *userData, uint8_t port )
 	[self.cmdString setString:buf];
 	
 	[field setStringValue:@""];
+}
+
+
+
+#pragma mark - Symbol Display
+
+- (NSString*)symbolForAddr:(unsigned int)addr
+{
+	for( Symbol *sym in self.loader.symbols )
+	{
+		if( addr >= sym.addr )
+		{
+			// Bingo
+			return sym.name;
+		}
+	}
+	
+	return @"none";
+}
+
+
+- (NSString*)currentSymbol
+{
+	// TODO: cache this, but update cache when addr moves out of range.
+	const CPU *cpu = CPU_getCPU();
+	return [self symbolForAddr:cpu->reg[cpu->P]];
 }
 
 
@@ -472,7 +477,7 @@ static uint8_t icb( void *userData, uint8_t port )
 
 
 
-#pragma mark Ask For File
+#pragma mark - Ask For File
 
 - (void)openDocument
 {
