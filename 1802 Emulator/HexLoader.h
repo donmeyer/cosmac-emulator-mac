@@ -15,6 +15,7 @@
 
 @property (strong) NSString *name;
 @property (assign) unsigned int addr;
+@property (assign) unsigned int endAddr;
 
 - (instancetype)initWithName:(NSString*)name addr:(unsigned int) addr;
 

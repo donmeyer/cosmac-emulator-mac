@@ -97,7 +97,7 @@
                             <subviews>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oex-7H-SkD">
                                     <rect key="frame" x="45" y="184" width="65" height="18"/>
-                                    <buttonCell key="cell" type="check" title="Output" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gCK-c0-xVE">
+                                    <buttonCell key="cell" type="check" title="Output" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gCK-c0-xVE">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -112,7 +112,7 @@
                                 </textField>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hsW-9d-hAh">
                                     <rect key="frame" x="47" y="153" width="65" height="18"/>
-                                    <buttonCell key="cell" type="check" title="Output" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="4eP-i8-wWk">
+                                    <buttonCell key="cell" type="check" title="Output" bezelStyle="regularSquare" imagePosition="left" inset="2" id="4eP-i8-wWk">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -185,7 +185,7 @@
                                 </textField>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3xN-oM-8xd">
                                     <rect key="frame" x="128" y="76" width="73" height="18"/>
-                                    <buttonCell key="cell" type="check" title="Enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Wmo-Aa-1wq">
+                                    <buttonCell key="cell" type="check" title="Enabled" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Wmo-Aa-1wq">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -200,7 +200,7 @@
                                 </textField>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7cH-ed-jtl">
                                     <rect key="frame" x="128" y="35" width="73" height="18"/>
-                                    <buttonCell key="cell" type="check" title="Enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kQD-EE-0aO">
+                                    <buttonCell key="cell" type="check" title="Enabled" bezelStyle="regularSquare" imagePosition="left" inset="2" id="kQD-EE-0aO">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -213,14 +213,6 @@
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Odv-2V-cgT">
                         <rect key="frame" x="35" y="153" width="246" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;status&gt;" id="6fi-Jx-iih">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMU-mW-qyZ">
-                        <rect key="frame" x="154" y="215" width="168" height="17"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;symbol&gt;" id="SVm-sf-pO8">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -256,6 +248,24 @@
                             <action selector="resetAction:" target="-2" id="3xi-H0-zRW"/>
                         </connections>
                     </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UGd-s0-e3f">
+                        <rect key="frame" x="18" y="198" width="103" height="18"/>
+                        <buttonCell key="cell" type="check" title="Live Updates" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="z43-fa-Xk2">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="-2" name="value" keyPath="self.liveSymbolUpdates" id="hff-vm-Mni"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMU-mW-qyZ">
+                        <rect key="frame" x="18" y="222" width="222" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;symbol&gt;" id="SVm-sf-pO8">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>

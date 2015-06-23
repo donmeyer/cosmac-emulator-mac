@@ -64,9 +64,9 @@ NS_ENUM( NSInteger, RunMode ) {
 
 @property (strong) HexLoader *loader;
 
-@property (readonly) NSString *currentSymbol;
+@property (nonatomic, strong) Symbol *currentSymbol;
 
-@property (strong) NSString *stepTrapSymbol;	// If set, step until symbol no longer matchs this one
+@property (strong) Symbol *stepTrapSymbol;	// If set, step until symbol no longer matchs this one
 
 @property (strong) NSMutableSet *stepIgnoreSymbols;
 
@@ -80,6 +80,9 @@ NS_ENUM( NSInteger, RunMode ) {
 @property (strong) NSMutableString *cmdString;
 
 @property (nonatomic, assign) enum RunMode runmode;
+
+
+@property (nonatomic, assign) BOOL liveSymbolUpdates;
 
 @end
 
@@ -237,26 +240,37 @@ static uint8_t icb( void *userData, uint8_t port )
 
 #pragma mark - Symbol Display
 
-- (NSString*)symbolForAddr:(unsigned int)addr
+- (Symbol*)symbolForAddr:(unsigned int)addr
 {
 	for( Symbol *sym in self.loader.symbols )
 	{
-		if( addr >= sym.addr )
+		if( addr >= sym.addr && addr <= sym.endAddr )
 		{
 			// Bingo
-			return sym.name;
+			return sym;
 		}
 	}
 	
-	return @"none";
+	return nil;
 }
 
 
-- (NSString*)currentSymbol
+- (void)calcCurrentSymbol
 {
-	// TODO: cache this, but update cache when addr moves out of range.
 	const CPU *cpu = CPU_getCPU();
-	return [self symbolForAddr:cpu->reg[cpu->P]];
+	
+	int pc = cpu->reg[cpu->P];
+	
+	if( self.currentSymbol )
+	{
+		if( pc >= self.currentSymbol.addr && pc <= self.currentSymbol.endAddr )
+		{
+			// No change
+			return;
+		}
+	}
+	
+	self.currentSymbol = [self symbolForAddr:pc];
 }
 
 
@@ -271,9 +285,19 @@ static uint8_t icb( void *userData, uint8_t port )
 	
 	[self.registersViewController updateCPUState:cpu force:stepping];
 	
-	if( stepping )
+	// We always update the current symbol, even if we don't always display it.
+	[self calcCurrentSymbol];
+	
+	if( stepping || self.liveSymbolUpdates )
 	{
-		[self.symbolLabel setStringValue:self.currentSymbol];
+		if( self.currentSymbol )
+		{
+			[self.symbolLabel setStringValue:self.currentSymbol.name];
+		}
+		else
+		{
+			[self.symbolLabel setStringValue:@"------"];
+		}
 	}
 }
 
@@ -358,7 +382,7 @@ static uint8_t icb( void *userData, uint8_t port )
 	
 	if( self.stepTrapSymbol )
 	{
-		if( [self.stepTrapSymbol isEqualToString:self.currentSymbol] == NO )
+		if( [self.stepTrapSymbol isEqual:self.currentSymbol] == NO )
 		{
 			// Ok, new symbol. Is it one we ignore?
 			if( [self.stepIgnoreSymbols containsObject:self.currentSymbol] )
@@ -369,7 +393,7 @@ static uint8_t icb( void *userData, uint8_t port )
 			else
 			{
 				// Break
-				DDLogDebug( @"Stopped on symbol %@", self.currentSymbol );
+				DDLogDebug( @"Stopped on symbol %@", self.currentSymbol.name );
 				[self doBreakpointWithTitle:@"Next Symbol"];
 			}
 		}
@@ -411,7 +435,7 @@ static uint8_t icb( void *userData, uint8_t port )
 {
 	[self.stepIgnoreSymbols addObject:self.currentSymbol];
 
-	DDLogDebug( @"Add ignored symbol %@", self.currentSymbol );
+	DDLogDebug( @"Add ignored symbol %@", self.currentSymbol.name );
 
 	self.stepTrapSymbol = self.currentSymbol;
 	
@@ -469,6 +493,9 @@ static uint8_t icb( void *userData, uint8_t port )
 	[self.statusLabel setStringValue:@"Reset"];
 	
 	CPU_reset();
+	
+	self.runmode = RunModePause;
+	
 	[self updateState];
 }
 
@@ -515,6 +542,8 @@ static uint8_t icb( void *userData, uint8_t port )
 	 }];
 	
 	DDLogDebug( @"Listing loaded into memory, %lu bytes", self.loader.byteCount );
+	
+	self.runmode = RunModePause;
 	
 	[self updateState];
 }

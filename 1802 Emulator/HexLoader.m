@@ -26,6 +26,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 	{
 		_name = name;
 		_addr = addr;
+		_endAddr = 0xFFFF;
 	}
 	
 	return self;
@@ -112,11 +113,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 	
 	// Sort the symbols
 	[self.symbols sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-		if( [obj1 addr] > [obj2 addr] )
+		if( [obj1 addr] < [obj2 addr] )
 		{
 			return NSOrderedAscending;
 		}
-		else if( [obj1 addr] < [obj2 addr] )
+		else if( [obj1 addr] > [obj2 addr] )
 		{
 			return NSOrderedDescending;
 		}
@@ -125,6 +126,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 			return NSOrderedSame;
 		}
 	}];
+	
+	
+	// Fill in the end address for each symbol
+	Symbol *prevSym = nil;
+	for( Symbol *sym in self.symbols )
+	{
+		if( prevSym != nil && sym.addr > prevSym.addr )
+		{
+			prevSym.endAddr = sym.addr - 1;
+		}
+		
+		prevSym = sym;
+	}
 	
 	return YES;
 }
@@ -226,7 +240,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 		NSString *cap;
 
 		// First capture group, the name
-		range = [result rangeAtIndex:0];
+		range = [result rangeAtIndex:1];
 		cap = [line substringWithRange:range];
 		DDLogVerbose( @"Range 1 capture '%@'", cap );
 
