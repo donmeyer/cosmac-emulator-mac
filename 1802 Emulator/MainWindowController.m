@@ -292,7 +292,17 @@ static uint8_t icb( void *userData, uint8_t port )
 	{
 		if( self.currentSymbol )
 		{
-			[self.symbolLabel setStringValue:self.currentSymbol.name];
+			int pc = cpu->reg[cpu->P];
+			int offset = pc - self.currentSymbol.addr;
+			
+			if( offset == 0 )
+			{
+				[self.symbolLabel setStringValue:[NSString stringWithFormat:@"%@", self.currentSymbol.name]];
+			}
+			else
+			{
+				[self.symbolLabel setStringValue:[NSString stringWithFormat:@"%@ + %u", self.currentSymbol.name, offset]];
+			}
 		}
 		else
 		{
@@ -382,7 +392,7 @@ static uint8_t icb( void *userData, uint8_t port )
 	
 	if( self.stepTrapSymbol )
 	{
-		if( [self.stepTrapSymbol isEqual:self.currentSymbol] == NO )
+		if( self.stepTrapSymbol != self.currentSymbol )
 		{
 			// Ok, new symbol. Is it one we ignore?
 			if( [self.stepIgnoreSymbols containsObject:self.currentSymbol] )
