@@ -14,7 +14,7 @@
 
 
 
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 
 
 NS_ENUM( NSInteger, RunMode ) {
@@ -72,7 +72,7 @@ NS_ENUM( NSInteger, RunMode ) {
 
 
 @property (weak) IBOutlet NSTextField *cmdLineField;
-@property (weak) IBOutlet NSTextField *terminalField;
+@property (strong) IBOutlet NSTextView *terminalField;
 
 
 @property (strong) NSMutableString *terminalString;
@@ -124,6 +124,9 @@ NS_ENUM( NSInteger, RunMode ) {
 	self.terminalString = [[NSMutableString alloc] init];
 
 	self.cmdString = [[NSMutableString alloc] init];
+	
+	NSFont *font = [NSFont fontWithName:@"Consolas" size:11.0];
+	self.terminalField.font = font;
 }
 
 
@@ -133,7 +136,7 @@ NS_ENUM( NSInteger, RunMode ) {
 
 static void ocb( void *userData, uint8_t port, uint8_t data )
 {
-	DDLogDebug( @"Output port %d  data 0x%02X  '%c'", port, data, data );
+	DDLogVerbose( @"Output port %d  data 0x%02X  '%c'", port, data, data );
 	
 	MainWindowController *mvc = (__bridge MainWindowController*)userData;
 	
@@ -163,6 +166,9 @@ static uint8_t icb( void *userData, uint8_t port )
 		}
 		else
 		{
+			// If no characters, sleep a little bit. This way in a loop waiting for input we don't use a lot of host CPU cycles!
+			// TODO: Make this configurable, so we can turn off the delay if so desired.
+			[NSThread sleepForTimeInterval:0.050];
 			return 0x80;
 		}
 	}
@@ -172,7 +178,7 @@ static uint8_t icb( void *userData, uint8_t port )
 		int c = [mvc nextCommandChar];
 		if( c >= 0 )
 		{
-			DDLogDebug( @"Sending a character to Forth!" );
+			DDLogVerbose( @"Sending a character to Forth!" );
 			return c;
 		}
 		else
@@ -191,14 +197,18 @@ static uint8_t icb( void *userData, uint8_t port )
 - (void)emitTerminalText:(NSString*)text
 {
 	[self.terminalString appendString:text];
-	[self.terminalField setStringValue:self.terminalString];
+	[self.terminalField setString:self.terminalString];
+	[self.terminalField scrollToEndOfDocument:nil];
 }
 
 
 - (void)emitTerminalCharacter:(char)c
 {
 	[self.terminalString appendFormat:@"%c", c];
-	[self.terminalField setStringValue:self.terminalString];
+	[self.terminalField setString:self.terminalString];
+	
+//	NSRange range;
+	[self.terminalField scrollToEndOfDocument:nil];
 }
 
 
@@ -315,7 +325,7 @@ static uint8_t icb( void *userData, uint8_t port )
 - (void)startCycleTimer
 {
 	self.runmode = RunModeRunning;
-	self.cycleTimer = [NSTimer timerWithTimeInterval:0.00001 target:self selector:@selector(performStep:) userInfo:nil repeats:YES];
+	self.cycleTimer = [NSTimer timerWithTimeInterval:0.000001 target:self selector:@selector(performStep:) userInfo:nil repeats:YES];
 	[[NSRunLoop mainRunLoop] addTimer:self.cycleTimer forMode:NSDefaultRunLoopMode];
 }
 

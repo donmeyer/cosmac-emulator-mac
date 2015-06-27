@@ -19,7 +19,7 @@
                 <outlet property="statusLabel" destination="Odv-2V-cgT" id="CC5-Jo-hmn"/>
                 <outlet property="stepButton" destination="6aV-Ov-fuP" id="Bxc-uu-JDN"/>
                 <outlet property="symbolLabel" destination="SMU-mW-qyZ" id="eMN-N7-Ke1"/>
-                <outlet property="terminalField" destination="ZQS-Ko-J1m" id="o2f-Wv-nuh"/>
+                <outlet property="terminalField" destination="DrS-PH-rUt" id="KR4-Vw-iE8"/>
                 <outlet property="totalCyclesField" destination="GjQ-OV-56M" id="uRL-j8-QP9"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="63F-zY-dLP"/>
             </connections>
@@ -29,10 +29,10 @@
         <window title="1802 Emulator" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" userLabel="MainWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="1057" height="684"/>
+            <rect key="contentRect" x="335" y="390" width="1294" height="684"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="EiT-Mj-1SZ" userLabel="MainView">
-                <rect key="frame" x="0.0" y="0.0" width="1057" height="684"/>
+                <rect key="frame" x="0.0" y="0.0" width="1294" height="684"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6aV-Ov-fuP">
@@ -218,26 +218,6 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQS-Ko-J1m">
-                        <rect key="frame" x="737" y="69" width="300" height="427"/>
-                        <textFieldCell key="cell" lineBreakMode="charWrapping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="KUD-fV-PSq">
-                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="5bC-g2-zki"/>
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jFs-dY-YyJ">
-                        <rect key="frame" x="702" y="35" width="335" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="hJM-9B-zft">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <action selector="cmdEnteredAction:" target="-2" id="6Jh-Pw-jwM"/>
-                        </connections>
-                    </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uBR-sd-2dX">
                         <rect key="frame" x="43" y="74" width="76" height="32"/>
                         <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NO8-GY-wsG">
@@ -250,7 +230,7 @@
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UGd-s0-e3f">
                         <rect key="frame" x="18" y="198" width="103" height="18"/>
-                        <buttonCell key="cell" type="check" title="Live Updates" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="z43-fa-Xk2">
+                        <buttonCell key="cell" type="check" title="Live Updates" bezelStyle="regularSquare" imagePosition="left" inset="2" id="z43-fa-Xk2">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -258,6 +238,34 @@
                             <binding destination="-2" name="value" keyPath="self.liveSymbolUpdates" id="hff-vm-Mni"/>
                         </connections>
                     </button>
+                    <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APp-I0-H9m">
+                        <rect key="frame" x="741" y="56" width="508" height="457"/>
+                        <clipView key="contentView" ambiguous="YES" id="adj-bD-MlW">
+                            <rect key="frame" x="1" y="1" width="506" height="455"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" incrementalSearchingEnabled="YES" verticallyResizable="YES" id="DrS-PH-rUt">
+                                    <rect key="frame" x="0.0" y="0.0" width="506" height="455"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <size key="minSize" width="506" height="455"/>
+                                    <size key="maxSize" width="506" height="10000000"/>
+                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <size key="minSize" width="506" height="455"/>
+                                    <size key="maxSize" width="506" height="10000000"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Chv-jb-d1u">
+                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="h1d-ZR-6Xk">
+                            <rect key="frame" x="491" y="1" width="16" height="455"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMU-mW-qyZ">
                         <rect key="frame" x="18" y="222" width="222" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;symbol&gt;" id="SVm-sf-pO8">
@@ -266,12 +274,23 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jFs-dY-YyJ">
+                        <rect key="frame" x="741" y="26" width="508" height="22"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="hJM-9B-zft">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <action selector="cmdEnteredAction:" target="-2" id="6Jh-Pw-jwM"/>
+                        </connections>
+                    </textField>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="dRt-lg-Ikv"/>
             </connections>
-            <point key="canvasLocation" x="692.5" y="704"/>
+            <point key="canvasLocation" x="811" y="704"/>
         </window>
     </objects>
 </document>
