@@ -14,9 +14,9 @@
 
 #import <Foundation/Foundation.h>
 
-#define LOG_LEVEL_DEF ddLogLevel
+//#define LOG_LEVEL_DEF ddLogLevel
 
-#import "CocoaLumberjack.h"
+#import "Log.h"
 
 #endif
 

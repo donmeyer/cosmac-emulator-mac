@@ -14,7 +14,7 @@
 
 
 
-static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+//static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 
 
 NS_ENUM( NSInteger, RunMode ) {
@@ -136,7 +136,7 @@ NS_ENUM( NSInteger, RunMode ) {
 
 static void ocb( void *userData, uint8_t port, uint8_t data )
 {
-	DDLogVerbose( @"Output port %d  data 0x%02X  '%c'", port, data, data );
+	LogVerbose( @"Output port %d  data 0x%02X  '%c'", port, data, data );
 	
 	MainWindowController *mvc = (__bridge MainWindowController*)userData;
 	
@@ -154,7 +154,7 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 
 static uint8_t icb( void *userData, uint8_t port )
 {
-//	DDLogDebug( @"Input port %d", port );
+//	LogDebug( @"Input port %d", port );
 	
 	MainWindowController *mvc = (__bridge MainWindowController*)userData;
 	
@@ -178,12 +178,12 @@ static uint8_t icb( void *userData, uint8_t port )
 		int c = [mvc nextCommandChar];
 		if( c >= 0 )
 		{
-			DDLogVerbose( @"Sending a character to Forth!" );
+			LogVerbose( @"Sending a character to Forth!" );
 			return c;
 		}
 		else
 		{
-			DDLogWarn( @"Read char but none available" );
+			LogWarn( @"Read char but none available" );
 			return 0;
 		}
 	}
@@ -395,7 +395,7 @@ static uint8_t icb( void *userData, uint8_t port )
 	
 	if( [lastSymbol isEqualToString:self.currentSymbol] == NO )
 	{
-		DDLogDebug( @"---%d--- %@", nestLevel, self.currentSymbol );
+		LogDebug( @"---%d--- %@", nestLevel, self.currentSymbol );
 		lastSymbol = self.currentSymbol;
 	}
 #endif
@@ -413,7 +413,7 @@ static uint8_t icb( void *userData, uint8_t port )
 			else
 			{
 				// Break
-				DDLogDebug( @"Stopped on symbol %@", self.currentSymbol.name );
+				LogDebug( @"Stopped on symbol %@", self.currentSymbol.name );
 				[self doBreakpointWithTitle:@"Next Symbol"];
 			}
 		}
@@ -436,9 +436,18 @@ static uint8_t icb( void *userData, uint8_t port )
 
 - (IBAction)stepAction:(id)sender
 {
-	DDLogDebug( @"Step" );
+	LogDebug( @"Step" );
 	self.runmode = RunModeStepping;
 	CPU_step();
+	
+	break this up into a fetch and then an execute to allow better breakpoints?
+	as in, if we break on an address, stop before executing the opcode stored there!
+	
+	regisgter display needs to change color for registers that have jsut been changed bhy the step
+		(also P and X regs)
+
+	why don't we display Q?
+		'
 	[self updateState];
 }
 
@@ -455,7 +464,7 @@ static uint8_t icb( void *userData, uint8_t port )
 {
 	[self.stepIgnoreSymbols addObject:self.currentSymbol];
 
-	DDLogDebug( @"Add ignored symbol %@", self.currentSymbol.name );
+	LogDebug( @"Add ignored symbol %@", self.currentSymbol.name );
 
 	self.stepTrapSymbol = self.currentSymbol;
 	
@@ -468,7 +477,7 @@ static uint8_t icb( void *userData, uint8_t port )
 	if( self.runmode == RunModeRunning )
 	{
 		// Pause
-		DDLogDebug( @"Pause" );
+		LogDebug( @"Pause" );
 		
 		[self.statusLabel setStringValue:@"Paused"];
 		
@@ -480,7 +489,7 @@ static uint8_t icb( void *userData, uint8_t port )
 	}
 	else
 	{
-		DDLogDebug( @"Run" );
+		LogDebug( @"Run" );
 		
 		self.stepTrapSymbol = nil;
 		
@@ -493,7 +502,7 @@ static uint8_t icb( void *userData, uint8_t port )
 
 - (IBAction)pauseAction:(id)sender
 {
-	DDLogDebug( @"Pause" );
+	LogDebug( @"Pause" );
 	
 	[self.statusLabel setStringValue:@"Paused"];
 	
@@ -508,7 +517,7 @@ static uint8_t icb( void *userData, uint8_t port )
 
 - (IBAction)resetAction:(id)sender
 {
-	DDLogDebug( @"Reset" );
+	LogDebug( @"Reset" );
 	
 	[self.statusLabel setStringValue:@"Reset"];
 	
@@ -541,7 +550,7 @@ static uint8_t icb( void *userData, uint8_t port )
 			}
 			else
 			{
-				DDLogDebug( @"No file chosen" );
+				LogDebug( @"No file chosen" );
 			}
 		});
 	}];
@@ -561,7 +570,7 @@ static uint8_t icb( void *userData, uint8_t port )
 		 CPU_writeByteToMemory( byte, addr);
 	 }];
 	
-	DDLogDebug( @"Listing loaded into memory, %lu bytes", self.loader.byteCount );
+	LogDebug( @"Listing loaded into memory, %lu bytes", self.loader.byteCount );
 	
 	self.runmode = RunModePause;
 	

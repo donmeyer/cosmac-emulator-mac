@@ -11,7 +11,7 @@
 
 
 
-static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+//static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 
 
 
@@ -75,10 +75,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 	if( s == nil )
 	{
 		// Error reading file
-		DDLogWarn( @"Unable to load listing" );
+		LogWarn( @"Unable to load listing" );
 	}
 	
-	DDLogDebug( @"File %@ is a string of len %lu", path, [s length] );
+	LogDebug( @"File %@ is a string of len %lu", path, [s length] );
 	
 	return [self initWithListingString:s];
 }
@@ -155,14 +155,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 	NSAssert( ( regex != nil && error == nil ), @"Error build regex: %@", error );
 	
 	//	NSUInteger matchCount = [regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)];
-	//	DDLogVerbose( @"Regex=%@, matchcount=%lu", regex, matchCount );
+	//	LogVerbose( @"Regex=%@, matchcount=%lu", regex, matchCount );
 	
 	NSTextCheckingResult *result = [regex firstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
-	DDLogVerbose( @"Match Result %@", result );
+	LogVerbose( @"Match Result %@", result );
 	if( result )
 	{
 		NSUInteger num = [result numberOfRanges];	// This is the number of capture groups plus the full match as rnage 0.
-		DDLogVerbose( @"Number of ranges=%lu", (unsigned long)num );
+		LogVerbose( @"Number of ranges=%lu", (unsigned long)num );
 		
 		NSRange range;
 		NSString *cap;
@@ -170,19 +170,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 		// First capture group, the address
 		range = [result rangeAtIndex:0];
 		cap = [line substringWithRange:range];
-		DDLogVerbose( @"Range 1 capture '%@'", cap );
+		LogVerbose( @"Range 1 capture '%@'", cap );
 		
 		unsigned hexAddr;
 		if( [[NSScanner scannerWithString:cap] scanHexInt:&hexAddr] == NO )
 		{
 			// This is odd
-			DDLogError( @"Found hex address '%@' but failed to parse it!", cap );
+			LogError( @"Found hex address '%@' but failed to parse it!", cap );
 			return NO;
 		}
 		
 		range = [result rangeAtIndex:2];
 		cap = [line substringWithRange:range];
-		DDLogVerbose( @"Range 2 capture '%@'", cap );
+		LogVerbose( @"Range 2 capture '%@'", cap );
 		
 		// Now find each pair of digits.
 		NSRange digitRange;
@@ -191,13 +191,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 		{
 			digitRange.location = i;
 			NSString *digitPair = [cap substringWithRange:digitRange];
-			DDLogVerbose( @"Digit pair '%@'", digitPair );
+			LogVerbose( @"Digit pair '%@'", digitPair );
 			
 			unsigned hexByte;
 			if( [[NSScanner scannerWithString:digitPair] scanHexInt:&hexByte] == NO )
 			{
 				// This is odd
-				DDLogError( @"Found hex pair '%@' but failed to parse it!", cap );
+				LogError( @"Found hex pair '%@' but failed to parse it!", cap );
 				return NO;
 			}
 			
@@ -227,14 +227,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 	NSAssert( ( regex != nil && error == nil ), @"Error build regex: %@", error );
 	
 //	NSUInteger matchCount = [regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)];	
-//	DDLogVerbose( @"Regex=%@, matchcount=%lu", regex, matchCount );
+//	LogVerbose( @"Regex=%@, matchcount=%lu", regex, matchCount );
 
 	NSTextCheckingResult *result = [regex firstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
-	DDLogVerbose( @"Symbol Match Result %@", result );
+	LogVerbose( @"Symbol Match Result %@", result );
 	if( result )
 	{
 		NSUInteger num = [result numberOfRanges];	// This is the number of capture groups plus the full match as rnage 0.
-		DDLogVerbose( @"Number of ranges=%lu", (unsigned long)num );
+		LogVerbose( @"Number of ranges=%lu", (unsigned long)num );
 
 		NSRange range;
 		NSString *cap;
@@ -242,20 +242,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 		// First capture group, the name
 		range = [result rangeAtIndex:1];
 		cap = [line substringWithRange:range];
-		DDLogVerbose( @"Range 1 capture '%@'", cap );
+		LogVerbose( @"Range 1 capture '%@'", cap );
 
 		NSString *name = cap;
 	
 		// Second capture group, the address
 		range = [result rangeAtIndex:2];
 		cap = [line substringWithRange:range];
-		DDLogVerbose( @"Range 2 capture '%@'", cap );
+		LogVerbose( @"Range 2 capture '%@'", cap );
 		
 		unsigned hexAddr;
 		if( [[NSScanner scannerWithString:cap] scanHexInt:&hexAddr] == NO )
 		{
 			// This is odd
-			DDLogError( @"Found hex address '%@' but failed to parse it!", cap );
+			LogError( @"Found hex address '%@' but failed to parse it!", cap );
 			return NO;
 		}
 		

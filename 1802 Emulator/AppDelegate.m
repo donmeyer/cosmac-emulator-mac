@@ -10,10 +10,10 @@
 
 #import "AppDelegate.h"
 #import "MainWindowController.h"
+#import "Log.h"
 
 
-
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+//static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 
 @interface AppDelegate ()
@@ -34,8 +34,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 	// Insert code here to initialize your application
 //	NSNumber *foo;
 
-	[DDLog addLogger:[DDASLLogger sharedInstance]];
-	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+//	[DDLog addLogger:[DDASLLogger sharedInstance]];
+//	[DDLog addLogger:[DDTTYLogger sharedInstance]];
 	
 	self.mainWindowController = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
 
@@ -60,7 +60,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)openDocument:(id)sender
 {
-	DDLogDebug( @"Open document" );
+	LogDebug( @"Open document" );
 	[self.mainWindowController openDocument];
 }
 
