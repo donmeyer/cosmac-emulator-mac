@@ -1,6 +1,0 @@
-framework module Pods_1802_EmulatorTests {
-  umbrella header "Pods-1802 EmulatorTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
