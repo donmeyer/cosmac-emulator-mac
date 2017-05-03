@@ -38,7 +38,7 @@
 
 /* Begin PBXFileReference section */
 		BFC896B81B223AD900627D5D /* LoaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderTests.m; sourceTree = "<group>"; };
-		BFC897131B25EB2000627D5D /* 1802 Emulator.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "1802 Emulator.txt"; sourceTree = "<group>"; };
+		BFC897131B25EB2000627D5D /* 1802 Emulator.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "1802 Emulator.txt"; path = "1802 Emulator/1802 Emulator.txt"; sourceTree = "<group>"; };
 		F66F0D181EB8E6F500D7891A /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
 		F66F6DCD1B24C668000ABAC6 /* ScratchpadRegistersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScratchpadRegistersView.h; sourceTree = "<group>"; };
 		F66F6DCE1B24C668000ABAC6 /* ScratchpadRegistersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScratchpadRegistersView.m; sourceTree = "<group>"; };
@@ -92,10 +92,52 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F603A5791EBA2F65000EA85D /* Register Display */ = {
+			isa = PBXGroup;
+			children = (
+				F66F6DDB1B2BEEAE000ABAC6 /* RegistersView.xib */,
+				F66F6DD91B2BEEAE000ABAC6 /* RegistersViewController.h */,
+				F66F6DDA1B2BEEAE000ABAC6 /* RegistersViewController.m */,
+				F66F6DCD1B24C668000ABAC6 /* ScratchpadRegistersView.h */,
+				F66F6DCE1B24C668000ABAC6 /* ScratchpadRegistersView.m */,
+			);
+			name = "Register Display";
+			sourceTree = "<group>";
+		};
+		F603A57A1EBA2F8E000EA85D /* Main Window */ = {
+			isa = PBXGroup;
+			children = (
+				F6D63B4A1B1D6A6C006724FC /* MainWindow.xib */,
+				F66F6DD51B2BCEF5000ABAC6 /* MainWindowController.h */,
+				F66F6DD61B2BCEF5000ABAC6 /* MainWindowController.m */,
+			);
+			name = "Main Window";
+			sourceTree = "<group>";
+		};
+		F603A57B1EBA2F9E000EA85D /* CPU Emulation */ = {
+			isa = PBXGroup;
+			children = (
+				F6D63B631B1D6C19006724FC /* etypes.h */,
+				F6D63B641B1D6D69006724FC /* CPU Emulation.h */,
+				F6D63B611B1D6B01006724FC /* CPU Emulation.c */,
+			);
+			name = "CPU Emulation";
+			sourceTree = "<group>";
+		};
+		F603A57C1EBA3022000EA85D /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				F6D63B651B200D8A006724FC /* HexLoader.h */,
+				F6D63B661B200D8A006724FC /* HexLoader.m */,
+			);
+			name = Loader;
+			sourceTree = "<group>";
+		};
 		F6D63B351B1D6A6B006724FC = {
 			isa = PBXGroup;
 			children = (
 				F66F6DD11B2941FC000ABAC6 /* Prefix.pch */,
+				BFC897131B25EB2000627D5D /* 1802 Emulator.txt */,
 				F6D63B401B1D6A6B006724FC /* 1802 Emulator */,
 				F6D63B541B1D6A6C006724FC /* 1802 EmulatorTests */,
 				F6D63B3F1B1D6A6B006724FC /* Products */,
@@ -115,27 +157,16 @@
 		F6D63B401B1D6A6B006724FC /* 1802 Emulator */ = {
 			isa = PBXGroup;
 			children = (
-				F66F6DD01B293A01000ABAC6 /* 1802 Emulator.entitlements */,
-				F6D63B641B1D6D69006724FC /* CPU Emulation.h */,
-				F6D63B611B1D6B01006724FC /* CPU Emulation.c */,
 				F66F6DD21B2BCD28000ABAC6 /* MainMenu.xib */,
 				F6D63B431B1D6A6B006724FC /* AppDelegate.h */,
 				F6D63B441B1D6A6B006724FC /* AppDelegate.m */,
-				F66F6DD51B2BCEF5000ABAC6 /* MainWindowController.h */,
-				F66F6DD61B2BCEF5000ABAC6 /* MainWindowController.m */,
-				F6D63B4A1B1D6A6C006724FC /* MainWindow.xib */,
-				F66F6DD91B2BEEAE000ABAC6 /* RegistersViewController.h */,
-				F66F6DDA1B2BEEAE000ABAC6 /* RegistersViewController.m */,
-				F66F6DDB1B2BEEAE000ABAC6 /* RegistersView.xib */,
-				F66F6DCD1B24C668000ABAC6 /* ScratchpadRegistersView.h */,
-				F66F6DCE1B24C668000ABAC6 /* ScratchpadRegistersView.m */,
-				F6D63B481B1D6A6C006724FC /* Images.xcassets */,
-				F6D63B411B1D6A6B006724FC /* Supporting Files */,
-				F6D63B631B1D6C19006724FC /* etypes.h */,
-				F6D63B651B200D8A006724FC /* HexLoader.h */,
-				F6D63B661B200D8A006724FC /* HexLoader.m */,
-				BFC897131B25EB2000627D5D /* 1802 Emulator.txt */,
 				F66F0D181EB8E6F500D7891A /* Log.h */,
+				F603A57A1EBA2F8E000EA85D /* Main Window */,
+				F603A5791EBA2F65000EA85D /* Register Display */,
+				F603A57C1EBA3022000EA85D /* Loader */,
+				F603A57B1EBA2F9E000EA85D /* CPU Emulation */,
+				F6D63B411B1D6A6B006724FC /* Supporting Files */,
+				F6D63B481B1D6A6C006724FC /* Images.xcassets */,
 			);
 			path = "1802 Emulator";
 			sourceTree = "<group>";
@@ -143,6 +174,7 @@
 		F6D63B411B1D6A6B006724FC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F66F6DD01B293A01000ABAC6 /* 1802 Emulator.entitlements */,
 				F6D63B421B1D6A6B006724FC /* Info.plist */,
 				F6D63B461B1D6A6B006724FC /* main.m */,
 			);
