@@ -440,14 +440,6 @@ static uint8_t icb( void *userData, uint8_t port )
 	self.runmode = RunModeStepping;
 	CPU_step();
 	
-	break this up into a fetch and then an execute to allow better breakpoints?
-	as in, if we break on an address, stop before executing the opcode stored there!
-	
-	regisgter display needs to change color for registers that have jsut been changed bhy the step
-		(also P and X regs)
-
-	why don't we display Q?
-		'
 	[self updateState];
 }
 

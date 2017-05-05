@@ -11,6 +11,16 @@ Breakpoints on IO ports, with checkboxs
 
 Load symbol table, and display it in a useful format.
 
-Register changes should be hilighted
+Display lines of asm code as we step and break
 
+break step() up into a fetch and then an execute to allow better breakpoints?
+as in, if we break on an address, stop before executing the opcode stored there!
 
+regisgter display needs to change color for registers that have just been changed by the step
+(also P and X regs)
+
+why don't we display Q?
+
+add fetch an execute buttons
+
+add mode option to fake a uart (currently always in this mode)
