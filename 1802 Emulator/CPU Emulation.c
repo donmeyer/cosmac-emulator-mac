@@ -830,6 +830,8 @@ static void opcode_C()
 			longSkip( cpu.DF == 1 );
 			break;
 	}
+	
+	cycleCount++;	// The Cn opcodes all take the machine cycles (one fetch, two execute).
 }
 
 
