@@ -24,3 +24,22 @@ why don't we display Q?
 add fetch an execute buttons
 
 add mode option to fake a uart (currently always in this mode)
+
+
+Breakpoints:
+* Pgm Address
+* mem read / write  (needs to be a range?)
+* Reg read / write
+* port read / write
+* Q read / write
+
+
+video display sim (just map memory to pixels, right?)
+
+
+Deal with IDL opcode properly. Not sure what that is, but...
+
+Implement interrupt support
+
+Implement EF input pin simulation
+
