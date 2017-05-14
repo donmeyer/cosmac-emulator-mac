@@ -23,6 +23,18 @@
 
 
 
+@interface SourceLine : NSObject
+
+@property (strong) NSString *text;
+@property (readonly, assign) unsigned int addr;
+@property (readonly, assign) int lineNum;
+@property (readonly) unsigned int endAddr;
+@property (readonly) BOOL hasCode;
+
+@end
+
+
+
 @interface HexLoader : NSObject
 
 @property (nonatomic, assign, readonly) long byteCount;	// Count of bytes written to memory.
@@ -35,5 +47,7 @@
 - (id)initWithListingString:(NSString*)listingString;
 
 - (BOOL)load:(void (^)(long addr, unsigned char byte))writeBlock;
+
+- (SourceLine*)lineForAddr:(unsigned int)addr;
 
 @end

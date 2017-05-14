@@ -36,6 +36,55 @@
 
 
 
+@interface SourceLine ()
+@property (assign) int count;
+@end
+
+
+
+@implementation SourceLine
+
+- (instancetype)initWithText:(NSString*)text lineNum:(int)lineNum addr:(unsigned int) addr count:(int)count
+{
+	self = [super init];
+	if( self )
+	{
+		_text = text;
+		_lineNum = lineNum;
+		_addr = addr;
+		_count = count;
+	}
+	
+	return self;
+}
+
+- (instancetype)initWithText:(NSString*)text lineNum:(int)lineNum
+{
+	self = [super init];
+	if( self )
+	{
+		_text = text;
+		_lineNum = lineNum;
+		_addr = 0;
+		_count = 0;
+	}
+	
+	return self;
+}
+
+- (BOOL)hasCode
+{
+	return self.count != 0;
+}
+
+- (unsigned int)endAddr
+{
+	return self.addr + self.count - 1;
+}
+
+@end
+
+
 
 
 @interface HexLoader ()
@@ -44,9 +93,13 @@
 
 @property (nonatomic, assign) long byteCount;	// Count of bytes written to memory.
 
+@property (nonatomic, assign) int lineNum;	// Count of bytes written to memory.
+
 @property (nonatomic, strong) void (^writeBlock)(long addr, unsigned char byte);
 
 @property (strong, readwrite) NSMutableArray *symbols;
+
+@property (strong, readwrite) NSMutableArray *source;
 
 @end
 
@@ -62,6 +115,8 @@
 	{
 		_listingString = listingString;
 		_symbols = [[NSMutableArray alloc] init];
+		_source = [[NSMutableArray alloc] init];
+		_lineNum = 0;
 	}
 	
 	return self;
@@ -104,6 +159,8 @@
 		
 		if( [line length] > 0 )
 		{
+			self.lineNum++;
+			
 			if( [self processListingLine:line] == NO )
 			{
 				// Not a valid listing line, probably a symbol table line?
@@ -151,7 +208,7 @@
 	// We expect listing lines to look like:  "AA55 12FC;         0006  LOOP	DEC R2"  (symbol is optional)
 	NSError *error = nil;
 	
-	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^([0-9a-fA-F]{4}) \\s+ ([0-9a-fA-F]+) \\s* \\;" options:NSRegularExpressionDotMatchesLineSeparators |  NSRegularExpressionAllowCommentsAndWhitespace error:&error];
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^([0-9a-fA-F]{4}) \\s+ ([0-9a-fA-F]*) \\s* \\;" options:NSRegularExpressionDotMatchesLineSeparators |  NSRegularExpressionAllowCommentsAndWhitespace error:&error];
 	NSAssert( ( regex != nil && error == nil ), @"Error build regex: %@", error );
 	
 	//	NSUInteger matchCount = [regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)];
@@ -196,11 +253,18 @@
 		LogVerbose( @"Range 2 (opcodes) capture '%@'", cap );
 		
 		// Now find each pair of digits and handle them.
-		BOOL parseRC = [self _parseOpcodePairs:cap atHexAddress:hexAddr];
-		if( parseRC == NO )
+		SourceLine *sl;
+		int pairCount = [self _parseOpcodePairs:cap atHexAddress:hexAddr];
+		if( pairCount > 0 )
 		{
-			return NO;
+			sl = [[SourceLine alloc] initWithText:line lineNum:self.lineNum addr:hexAddr count:pairCount];
 		}
+		else
+		{
+			sl = [[SourceLine alloc] initWithText:line lineNum:self.lineNum];
+		}
+		
+		[self.source addObject:sl];
 	}
 	
 	return NO;
@@ -210,10 +274,11 @@
 
 /// Parse hex pairs from the given string and write the bytes to the write block.
 /// Returns NO if there was a problem,
-- (BOOL)_parseOpcodePairs:(NSString*)cap atHexAddress:(unsigned)hexAddr
+- (int)_parseOpcodePairs:(NSString*)cap atHexAddress:(unsigned)hexAddr
 {
 	NSRange digitRange;
 	digitRange.length = 2;
+	int pairs = 0;
 	for( int i=0; i<cap.length; i+=2 )
 	{
 		digitRange.location = i;
@@ -225,18 +290,18 @@
 		{
 			// This is odd
 			LogError( @"Found hex pair '%@' but failed to parse it!", cap );
-			return NO;
+			return 0;
 		}
 		
 		// Call back to the write block (typically this would write to memory).
 		self.writeBlock( hexAddr, hexByte );
 		
 		hexAddr++;
-		
+		pairs ++;
 		self.byteCount++;
 	}
 	
-	return YES;
+	return pairs;
 }
 
 
@@ -299,6 +364,24 @@
 	return YES;
 }
 
+
+
+- (SourceLine*)lineForAddr:(unsigned int)addr
+{
+	for( SourceLine *line in self.source )
+	{
+		if( line.hasCode )
+		{
+			if( addr >= line.addr && addr <= line.endAddr )
+			{
+				// Bingo
+				return line;
+			}
+		}
+	}
+	
+	return nil;
+}
 
 
 #if 0
