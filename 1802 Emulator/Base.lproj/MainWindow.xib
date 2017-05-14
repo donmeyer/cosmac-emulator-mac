@@ -302,6 +302,10 @@
                             <action selector="cmdEnteredAction:" target="-2" id="6Jh-Pw-jwM"/>
                         </connections>
                     </textField>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPE-SE-Lks" customClass="RegistersView">
+                        <rect key="frame" x="287" y="118" width="163" height="96"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                 </subviews>
             </view>
             <connections>
