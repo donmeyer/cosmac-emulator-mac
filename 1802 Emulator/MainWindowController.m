@@ -109,7 +109,8 @@ NS_ENUM( NSInteger, RunMode ) {
 
 
 	CPU_reset();
-	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
+//	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
+	[self loadFile:@"/Users/don/Code/Cosmac 1802/asm_src/slowq.lst"];
 	
 	[self.cmdString setString:@".\r"];
 }
@@ -300,9 +301,16 @@ static uint8_t icb( void *userData, uint8_t port )
 	
 	if( stepping || self.liveSymbolUpdates )
 	{
+		unsigned int pc = cpu->reg[cpu->P];
+		
+		SourceLine *line = [self.loader lineForAddr:pc];
+		if( line )
+		{
+			LogDebug( @":::: %4d : %@", line.lineNum, line.text );
+		}
+
 		if( self.currentSymbol )
 		{
-			int pc = cpu->reg[cpu->P];
 			int offset = pc - self.currentSymbol.addr;
 			
 			if( offset == 0 )
