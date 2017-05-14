@@ -106,6 +106,7 @@
 		{
 			if( [self processListingLine:line] == NO )
 			{
+				// Not a valid listing line, probably a symbol table line?
 				[self processSymbolTableLine:line];
 			}
 		}
@@ -147,30 +148,40 @@
 
 - (BOOL)processListingLine:(NSString*)line
 {
-	// We expect listing lines to look like:  "AA55 12FC;"
+	// We expect listing lines to look like:  "AA55 12FC;         0006  LOOP	DEC R2"  (symbol is optional)
 	NSError *error = nil;
-	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^([0-9a-fA-F]{4})\\s+([0-9a-fA-F]+)\\s*\\;.*"
-																		   options:NSRegularExpressionDotMatchesLineSeparators
-																			 error:&error];
+	
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^([0-9a-fA-F]{4}) \\s+ ([0-9a-fA-F]+) \\s* \\;" options:NSRegularExpressionDotMatchesLineSeparators |  NSRegularExpressionAllowCommentsAndWhitespace error:&error];
 	NSAssert( ( regex != nil && error == nil ), @"Error build regex: %@", error );
 	
 	//	NSUInteger matchCount = [regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)];
 	//	LogVerbose( @"Regex=%@, matchcount=%lu", regex, matchCount );
 	
-	NSTextCheckingResult *result = [regex firstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
+	LogVerbose( @"-------------------- Line: '%@'", line );
+
+	NSTextCheckingResult *result;
+
+	result = [regex firstMatchInString:line options:0 range:NSMakeRange(0, line.length)];
 	LogVerbose( @"Match Result %@", result );
 	if( result )
 	{
-		NSUInteger num = [result numberOfRanges];	// This is the number of capture groups plus the full match as rnage 0.
+	
+		NSUInteger num = [result numberOfRanges];	// This is the number of capture groups plus the full match as range 0.
 		LogVerbose( @"Number of ranges=%lu", (unsigned long)num );
+		
+		// 0 - full match
+		// 1 - Address
+		// 2 - Code bytes as hex digits (optional)
+		// 3 - Label (optional)
+		// 4 - Source mnemonics (optional)
 		
 		NSRange range;
 		NSString *cap;
 		
 		// First capture group, the address
-		range = [result rangeAtIndex:0];
+		range = [result rangeAtIndex:1];
 		cap = [line substringWithRange:range];
-		LogVerbose( @"Range 1 capture '%@'", cap );
+		LogVerbose( @"Range 1 (addr) capture '%@'", cap );
 		
 		unsigned hexAddr;
 		if( [[NSScanner scannerWithString:cap] scanHexInt:&hexAddr] == NO )
@@ -179,42 +190,62 @@
 			LogError( @"Found hex address '%@' but failed to parse it!", cap );
 			return NO;
 		}
-		
+
 		range = [result rangeAtIndex:2];
 		cap = [line substringWithRange:range];
-		LogVerbose( @"Range 2 capture '%@'", cap );
+		LogVerbose( @"Range 2 (opcodes) capture '%@'", cap );
 		
-		// Now find each pair of digits.
-		NSRange digitRange;
-		digitRange.length = 2;
-		for( int i=0; i<cap.length; i+=2 )
+		// Now find each pair of digits and handle them.
+		BOOL parseRC = [self _parseOpcodePairs:cap atHexAddress:hexAddr];
+		if( parseRC == NO )
 		{
-			digitRange.location = i;
-			NSString *digitPair = [cap substringWithRange:digitRange];
-			LogVerbose( @"Digit pair '%@'", digitPair );
-			
-			unsigned hexByte;
-			if( [[NSScanner scannerWithString:digitPair] scanHexInt:&hexByte] == NO )
-			{
-				// This is odd
-				LogError( @"Found hex pair '%@' but failed to parse it!", cap );
-				return NO;
-			}
-			
-			// Call back to the write block (typically this would write to memory).
-			self.writeBlock( hexAddr, hexByte );
-			
-			hexAddr++;
-			
-			self.byteCount++;
+			return NO;
 		}
-		
-		return YES;
 	}
 	
 	return NO;
 }
 
+
+
+/// Parse hex pairs from the given string and write the bytes to the write block.
+/// Returns NO if there was a problem,
+- (BOOL)_parseOpcodePairs:(NSString*)cap atHexAddress:(unsigned)hexAddr
+{
+	NSRange digitRange;
+	digitRange.length = 2;
+	for( int i=0; i<cap.length; i+=2 )
+	{
+		digitRange.location = i;
+		NSString *digitPair = [cap substringWithRange:digitRange];
+		LogVerbose( @"Digit pair '%@'", digitPair );
+		
+		unsigned hexByte;
+		if( [[NSScanner scannerWithString:digitPair] scanHexInt:&hexByte] == NO )
+		{
+			// This is odd
+			LogError( @"Found hex pair '%@' but failed to parse it!", cap );
+			return NO;
+		}
+		
+		// Call back to the write block (typically this would write to memory).
+		self.writeBlock( hexAddr, hexByte );
+		
+		hexAddr++;
+		
+		self.byteCount++;
+	}
+	
+	return YES;
+}
+
+
+- (void)_parseSource:(NSString*)string
+{
+	// The line number, optional symbol, and optional asm source.
+
+	
+}
 
 
 - (BOOL)processSymbolTableLine:(NSString*)line
