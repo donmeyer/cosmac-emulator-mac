@@ -11,8 +11,7 @@
 #import "HexLoader.h"
 #import "ScratchpadRegistersView.h"
 #import "RegistersViewController.h"
-
-
+#import "_802_Emulator-Swift.h"
 
 //static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 
@@ -32,6 +31,10 @@ NS_ENUM( NSInteger, RunMode ) {
 @property (strong) IBOutlet RegistersViewController *registersViewController;
 @property (weak) IBOutlet NSView *regView;
 
+//
+//
+//
+@property (weak) IBOutlet NSView *portsView;
 
 //
 // Timing
@@ -106,6 +109,11 @@ NS_ENUM( NSInteger, RunMode ) {
 //	self.registersViewController.view = self.regView;
 
 	[self.regView addSubview:[self.registersViewController view]];
+	
+	AllIOPortsViewController *pv = [[AllIOPortsViewController alloc] init];
+	NSLog( @"IO port view frame: %@", NSStringFromRect( pv.view.frame ) );
+	[self.portsView addSubview:pv.view];
+	[pv setOutputPort:2 byte:44];
 
 
 	CPU_reset();

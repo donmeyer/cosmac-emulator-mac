@@ -57,6 +57,8 @@
 
 - (void)awakeFromNib
 {
+	[super awakeFromNib];
+
 	self.descDict = [[NSMutableDictionary alloc] init];
 	[self calcFonts];
 }

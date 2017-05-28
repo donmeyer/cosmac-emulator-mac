@@ -19,6 +19,8 @@
 		F66F6DDD1B2BEEAE000ABAC6 /* RegistersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F66F6DDA1B2BEEAE000ABAC6 /* RegistersViewController.m */; };
 		F66F6DDE1B2BEEAE000ABAC6 /* RegistersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66F6DDB1B2BEEAE000ABAC6 /* RegistersView.xib */; };
 		F66F6DDF1B2BEEAE000ABAC6 /* RegistersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66F6DDB1B2BEEAE000ABAC6 /* RegistersView.xib */; };
+		F6925AFB1ECC06480031DF17 /* AllIOPortsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */; };
+		F6925AFC1ECC06480031DF17 /* AllIOPortsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */; };
 		F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B441B1D6A6B006724FC /* AppDelegate.m */; };
 		F6D63B471B1D6A6B006724FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B461B1D6A6B006724FC /* main.m */; };
 		F6D63B491B1D6A6C006724FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B481B1D6A6C006724FC /* Images.xcassets */; };
@@ -55,6 +57,8 @@
 		F66F6DD91B2BEEAE000ABAC6 /* RegistersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistersViewController.h; sourceTree = "<group>"; };
 		F66F6DDA1B2BEEAE000ABAC6 /* RegistersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistersViewController.m; sourceTree = "<group>"; };
 		F66F6DDB1B2BEEAE000ABAC6 /* RegistersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistersView.xib; sourceTree = "<group>"; };
+		F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllIOPortsViewController.swift; sourceTree = "<group>"; };
+		F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllIOPortsViewController.xib; sourceTree = "<group>"; };
 		F6D63B3E1B1D6A6B006724FC /* 1802 Emulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1802 Emulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6D63B421B1D6A6B006724FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6D63B431B1D6A6B006724FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -117,6 +121,8 @@
 				F66F6DD61B2BCEF5000ABAC6 /* MainWindowController.m */,
 				F603A57E1EBD3F4A000EA85D /* IOPortView.swift */,
 				F603A57F1EBD3F4A000EA85D /* IOPortView.xib */,
+				F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */,
+				F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */,
 			);
 			name = "Main Window";
 			sourceTree = "<group>";
@@ -300,6 +306,7 @@
 				F6D63B4C1B1D6A6C006724FC /* MainWindow.xib in Resources */,
 				F66F6DD31B2BCD28000ABAC6 /* MainMenu.xib in Resources */,
 				F66F6DDE1B2BEEAE000ABAC6 /* RegistersView.xib in Resources */,
+				F6925AFC1ECC06480031DF17 /* AllIOPortsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +331,7 @@
 				F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */,
 				F603A5801EBD3F4A000EA85D /* IOPortView.swift in Sources */,
 				F66F6DD71B2BCEF5000ABAC6 /* MainWindowController.m in Sources */,
+				F6925AFB1ECC06480031DF17 /* AllIOPortsViewController.swift in Sources */,
 				F6D63B671B200D8A006724FC /* HexLoader.m in Sources */,
 				F66F6DDC1B2BEEAE000ABAC6 /* RegistersViewController.m in Sources */,
 				F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */,
@@ -502,6 +510,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = "$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources/**";
 				INFOPLIST_FILE = "1802 EmulatorTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.stormgatesoftware.$(PRODUCT_NAME:rfc1034identifier)";
@@ -520,6 +529,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = "$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources/**";
 				INFOPLIST_FILE = "1802 EmulatorTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.stormgatesoftware.$(PRODUCT_NAME:rfc1034identifier)";

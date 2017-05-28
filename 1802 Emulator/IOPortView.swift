@@ -6,9 +6,13 @@
 //  Copyright © 2017 Donald Meyer. All rights reserved.
 //
 
+// This view controller manages one IO port.
+
+
 import Cocoa
 
-class IOPortView: NSViewController {
+open class IOPortView: NSViewController
+{
 	@IBOutlet weak var portNumLabel: NSTextField!
 
 	@IBOutlet weak var inputField: NSTextField!
@@ -17,7 +21,8 @@ class IOPortView: NSViewController {
 	@IBOutlet weak var outputBreak: NSButton!
 	
 	
-	override func viewDidLoad() {
+	override open func viewDidLoad()
+	{
         super.viewDidLoad()
         // Do view setup here.
     }

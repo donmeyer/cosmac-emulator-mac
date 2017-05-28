@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
         <capability name="box content view" minToolsVersion="7.0"/>
@@ -13,7 +13,7 @@
                 <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="0qX-gT-rp1"/>
                 <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="OpW-7F-HnW"/>
                 <outlet property="importButton" destination="XiB-5E-iyo" id="JM3-7l-rot"/>
-                <outlet property="outputPort2Checkbox" destination="Oex-7H-SkD" id="rnQ-HI-ohm"/>
+                <outlet property="portsView" destination="24P-7w-NDf" id="JNJ-4h-V6i"/>
                 <outlet property="regView" destination="kB2-Tk-jcu" id="LCc-gp-RUJ"/>
                 <outlet property="resetButton" destination="uBR-sd-2dX" id="NtV-dn-ea3"/>
                 <outlet property="runButton" destination="st7-FM-QOH" id="ov9-b6-mOr"/>
@@ -91,41 +91,6 @@
                                     <rect key="frame" x="18" y="14" width="373" height="366"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </customView>
-                            </subviews>
-                        </view>
-                    </box>
-                    <box autoresizesSubviews="NO" fixedFrame="YES" borderType="line" title="I/O Ports" translatesAutoresizingMaskIntoConstraints="NO" id="hNe-ID-37A">
-                        <rect key="frame" x="463" y="379" width="255" height="280"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" id="cTw-vO-jil">
-                            <rect key="frame" x="1" y="1" width="253" height="264"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oex-7H-SkD">
-                                    <rect key="frame" x="45" y="184" width="65" height="18"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="check" title="Output" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gCK-c0-xVE">
-                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                </button>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efb-FN-JPA">
-                                    <rect key="frame" x="11" y="186" width="12" height="17"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="2" id="aBu-fB-Qf1">
-                                        <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hsW-9d-hAh">
-                                    <rect key="frame" x="47" y="153" width="65" height="18"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="check" title="Output" bezelStyle="regularSquare" imagePosition="left" inset="2" id="4eP-i8-wWk">
-                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                </button>
                             </subviews>
                         </view>
                     </box>
@@ -302,10 +267,14 @@
                             <action selector="cmdEnteredAction:" target="-2" id="6Jh-Pw-jwM"/>
                         </connections>
                     </textField>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPE-SE-Lks" customClass="RegistersView">
-                        <rect key="frame" x="287" y="118" width="163" height="96"/>
+                    <box fixedFrame="YES" title="I/O Ports" translatesAutoresizingMaskIntoConstraints="NO" id="mL3-MD-BCc">
+                        <rect key="frame" x="463" y="341" width="255" height="323"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    </customView>
+                        <view key="contentView" id="24P-7w-NDf">
+                            <rect key="frame" x="2" y="2" width="251" height="306"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                    </box>
                 </subviews>
             </view>
             <connections>
@@ -313,5 +282,32 @@
             </connections>
             <point key="canvasLocation" x="811" y="704"/>
         </window>
+        <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="0I0-da-BjI">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <clipView key="contentView" id="VOX-gY-A5X">
+                <rect key="frame" x="1" y="1" width="238" height="133"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <textView importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="A58-v1-QxE">
+                        <rect key="frame" x="0.0" y="0.0" width="238" height="133"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <size key="minSize" width="238" height="133"/>
+                        <size key="maxSize" width="463" height="10000000"/>
+                        <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                    </textView>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            </clipView>
+            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Oyt-Xr-LrM">
+                <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </scroller>
+            <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="0a7-WG-Wxk">
+                <rect key="frame" x="223" y="1" width="16" height="133"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </scroller>
+        </scrollView>
     </objects>
 </document>
