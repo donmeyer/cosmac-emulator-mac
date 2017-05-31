@@ -12,6 +12,5 @@
 
 - (void)loadFile:(NSString*)path;
 
-- (void)openDocument;
 
 @end

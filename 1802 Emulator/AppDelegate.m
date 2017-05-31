@@ -58,12 +58,6 @@
 }
 
 
-- (void)openDocument:(id)sender
-{
-	LogDebug( @"Open document" );
-	[self.mainWindowController openDocument];
-}
-
 - (void)showHelp:(id)sender
 {
 	NSURL *guideURL = [NSURL URLWithString:@"http://www.sgsw.com/emu1802/help"];
