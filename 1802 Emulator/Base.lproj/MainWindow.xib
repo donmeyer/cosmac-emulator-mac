@@ -20,7 +20,6 @@
                 <outlet property="statusLabel" destination="Odv-2V-cgT" id="CC5-Jo-hmn"/>
                 <outlet property="stepButton" destination="6aV-Ov-fuP" id="Bxc-uu-JDN"/>
                 <outlet property="symbolLabel" destination="SMU-mW-qyZ" id="eMN-N7-Ke1"/>
-                <outlet property="terminalField" destination="DrS-PH-rUt" id="KR4-Vw-iE8"/>
                 <outlet property="totalCyclesField" destination="GjQ-OV-56M" id="uRL-j8-QP9"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="63F-zY-dLP"/>
             </connections>
@@ -30,10 +29,10 @@
         <window title="1802 Emulator" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" userLabel="MainWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="1294" height="684"/>
+            <rect key="contentRect" x="335" y="390" width="1108" height="684"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="EiT-Mj-1SZ" userLabel="MainView">
-                <rect key="frame" x="0.0" y="0.0" width="1294" height="684"/>
+                <rect key="frame" x="0.0" y="0.0" width="1108" height="684"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6aV-Ov-fuP">
@@ -219,33 +218,6 @@
                             <binding destination="-2" name="value" keyPath="self.liveSymbolUpdates" id="hff-vm-Mni"/>
                         </connections>
                     </button>
-                    <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APp-I0-H9m">
-                        <rect key="frame" x="741" y="56" width="508" height="457"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" ambiguous="YES" id="adj-bD-MlW">
-                            <rect key="frame" x="1" y="1" width="506" height="455"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" incrementalSearchingEnabled="YES" id="DrS-PH-rUt">
-                                    <rect key="frame" x="0.0" y="0.0" width="506" height="455"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="506" height="455"/>
-                                    <size key="maxSize" width="508" height="10000000"/>
-                                    <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                </textView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Chv-jb-d1u">
-                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="h1d-ZR-6Xk">
-                            <rect key="frame" x="491" y="1" width="16" height="455"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                    </scrollView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMU-mW-qyZ">
                         <rect key="frame" x="18" y="222" width="222" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -255,18 +227,6 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFs-dY-YyJ">
-                        <rect key="frame" x="741" y="26" width="508" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="hJM-9B-zft">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <action selector="cmdEnteredAction:" target="-2" id="6Jh-Pw-jwM"/>
-                        </connections>
-                    </textField>
                     <box fixedFrame="YES" title="I/O Ports" translatesAutoresizingMaskIntoConstraints="NO" id="mL3-MD-BCc">
                         <rect key="frame" x="463" y="349" width="255" height="310"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -275,12 +235,23 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                     </box>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rkO-xx-zGj">
+                        <rect key="frame" x="380" y="74" width="92" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Terminal" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nag-BY-k7S">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="openTerminal:" target="-2" id="eog-Ym-nv8"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="dRt-lg-Ikv"/>
             </connections>
-            <point key="canvasLocation" x="811" y="704"/>
+            <point key="canvasLocation" x="718" y="704"/>
         </window>
         <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="0I0-da-BjI">
             <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>

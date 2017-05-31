@@ -64,6 +64,7 @@ NS_ENUM( NSInteger, RunMode ) {
 
 
 @property (strong) AllIOPortsViewController *ioPorts;
+@property (strong) TerminalWindowController *terminalWindowController;
 
 @property (strong) NSTimer *cycleTimer;
 
@@ -75,19 +76,12 @@ NS_ENUM( NSInteger, RunMode ) {
 
 @property (strong) NSMutableSet *stepIgnoreSymbols;
 
-
-@property (weak) IBOutlet NSTextField *cmdLineField;
-@property (strong) IBOutlet NSTextView *terminalField;
-
-
-@property (strong) NSMutableString *terminalString;
-
-@property (strong) NSMutableString *cmdString;
-
 @property (nonatomic, assign) enum RunMode runmode;
 
 
 @property (nonatomic, assign) BOOL liveSymbolUpdates;
+
+@property (nonatomic, assign) BOOL useTerminalForIO;
 
 @end
 
@@ -128,7 +122,8 @@ NS_ENUM( NSInteger, RunMode ) {
 //	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
 	[self loadFile:@"/Users/don/Code/Cosmac 1802/asm_src/slowq.lst"];
 	
-	[self.cmdString setString:@".\r"];
+	self.terminalWindowController = [[TerminalWindowController alloc] initWithWindowNibName:@"TerminalWindow"];
+	self.terminalWindowController.window.delegate = self;
 }
 
 
@@ -137,15 +132,17 @@ NS_ENUM( NSInteger, RunMode ) {
 	[self.statusLabel setStringValue:@""];
 	
 	self.stepIgnoreSymbols = [[NSMutableSet alloc] init];
-
-	self.terminalString = [[NSMutableString alloc] init];
-
-	self.cmdString = [[NSMutableString alloc] init];
-	
-	NSFont *font = [NSFont fontWithName:@"Consolas" size:11.0];
-	self.terminalField.font = font;
 }
 
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+	if( notification.object == self.terminalWindowController.window )
+	{
+		LogDebug( @"Terminal close" );
+		self.useTerminalForIO = NO;
+	}
+}
 
 
 #pragma mark - IO Port Emulation
@@ -159,11 +156,14 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 	
 	[mvc.ioPorts setOutputPort:port byte:data];
 	
-	if( port == 2 )
+	if( mvc.useTerminalForIO )
 	{
-		[mvc emitTerminalCharacter:data];
+		if( port == 2 )
+		{
+			[mvc.terminalWindowController emitTerminalCharacter:data];
+		}
 	}
-	
+
 	if( mvc.outputPort2Checkbox.state == NSOnState )
 	{
 		[mvc doBreakpointWithTitle:@"Output Port 2"];
@@ -177,36 +177,39 @@ static uint8_t icb( void *userData, uint8_t port )
 	
 	MainWindowController *mvc = (__bridge MainWindowController*)userData;
 	
-	if( port == 3 )
+	if( mvc.useTerminalForIO )
 	{
-		if( [mvc hasCmdChar] )
+		if( port == 3 )
 		{
-			return 0x81;
+			if( [mvc.terminalWindowController hasCmdChar] )
+			{
+				return 0x81;
+			}
+			else
+			{
+				// If no characters, sleep a little bit. This way in a loop waiting for input we don't use a lot of host CPU cycles!
+				// TODO: Make this configurable, so we can turn off the delay if so desired.
+				[NSThread sleepForTimeInterval:0.050];
+				return 0x80;
+			}
 		}
-		else
+		
+		if( port == 2 )
 		{
-			// If no characters, sleep a little bit. This way in a loop waiting for input we don't use a lot of host CPU cycles!
-			// TODO: Make this configurable, so we can turn off the delay if so desired.
-			[NSThread sleepForTimeInterval:0.050];
-			return 0x80;
+			int c = (int) [mvc.terminalWindowController nextCommandChar];
+			if( c >= 0 )
+			{
+				LogVerbose( @"Sending a character to Forth!" );
+				return c;
+			}
+			else
+			{
+				LogWarn( @"Read char but none available" );
+				return 0;
+			}
 		}
 	}
-	
-	if( port == 2 )
-	{
-		int c = [mvc nextCommandChar];
-		if( c >= 0 )
-		{
-			LogVerbose( @"Sending a character to Forth!" );
-			return c;
-		}
-		else
-		{
-			LogWarn( @"Read char but none available" );
-			return 0;
-		}
-	}
-	
+
 	return [mvc.ioPorts readInputPort:port];
 }
 
@@ -214,56 +217,10 @@ static uint8_t icb( void *userData, uint8_t port )
 
 #pragma mark - Terminal Emulation
 
-- (void)emitTerminalText:(NSString*)text
+- (IBAction)openTerminal:(id)sender
 {
-	[self.terminalString appendString:text];
-	[self.terminalField setString:self.terminalString];
-	[self.terminalField scrollToEndOfDocument:nil];
-}
-
-
-- (void)emitTerminalCharacter:(char)c
-{
-	[self.terminalString appendFormat:@"%c", c];
-	[self.terminalField setString:self.terminalString];
-	
-//	NSRange range;
-	[self.terminalField scrollToEndOfDocument:nil];
-}
-
-
-- (BOOL)hasCmdChar
-{
-	return self.cmdString.length > 0 ? YES : NO;
-}
-
-
-/// returns -1 if none
-- (int)nextCommandChar
-{
-	if( self.cmdString.length )
-	{
-		int c = [self.cmdString characterAtIndex:0];
-
-		NSRange range;
-		range.length = 1;
-		range.location = 0;
-		[self.cmdString deleteCharactersInRange:range];
-		
-		return c;
-	}
-	
-	return -1;
-}
-
-
-- (IBAction)cmdEnteredAction:(id)sender
-{
-	NSTextField *field = (NSTextField*)sender;
-	NSString *buf = [NSString stringWithFormat:@"%@\r", field.stringValue];
-	[self.cmdString setString:buf];
-	
-	[field setStringValue:@""];
+	[self.terminalWindowController showWindow:self];
+	self.useTerminalForIO = YES;
 }
 
 
@@ -551,14 +508,14 @@ static uint8_t icb( void *userData, uint8_t port )
 - (IBAction)importAction:(id)sender
 {
 	CPU_reset();
-	[self openDocument];
+	[self openDocument:nil];
 }
 
 
 
 #pragma mark - Ask For File
 
-- (void)openDocument
+- (IBAction)openDocument:(id)sender
 {
 	[self browseForListingWithCompletion:^(NSURL *url) {
 		// Do this next runloop to let the file chooser go away!
