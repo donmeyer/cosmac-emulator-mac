@@ -10,12 +10,12 @@ import Cocoa
 
 class TerminalWindowController: NSWindowController {
 
+	@IBOutlet private weak var inputTextField: NSTextField!
+	@IBOutlet private var outputTextView: NSTextView!
 	
-	@IBOutlet weak var inputTextField: NSTextField!
-	@IBOutlet var outputTextView: NSTextView!
+	private var cmdString = ""
 	
-	var terminalString = ""
-	var cmdString = ""
+	
 	
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -28,44 +28,52 @@ class TerminalWindowController: NSWindowController {
 	
 	public func emitTerminalText( _ text : String )
 	{
-		terminalString.append( text )
-		outputTextView.string = terminalString
+		let astr = NSAttributedString.init(string: text)
+		outputTextView.textStorage?.append(astr)
+		
 		outputTextView.scrollToEndOfDocument(nil)
 	}
 	
 	
 	public func emitTerminalCharacter( _ c : UInt8 )
 	{
-		terminalString.append(Character.init(UnicodeScalar.init(c)))
-		outputTextView.string = terminalString
+		let s = String.init(format: "%c", c )
+		let astr = NSAttributedString.init(string: s)
+		outputTextView.textStorage?.append(astr)
+		
 		outputTextView.scrollToEndOfDocument(nil)
 	}
 	
 	
 	func hasCmdChar() -> Bool
 	{
-		return cmdString.lengthOfBytes(using: .ascii) > 0 ? true : false
+		return cmdString.characters.count > 0 ? true : false
 	}
 	
 	
-	/// returns -1 if none
+	/// returns -1 if none available.
 	func nextCommandChar() -> Int
 	{
-		if cmdString.characters.count > 0
+		if self.hasCmdChar()
 		{
 			let z = Array( cmdString.unicodeScalars )
 			cmdString.characters.removeFirst()
 			return Int(z[0].value)
 		}
-		return -1
+		else
+		{
+			return -1
+		}
 	}
 	
 	
 	@IBAction func cmdEntered(_ sender: Any)
 	{
 		let field = sender as! NSTextField
+		
 		let buf = String.init(format: "%@\r", field.stringValue )
-		cmdString = buf
+		cmdString.append(buf)
+		
 		field.stringValue = ""
 	}
 	
