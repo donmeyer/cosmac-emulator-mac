@@ -11,20 +11,68 @@
 
 import Cocoa
 
+
+
 open class IOPortView: NSViewController
 {
-	@IBOutlet weak var portNumLabel: NSTextField!
+	@IBOutlet private weak var portNumLabel: NSTextField!
 
-	@IBOutlet weak var inputField: NSTextField!
-	@IBOutlet weak var outputField: NSTextField!
-	@IBOutlet weak var inoutBreak: NSButton!
-	@IBOutlet weak var outputBreak: NSButton!
+	@IBOutlet private weak var inputField: NSTextField!
+	@IBOutlet private weak var outputField: NSTextField!
+	@IBOutlet private weak var inoutBreak: NSButton!
+	@IBOutlet private weak var outputBreak: NSButton!
 	
+	private var outValue : UInt8 = 0
+	
+	enum Format {
+		case hex
+		case decimal
+	}
+	
+	var format : Format = .hex
+	
+	var shouldBreakOnPortRead : Bool {
+		get {
+			return inoutBreak.state != 0 ? true : false
+		}
+	}
+	
+	var shouldBreakOnPortWrite : Bool {
+		get {
+			return outputBreak.state != 0 ? true : false
+		}
+	}
+	
+	var portNum : Int {
+		set {
+			portNumLabel.stringValue = String(newValue)
+		}
+		
+		get {
+			return portNumLabel.integerValue
+		}
+	}
 	
 	override open func viewDidLoad()
 	{
         super.viewDidLoad()
         // Do view setup here.
+		
+		inoutBreak.state = 0
+		outputBreak.state = 0
     }
-    
+	
+	
+	func setOutputPort( byte: UInt8 )
+	{
+		outValue = byte
+		outputField.stringValue = String.init(format: "0x%02X", outValue) as String
+	}
+	
+	
+	func readInputPort() -> UInt8
+	{
+		return UInt8(inputField.integerValue)
+	}
+	
 }

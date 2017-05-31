@@ -63,6 +63,8 @@ NS_ENUM( NSInteger, RunMode ) {
 @property (weak) IBOutlet NSButton *importButton;
 
 
+@property (strong) AllIOPortsViewController *ioPorts;
+
 @property (strong) NSTimer *cycleTimer;
 
 @property (strong) HexLoader *loader;
@@ -112,8 +114,14 @@ NS_ENUM( NSInteger, RunMode ) {
 	
 	AllIOPortsViewController *pv = [[AllIOPortsViewController alloc] init];
 	NSLog( @"IO port view frame: %@", NSStringFromRect( pv.view.frame ) );
+	
+//	NSSize pre = pv.preferredContentSize;
+//	[pv.view setFrameSize:pre];
+
 	[self.portsView addSubview:pv.view];
-	[pv setOutputPort:2 byte:44];
+	[pv setOutputPort:2 byte:22];
+	[pv setOutputPort:7 byte:77];
+	self.ioPorts = pv;
 
 
 	CPU_reset();
@@ -148,6 +156,8 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 	LogVerbose( @"Output port %d  data 0x%02X  '%c'", port, data, data );
 	
 	MainWindowController *mvc = (__bridge MainWindowController*)userData;
+	
+	[mvc.ioPorts setOutputPort:port byte:data];
 	
 	if( port == 2 )
 	{
@@ -197,8 +207,9 @@ static uint8_t icb( void *userData, uint8_t port )
 		}
 	}
 	
-	return 0;
+	return [mvc.ioPorts readInputPort:port];
 }
+
 
 
 #pragma mark - Terminal Emulation

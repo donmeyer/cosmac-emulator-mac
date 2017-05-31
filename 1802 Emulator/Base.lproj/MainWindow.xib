@@ -268,10 +268,10 @@
                         </connections>
                     </textField>
                     <box fixedFrame="YES" title="I/O Ports" translatesAutoresizingMaskIntoConstraints="NO" id="mL3-MD-BCc">
-                        <rect key="frame" x="463" y="341" width="255" height="323"/>
+                        <rect key="frame" x="463" y="349" width="255" height="310"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="24P-7w-NDf">
-                            <rect key="frame" x="2" y="2" width="251" height="306"/>
+                            <rect key="frame" x="2" y="2" width="251" height="293"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                     </box>
@@ -287,7 +287,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <clipView key="contentView" id="VOX-gY-A5X">
                 <rect key="frame" x="1" y="1" width="238" height="133"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textView importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="A58-v1-QxE">
                         <rect key="frame" x="0.0" y="0.0" width="238" height="133"/>

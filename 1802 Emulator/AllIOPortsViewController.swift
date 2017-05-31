@@ -17,7 +17,31 @@ import Cocoa
 
 class AllIOPortsViewController: NSViewController
 {
-	var ports : [IOPortView] = []
+	var ports = [Int : IOPortView]()
+	
+	lazy var inLabel = { () -> NSTextField in
+		let label = NSTextField.init()
+		label.isEditable = false
+		label.isBordered = false
+		label.drawsBackground = false
+		label.font = NSFont.boldSystemFont(ofSize: 14)
+		label.stringValue = "In"
+		label.sizeToFit()
+		return label
+	}()
+	
+	lazy var outLabel = { () -> NSTextField in
+		let label = NSTextField.init()
+		label.isEditable = false
+		label.isBordered = false
+		label.drawsBackground = false
+		label.font = NSFont.boldSystemFont(ofSize: 14)
+		label.stringValue = "Out"
+		label.sizeToFit()
+		return label
+	}()
+	
+	
 	
     override func viewDidLoad()
 	{
@@ -38,35 +62,62 @@ class AllIOPortsViewController: NSViewController
 			print( "IO port view frame:", NSStringFromRect( pv.view.frame ) )
 			self.view.addSubview( pv.view )
 			// Cannot set this until the view has been loaded!
-			pv.portNumLabel.stringValue = String(i)
+			pv.portNum = i
 			
-			ports.append(pv)
+			ports[i] = pv
 			
 			i -= 1
 		}
+		
+		inLabel.setFrameOrigin( NSMakePoint(46, yPos+2) )
+		self.view.addSubview(inLabel)
+
+		outLabel.setFrameOrigin( NSMakePoint(156, yPos+2) )
+		self.view.addSubview(outLabel)
+
+//		var br = self.view.frame
+//		br.size.height = yPos + 50
+//		self.view.frame = br
+		
+//		self.preferredContentSize = NSMakeSize(300, yPos+50)
 	}
-	
+
+//	func inLabel() -> NSTextField
+//	{
+//		let label = NSTextField.init()
+//		label.isEditable = false
+//		label.isBordered = false
+//		label.drawsBackground = false
+//		label.stringValue = "In"
+//		label.sizeToFit()
+//		return label
+//	}
 	
 	func setOutputPort( _ port: Int, byte: UInt8 )
 	{
-		ports[port].outputField.stringValue = "18"
+		assert( ports[port] != nil, "Port out of range 1-7" )
+		ports[port]!.setOutputPort(byte: byte)
 	}
 	
 	
 	func readInputPort( _ port: Int ) -> UInt8
 	{
-		return 0
+		assert( ports[port] != nil, "Port out of range 1-7" )
+		return ports[port]!.readInputPort()
 	}
 	
 	
 	func shouldBreakOnPortRead( _ port: Int ) -> Bool
 	{
-		return false
+		assert( ports[port] != nil, "Port out of range 1-7" )
+		return ports[port]!.shouldBreakOnPortRead
 	}
 
 
 	func shouldBreakOnPortWrite( _ port: Int ) -> Bool
 	{
-		return false
+		assert( ports[port] != nil, "Port out of range 1-7" )
+		return ports[port]!.shouldBreakOnPortWrite
 	}
+
 }
