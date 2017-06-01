@@ -4,9 +4,7 @@
 #include "CPU Emulation.h"
 
 
-
-static void fetch();
-static void execute();
+static void checkIOTrap();
 
 static uint8_t getPageBits( uint16_t addr );
 
@@ -65,6 +63,7 @@ static const op_func opfuncs[16] = {
 
 static long cycleCount;
 
+
 static outputCallback_t outputCallback;
 
 static void *outputCallbackUserdata;
@@ -73,6 +72,11 @@ static void *outputCallbackUserdata;
 static inputCallback_t inputCallback;
 
 static void *inputCallbackUserdata;
+
+
+static ioTrapCallback_t ioTrapCallback;
+
+static void *ioTrapCallbackUserdata;
 
 
 
@@ -118,8 +122,8 @@ void CPU_reset()
 
 void CPU_step()
 {
-	fetch();
-	execute();
+	CPU_fetch();
+	CPU_execute();
 }
 
 
@@ -233,6 +237,13 @@ void CPU_setOutputCallback( outputCallback_t callback, void *userData )
 {
 	outputCallback = callback;
 	outputCallbackUserdata = userData;
+}
+
+
+void CPU_setIOTrapCallback( ioTrapCallback_t callback, void *userData )
+{
+	ioTrapCallback = callback;
+	ioTrapCallbackUserdata = userData;
 }
 
 
@@ -373,7 +384,7 @@ static void longSkip( int f )
 
 #pragma mark - Processing
 
-static void fetch()
+void CPU_fetch()
 {
 	// Read opcode
 	uint8_t op = read( cpu.reg[cpu.P] );
@@ -384,14 +395,45 @@ static void fetch()
 	cpu.reg[cpu.P]++;
 	
 	cycleCount++;
+	
+	checkIOTrap();
 }
 
 
-static void execute()
+void CPU_execute()
 {
 	(opfuncs[cpu.I])();	
 	cycleCount++;
 }
+
+
+
+#pragma mark IO Pre-execute trap
+
+static void checkIOTrap()
+{
+	if( cpu.N == 0 )
+	{
+		// IRX
+	}
+	else if( cpu.N < 8 )
+	{
+		// Output 1-7  (1-7)
+		if( ioTrapCallback )
+		{
+			(ioTrapCallback)( ioTrapCallbackUserdata, -1, cpu.N );
+		}
+	}
+	else if( cpu.N > 8 )
+	{
+		// Input 1-7   (9-15)
+		if( ioTrapCallback )
+		{
+			(ioTrapCallback)( ioTrapCallbackUserdata, cpu.N - 8, -1 );
+		}
+	}
+}
+
 
 
 
@@ -536,20 +578,20 @@ static void opcode_6()
 	}
 	else if( cpu.N < 8 )
 	{
-		// Output 1-7
+		// Output 1-7  (1-7)
 		output( cpu.N, read( cpu.reg[cpu.X] ) );
 		cpu.reg[cpu.X]++;
 	}
 	else if( cpu.N > 8 )
 	{
-		// Input 1-7
+		// Input 1-7   (9-15)
 		uint8_t data = input( cpu.N - 8 );
 		write( cpu.reg[cpu.X], data );
 		cpu.D = data;
 	}
 	else
 	{
-		// Invalid Opcode
+		// Invalid Opcode 68
 		// TODO: Handle this as an error!
 	}
 }

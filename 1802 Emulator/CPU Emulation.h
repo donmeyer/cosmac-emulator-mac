@@ -50,6 +50,8 @@ typedef void (*outputCallback_t)(void *userData, uint8_t port, uint8_t data);
 
 typedef uint8_t (*inputCallback_t)(void *userData, uint8_t port );
 
+typedef void (*ioTrapCallback_t)(void *userData, int inputPort, int outputPort );
+
 
 
 int CPU_makeReadPage( int page );
@@ -66,7 +68,8 @@ int CPU_readFromMemory( uint16_t addr, uint16_t length, uint8_t *dest );
 void CPU_reset();
 
 void CPU_step();
-
+void CPU_fetch();
+void CPU_execute();
 
 const CPU *CPU_getCPU();
 
@@ -76,6 +79,8 @@ long CPU_getCycleCount();
 void CPU_setInputCallback( inputCallback_t callback, void *userData );
 
 void CPU_setOutputCallback( outputCallback_t callback, void *userData );
+
+void CPU_setIOTrapCallback( ioTrapCallback_t callback, void *userData );
 
 
 CPU *CPU_getCPU_Unit_Test();
