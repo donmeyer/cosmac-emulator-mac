@@ -97,10 +97,16 @@ NS_ENUM( NSInteger, RunMode ) {
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 	CPU_makeAllPagesRAM();
 	
+	// Callback that we get when the CPU writes to an IO port.
 	CPU_setOutputCallback( ocb, (__bridge void *)(self) );
 	
+	// Callback that we get when the CPU reades from an IO port.
 	CPU_setInputCallback( icb, (__bridge void *)(self) );
-		
+
+	// Callback we get during the CPU fetch cycle that tells us an IO instruction is what will excute next.
+	// This early warning allows us to trigger a breakpoint before the IO instruction executes.
+	CPU_setIOTrapCallback( iotrap, (__bridge void *)(self) );
+
 	self.registersViewController = [[RegistersViewController alloc] initWithNibName:@"RegistersView" bundle:nil];
 //	self.registersViewController.view = self.regView;
 
@@ -153,21 +159,8 @@ static void ocb( void *userData, uint8_t port, uint8_t data )
 	LogVerbose( @"Output port %d  data 0x%02X  '%c'", port, data, data );
 	
 	MainWindowController *mvc = (__bridge MainWindowController*)userData;
+	[mvc writeOutputPort:port data:data];
 	
-	[mvc.ioPorts setOutputPort:port byte:data];
-	
-	if( mvc.useTerminalForIO )
-	{
-		if( port == 2 )
-		{
-			[mvc.terminalWindowController emitTerminalCharacter:data];
-		}
-	}
-
-	if( mvc.outputPort2Checkbox.state == NSOnState )
-	{
-		[mvc doBreakpointWithTitle:@"Output Port 2"];
-	}
 }
 
 
@@ -176,12 +169,73 @@ static uint8_t icb( void *userData, uint8_t port )
 //	LogDebug( @"Input port %d", port );
 	
 	MainWindowController *mvc = (__bridge MainWindowController*)userData;
+	return [mvc readInputPort:port];
+}
+
+
+static void iotrap( void *userData, int inputPort, int outputPort )
+{
+	MainWindowController *mvc = (__bridge MainWindowController*)userData;
+	[mvc handleIOTrap:inputPort outputPort:outputPort];
+}
+
+
+- (void)handleIOTrap:(int)inputPort outputPort:(int)outputPort
+{
+	if( inputPort > 0 )
+	{
+		if( [self.ioPorts shouldBreakOnPortRead:inputPort] )
+		{
+			NSString *s = [NSString stringWithFormat:@"Input Port %d", inputPort];
+			[self doBreakpointWithTitle:s];
+		}
+	}
 	
-	if( mvc.useTerminalForIO )
+	if( outputPort > 0 )
+	{
+		if( [self.ioPorts shouldBreakOnPortWrite:outputPort] )
+		{
+			NSString *s = [NSString stringWithFormat:@"Output Port %d", outputPort];
+			[self doBreakpointWithTitle:s];
+		}
+	}
+}
+
+
+- (void)writeOutputPort:(uint8_t)port data:(uint8_t)data
+{
+//	if( [self.ioPorts shouldBreakOnPortWrite:port] )
+//	{
+//		NSString *s = [NSString stringWithFormat:@"Output Port %d", port];
+//		[self doBreakpointWithTitle:s];
+//	}
+	
+	[self.ioPorts setOutputPort:port byte:data];
+	
+	if( self.useTerminalForIO )
+	{
+		if( port == 2 )
+		{
+			[self.terminalWindowController emitTerminalCharacter:data];
+		}
+	}
+}
+
+
+
+- (uint8_t)readInputPort:(uint8_t)port
+{
+//	if( [self.ioPorts shouldBreakOnPortRead:port] )
+//	{
+//		NSString *s = [NSString stringWithFormat:@"Input Port %d", port];
+//		[self doBreakpointWithTitle:s];
+//	}
+
+	if( self.useTerminalForIO )
 	{
 		if( port == 3 )
 		{
-			if( [mvc.terminalWindowController hasCmdChar] )
+			if( [self.terminalWindowController hasCmdChar] )
 			{
 				return 0x81;
 			}
@@ -196,7 +250,7 @@ static uint8_t icb( void *userData, uint8_t port )
 		
 		if( port == 2 )
 		{
-			int c = (int) [mvc.terminalWindowController nextCommandChar];
+			int c = (int) [self.terminalWindowController nextCommandChar];
 			if( c >= 0 )
 			{
 				LogVerbose( @"Sending a character to Forth!" );
@@ -210,7 +264,7 @@ static uint8_t icb( void *userData, uint8_t port )
 		}
 	}
 
-	return [mvc.ioPorts readInputPort:port];
+	return [self.ioPorts readInputPort:port];
 }
 
 
@@ -359,6 +413,7 @@ static uint8_t icb( void *userData, uint8_t port )
 	
 	CPU_step();
 	
+	// This will update registers, calculate the curent symbol, etc.
 	[self updateState];
 	
 	
