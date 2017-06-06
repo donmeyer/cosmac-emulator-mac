@@ -12,6 +12,10 @@
 		F603A5811EBD3F4B000EA85D /* IOPortView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F603A57F1EBD3F4A000EA85D /* IOPortView.xib */; };
 		F63B5F2D1EDE74AC0095A892 /* TerminalWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B5F2B1EDE74AC0095A892 /* TerminalWindowController.swift */; };
 		F63B5F2E1EDE74AC0095A892 /* TerminalWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63B5F2C1EDE74AC0095A892 /* TerminalWindow.xib */; };
+		F63B5F321EE0D4F00095A892 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B5F311EE0D4F00095A892 /* SourceViewController.swift */; };
+		F63B5F341EE1FBF90095A892 /* SynchroScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */; };
+		F63B5F361EE206660095A892 /* SourceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63B5F351EE206660095A892 /* SourceViewController.xib */; };
+		F66963431EE66AD700E2E0E4 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66963421EE66AD700E2E0E4 /* MarkerView.swift */; };
 		F66F6DCF1B24C668000ABAC6 /* ScratchpadRegistersView.m in Sources */ = {isa = PBXBuildFile; fileRef = F66F6DCE1B24C668000ABAC6 /* ScratchpadRegistersView.m */; };
 		F66F6DD31B2BCD28000ABAC6 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66F6DD21B2BCD28000ABAC6 /* MainMenu.xib */; };
 		F66F6DD41B2BCD28000ABAC6 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66F6DD21B2BCD28000ABAC6 /* MainMenu.xib */; };
@@ -50,6 +54,10 @@
 		F603A57F1EBD3F4A000EA85D /* IOPortView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IOPortView.xib; sourceTree = "<group>"; };
 		F63B5F2B1EDE74AC0095A892 /* TerminalWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalWindowController.swift; sourceTree = "<group>"; };
 		F63B5F2C1EDE74AC0095A892 /* TerminalWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TerminalWindow.xib; sourceTree = "<group>"; };
+		F63B5F311EE0D4F00095A892 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SourceViewController.swift; path = ../SourceViewController.swift; sourceTree = "<group>"; };
+		F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchroScrollView.swift; sourceTree = "<group>"; };
+		F63B5F351EE206660095A892 /* SourceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SourceViewController.xib; sourceTree = "<group>"; };
+		F66963421EE66AD700E2E0E4 /* MarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		F66F0D181EB8E6F500D7891A /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
 		F66F6DCD1B24C668000ABAC6 /* ScratchpadRegistersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScratchpadRegistersView.h; sourceTree = "<group>"; };
 		F66F6DCE1B24C668000ABAC6 /* ScratchpadRegistersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScratchpadRegistersView.m; sourceTree = "<group>"; };
@@ -129,6 +137,9 @@
 				F603A57F1EBD3F4A000EA85D /* IOPortView.xib */,
 				F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */,
 				F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */,
+				F66963421EE66AD700E2E0E4 /* MarkerView.swift */,
+				F63B5F311EE0D4F00095A892 /* SourceViewController.swift */,
+				F63B5F351EE206660095A892 /* SourceViewController.xib */,
 			);
 			name = "Main Window";
 			sourceTree = "<group>";
@@ -155,6 +166,7 @@
 		F6D63B351B1D6A6B006724FC = {
 			isa = PBXGroup;
 			children = (
+				F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */,
 				F66F6DD11B2941FC000ABAC6 /* Prefix.pch */,
 				F603A57D1EBD3F4A000EA85D /* 1802 Emulator-Bridging-Header.h */,
 				BFC897131B25EB2000627D5D /* 1802 Emulator.txt */,
@@ -308,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F603A5811EBD3F4B000EA85D /* IOPortView.xib in Resources */,
+				F63B5F361EE206660095A892 /* SourceViewController.xib in Resources */,
 				F6D63B491B1D6A6C006724FC /* Images.xcassets in Resources */,
 				F6D63B4C1B1D6A6C006724FC /* MainWindow.xib in Resources */,
 				F66F6DD31B2BCD28000ABAC6 /* MainMenu.xib in Resources */,
@@ -339,10 +352,13 @@
 				F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */,
 				F603A5801EBD3F4A000EA85D /* IOPortView.swift in Sources */,
 				F66F6DD71B2BCEF5000ABAC6 /* MainWindowController.m in Sources */,
+				F63B5F341EE1FBF90095A892 /* SynchroScrollView.swift in Sources */,
 				F6925AFB1ECC06480031DF17 /* AllIOPortsViewController.swift in Sources */,
 				F6D63B671B200D8A006724FC /* HexLoader.m in Sources */,
 				F66F6DDC1B2BEEAE000ABAC6 /* RegistersViewController.m in Sources */,
+				F66963431EE66AD700E2E0E4 /* MarkerView.swift in Sources */,
 				F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */,
+				F63B5F321EE0D4F00095A892 /* SourceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,7 +436,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -461,7 +477,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};

@@ -35,6 +35,7 @@ NS_ENUM( NSInteger, RunMode ) {
 //
 //
 @property (weak) IBOutlet NSView *portsView;
+@property (weak) IBOutlet NSView *sourceView;
 
 //
 // Timing
@@ -112,6 +113,10 @@ NS_ENUM( NSInteger, RunMode ) {
 
 	[self.regView addSubview:[self.registersViewController view]];
 	
+	
+	//
+	// IO Ports
+	//
 	AllIOPortsViewController *pv = [[AllIOPortsViewController alloc] init];
 	NSLog( @"IO port view frame: %@", NSStringFromRect( pv.view.frame ) );
 	
@@ -123,13 +128,24 @@ NS_ENUM( NSInteger, RunMode ) {
 	[pv setOutputPort:7 byte:77];
 	self.ioPorts = pv;
 
-
-	CPU_reset();
-//	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
-	[self loadFile:@"/Users/don/Code/Cosmac 1802/asm_src/slowq.lst"];
 	
+	//
+	// Sourcecode View
+	//
+	SourceViewController *svc = [[SourceViewController alloc] init];
+	NSLog( @"Source view frame: %@", NSStringFromRect( svc.view.frame ) );
+	NSView *svv = svc.view;
+	[self.sourceView addSubview:svv];
+	
+	
+
 	self.terminalWindowController = [[TerminalWindowController alloc] initWithWindowNibName:@"TerminalWindow"];
 	self.terminalWindowController.window.delegate = self;
+
+
+	CPU_reset();
+	//	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
+	[self loadFile:@"/Users/don/Code/Cosmac 1802/asm_src/slowq.lst"];
 }
 
 
