@@ -54,7 +54,7 @@
 		F603A57F1EBD3F4A000EA85D /* IOPortView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IOPortView.xib; sourceTree = "<group>"; };
 		F63B5F2B1EDE74AC0095A892 /* TerminalWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalWindowController.swift; sourceTree = "<group>"; };
 		F63B5F2C1EDE74AC0095A892 /* TerminalWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TerminalWindow.xib; sourceTree = "<group>"; };
-		F63B5F311EE0D4F00095A892 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SourceViewController.swift; path = ../SourceViewController.swift; sourceTree = "<group>"; };
+		F63B5F311EE0D4F00095A892 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchroScrollView.swift; sourceTree = "<group>"; };
 		F63B5F351EE206660095A892 /* SourceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SourceViewController.xib; sourceTree = "<group>"; };
 		F66963421EE66AD700E2E0E4 /* MarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
@@ -166,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				F66963421EE66AD700E2E0E4 /* MarkerView.swift */,
+				F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */,
 				F63B5F351EE206660095A892 /* SourceViewController.xib */,
 				F63B5F311EE0D4F00095A892 /* SourceViewController.swift */,
 			);
@@ -175,7 +176,6 @@
 		F6D63B351B1D6A6B006724FC = {
 			isa = PBXGroup;
 			children = (
-				F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */,
 				F66F6DD11B2941FC000ABAC6 /* Prefix.pch */,
 				F603A57D1EBD3F4A000EA85D /* 1802 Emulator-Bridging-Header.h */,
 				BFC897131B25EB2000627D5D /* 1802 Emulator.txt */,
