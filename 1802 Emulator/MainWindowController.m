@@ -628,6 +628,8 @@ static void iotrap( void *userData, int inputPort, int outputPort )
 	
 	LogDebug( @"Listing loaded into memory, %lu bytes", self.loader.byteCount );
 	
+	[self.sourceViewController clear];
+	
 	for (SourceLine *line in self.loader.sourceLines) {
 		[self.sourceViewController appendWithLine:line.text];
 //		LogVerbose( @"%d : %@", line.lineNum, line.text );

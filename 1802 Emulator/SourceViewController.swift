@@ -163,6 +163,16 @@ class SourceViewController: NSViewController {
 	}
 	
 	
+	func clear()
+	{
+		lines = [SourceLine]()
+
+		let start = (textView?.textStorage?.length)!
+		let range = NSMakeRange( 0, start )
+		textView?.textStorage?.deleteCharacters(in: range)
+	}
+	
+	
 	/**
 	 * Hilight a source line (show the current line)
 	 *
