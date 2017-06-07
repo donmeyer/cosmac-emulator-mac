@@ -136,6 +136,13 @@ NS_ENUM( NSInteger, RunMode ) {
 	self.sourceViewController = [[SourceViewController alloc] init];
 	NSLog( @"Source view frame: %@", NSStringFromRect( self.sourceViewController.view.frame ) );
 	NSView *svv = self.sourceViewController.view;
+	self.sourceView.autoresizesSubviews = YES;
+	
+	NSRect r = self.sourceViewController.view.frame;
+	r.size.width = self.sourceView.bounds.size.width;
+	r.size.height = self.sourceView.bounds.size.height;
+	self.sourceViewController.view.frame = r;
+	
 	[self.sourceView addSubview:svv];
 	
 	

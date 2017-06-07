@@ -41,7 +41,6 @@ class SourceViewController: NSViewController {
 	private var curHilight : Int? = nil		// Index of the curently hilighted line, if any
 	
 	
-	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -88,9 +87,9 @@ class SourceViewController: NSViewController {
 		//
 		let tv = NSTextView(frame: NSMakeRect(0, 0, contentSize.width, contentSize.height))
 		
-		tv.isEditable = true
+		tv.isEditable = false
 		
-		tv.backgroundColor = NSColor.init(red: 0.6, green: 0.6, blue: 0.7, alpha: 1.0)
+//		tv.backgroundColor = NSColor.init(red: 0.6, green: 0.6, blue: 0.7, alpha: 1.0)
 		
 		tv.minSize = NSMakeSize( 0.0, contentSize.height )
 		tv.maxSize = NSMakeSize( contentSize.width, CGFloat.greatestFiniteMagnitude )
@@ -131,7 +130,7 @@ class SourceViewController: NSViewController {
 		//
 		// Add marker view
 		//
-		//		let mrect = NSMakeRect(0, cFrame.origin.y, 10, cFrame.size.height)
+//		let mrect = NSMakeRect(0, cFrame.origin.y, 10, cFrame.size.height)
 		var mrect = cFrame
 		mrect.size.height = 30
 		let mv = MarkerView.init(frame: mrect)
