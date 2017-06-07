@@ -98,9 +98,10 @@
 
 @property (nonatomic, strong) void (^writeBlock)(long addr, unsigned char byte);
 
-@property (strong, readwrite) NSMutableArray *symbols;
+@property (strong, readwrite) NSMutableArray<Symbol*> *symbols;
 
-@property (strong, readwrite) NSMutableArray *source;
+@property (strong, readwrite) NSMutableArray<SourceLine*> *sourceLines;
+
 
 @end
 
@@ -116,7 +117,7 @@
 	{
 		_listingString = listingString;
 		_symbols = [[NSMutableArray alloc] init];
-		_source = [[NSMutableArray alloc] init];
+		_sourceLines = [[NSMutableArray alloc] init];
 		_lineNum = 0;
 	}
 	
@@ -268,7 +269,7 @@
 			sl = [[SourceLine alloc] initWithText:line lineNum:self.lineNum];
 		}
 		
-		[self.source addObject:sl];
+		[self.sourceLines addObject:sl];
 	}
 	
 	return NO;
@@ -372,7 +373,7 @@
 
 - (SourceLine*)lineForAddr:(unsigned int)addr
 {
-	for( SourceLine *line in self.source )
+	for( SourceLine *line in self.sourceLines )
 	{
 		if( line.hasCode )
 		{

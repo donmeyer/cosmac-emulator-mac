@@ -13,8 +13,8 @@
 
 @interface Symbol : NSObject
 
-@property (strong) NSString *name;
-@property (assign) unsigned int addr;
+@property (readonly, strong) NSString *name;
+@property (readonly, assign) unsigned int addr;
 @property (assign) unsigned int endAddr;
 
 - (instancetype)initWithName:(NSString*)name addr:(unsigned int) addr;
@@ -25,7 +25,7 @@
 
 @interface SourceLine : NSObject
 
-@property (strong) NSString *text;
+@property (readonly, strong) NSString *text;
 @property (readonly, assign) unsigned int addr;
 @property (readonly, assign) int lineNum;
 @property (readonly) unsigned int endAddr;
@@ -39,7 +39,8 @@
 
 @property (nonatomic, assign, readonly) long byteCount;	// Count of bytes written to memory.
 
-@property (strong, readonly) NSMutableArray *symbols;
+@property (strong, readonly) NSMutableArray<Symbol*> *symbols;
+@property (strong, readonly) NSMutableArray<SourceLine*> *sourceLines;
 
 
 - (id)initWithListingPath:(NSString*)path;
