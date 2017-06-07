@@ -353,7 +353,7 @@ static void iotrap( void *userData, int inputPort, int outputPort )
 		SourceLine *line = [self.loader lineForAddr:pc];
 		if( line )
 		{
-			LogDebug( @":::: %4d : %@", line.lineNum, line.text );
+			LogVerbose( @":::: %4d : %@", line.lineNum, line.text );
 			[self.sourceViewController hilightWithLine:line.lineNum-1];
 		}
 

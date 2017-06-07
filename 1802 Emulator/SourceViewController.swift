@@ -12,15 +12,12 @@ import Cocoa
 
 fileprivate class SourceLine : NSObject
 {
-	let lineNum : Int
 	let start : Int
 	let length : Int
 	let range : NSRange
 	
-	init( num: Int, start: Int, length : Int)
+	init( start: Int, length : Int)
 	{
-		self.lineNum = num
-		
 		self.range = NSMakeRange(start, length)
 		
 		self.start = start
@@ -32,22 +29,16 @@ fileprivate class SourceLine : NSObject
 
 
 class SourceViewController: NSViewController {
-	var tv: NSTextView? = nil
-	var mv: MarkerView? = nil
+
+	private var textView: NSTextView!
+	private var markerView: MarkerView!
 	
-	var textView: NSTextView!
-	var markerView: MarkerView!
-	
-	weak var textScrollView: SynchroScrollView!
-	
-	var markerScrollView: SynchroScrollView!
+	private var textScrollView: SynchroScrollView!
+	private var markerScrollView: SynchroScrollView!
 	
 	fileprivate var lines = [SourceLine]()
 	
-	private var lineCount = 0
-	private var curLine = 0
-	
-	private var curHilight : Int? = nil
+	private var curHilight : Int? = nil		// Index of the curently hilighted line, if any
 	
 	
 	
@@ -95,22 +86,22 @@ class SourceViewController: NSViewController {
 		//
 		// Text view
 		//
-		tv = NSTextView(frame: NSMakeRect(0, 0, contentSize.width, contentSize.height))
+		let tv = NSTextView(frame: NSMakeRect(0, 0, contentSize.width, contentSize.height))
 		
-		tv?.isEditable = true
+		tv.isEditable = true
 		
-		tv?.backgroundColor = NSColor.init(red: 0.6, green: 0.6, blue: 0.7, alpha: 1.0)
+		tv.backgroundColor = NSColor.init(red: 0.6, green: 0.6, blue: 0.7, alpha: 1.0)
 		
-		tv?.minSize = NSMakeSize( 0.0, contentSize.height )
-		tv?.maxSize = NSMakeSize( contentSize.width, CGFloat.greatestFiniteMagnitude )
+		tv.minSize = NSMakeSize( 0.0, contentSize.height )
+		tv.maxSize = NSMakeSize( contentSize.width, CGFloat.greatestFiniteMagnitude )
 		
-		tv?.isVerticallyResizable = true
-		tv?.isHorizontallyResizable = false
+		tv.isVerticallyResizable = true
+		tv.isHorizontallyResizable = false
 		
-		tv?.autoresizingMask = NSAutoresizingMaskOptions( arrayLiteral: .viewWidthSizable, .viewHeightSizable)
+		tv.autoresizingMask = NSAutoresizingMaskOptions( arrayLiteral: .viewWidthSizable, .viewHeightSizable)
 		
-		tv?.textContainer?.containerSize = NSMakeSize( contentSize.width, CGFloat.greatestFiniteMagnitude )
-		tv?.textContainer?.widthTracksTextView = true
+		tv.textContainer?.containerSize = NSMakeSize( contentSize.width, CGFloat.greatestFiniteMagnitude )
+		tv.textContainer?.widthTracksTextView = true
 		
 		//
 		// Add text view to the scroll view, and the scroll view to our view
@@ -118,6 +109,7 @@ class SourceViewController: NSViewController {
 		sv.documentView = tv
 		self.view.addSubview(sv)
 		
+		self.textView = tv
 		self.textScrollView = sv
 	}
 	
@@ -142,7 +134,7 @@ class SourceViewController: NSViewController {
 		//		let mrect = NSMakeRect(0, cFrame.origin.y, 10, cFrame.size.height)
 		var mrect = cFrame
 		mrect.size.height = 30
-		mv = MarkerView.init(frame: mrect)
+		let mv = MarkerView.init(frame: mrect)
 
 		sv.documentView = mv
 
@@ -153,35 +145,42 @@ class SourceViewController: NSViewController {
 	}
 	
 	
+	/**
+	 * Append a source line
+	 */
 	func append( line s: String )
 	{
 		
-		let start = (tv?.textStorage?.length)!
+		let start = (textView?.textStorage?.length)!
 		
-		tv?.textStorage?.append( NSAttributedString.init(string: s) )
-		tv?.textStorage?.append( NSAttributedString.init(string: "\n") )
+		textView?.textStorage?.append( NSAttributedString.init(string: s) )
+		textView?.textStorage?.append( NSAttributedString.init(string: "\n") )
 		
-		let len = (tv?.textStorage?.length)! - start
-		lines.append( SourceLine(num: lineCount, start: start, length: len ))
-		lineCount += 1
+		// Store the range of the line so we can hilght it as needed
+		let len = (textView?.textStorage?.length)! - start
+		lines.append( SourceLine( start: start, length: len ))
 		
-		print( start, len )
-		
+		// print( start, len )
 	}
 	
 	
+	/**
+	 * Hilight a source line (show the current line)
+	 *
+	 * First line is index 0
+	 */
 	func hilight( line num : Int )
 	{
 		if let curHilight = self.curHilight
 		{
 			let range = lines[curHilight].range
-			tv?.setTextColor(NSColor.textColor, range: range)
+			textView?.setTextColor(NSColor.textColor, range: range)
 		}
 		
 		let range = lines[num].range
 		
-		tv?.scrollRangeToVisible(range)
-		tv?.setTextColor(NSColor.red, range: range)
+		textView?.scrollRangeToVisible(range)
+		textView?.setTextColor(NSColor.red, range: range)
 		
 		self.curHilight = num
 	}
@@ -219,10 +218,10 @@ class SourceViewController: NSViewController {
 		mvf?.size.height = 366
 //		self.markerScrollView?.documentView?.frame = mvf!
 		
-		let br0 = tv?.textStorage?.size()
+		let br0 = textView?.textStorage?.size()
 		print( "******************* text storage size", br0! )
 		
-		let br9 = tv?.textContainer?.size
+		let br9 = textView?.textContainer?.size
 		print( "******************* text container size", br9! )
 		
 		let br3 = (self.textScrollView?.contentView.documentRect)!
@@ -241,12 +240,12 @@ class SourceViewController: NSViewController {
 		
 		print( "========================  Did Appear  ==========================" )
 		
-		//		self.tv?.display()
+		//		self.textView?.display()
 		
 		let br3 = (self.textScrollView?.contentView.documentRect)!
 		print( "***************************** text scrollview content doc rect", br3 )
 		
-		let br9 = tv?.textContainer?.size
+		let br9 = textView?.textContainer?.size
 		print( "******************* text container size", br9! )
 		
 		DispatchQueue.main.async {
@@ -263,36 +262,21 @@ class SourceViewController: NSViewController {
 		let br7 = (self.textScrollView?.contentView.documentRect)!
 		print( "******************************* text scrollview content doc rect", br7 )
 		
-		let br9 = tv?.textContainer?.size
+		let br9 = textView?.textContainer?.size
 		print( "******************* text container size", br9! )
 		
 		
-		if curLine > 0
-		{
-			let range = lines[curLine-1].range
-			tv?.setTextColor(NSColor.textColor, range: range)
-		}
 		
-		let range = lines[curLine].range
-		curLine += 1
-		if curLine >= lines.count
-		{
-			curLine = 0
-		}
-		
-		tv?.scrollRangeToVisible(range)
-		tv?.setTextColor(NSColor.red, range: range)
-		
-		let rr = tv?.firstRect(forCharacterRange: range, actualRange: nil)
-		print( rr! )
-		
-		let vrr = self.view.window?.convertFromScreen(rr!)
-		print( vrr! )
-		
-		mv?.setBlip(pos: 6)
+//		let rr = textView?.firstRect(forCharacterRange: range, actualRange: nil)
+//		print( rr! )
+//		
+//		let vrr = self.view.window?.convertFromScreen(rr!)
+//		print( vrr! )
+//		
+//		markerView?.setBlip(pos: 6)
 		
 		
-		let br0 = tv?.textStorage?.size()
+		let br0 = textView?.textStorage?.size()
 		print( "******************* text storage size", br0! )
 		
 		let br3 = (self.textScrollView?.contentView.documentRect)!
@@ -303,8 +287,6 @@ class SourceViewController: NSViewController {
 		
 		let br2 = (self.markerScrollView?.bounds)!
 		print( "******************* marker scrollview bounds", br2 )
-		
-		
 	}
 
 }
