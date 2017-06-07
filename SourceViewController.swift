@@ -47,6 +47,8 @@ class SourceViewController: NSViewController {
 	private var lineCount = 0
 	private var curLine = 0
 	
+	private var curHilight : Int? = nil
+	
 	
 	
     override func viewDidLoad() {
@@ -166,6 +168,23 @@ class SourceViewController: NSViewController {
 		print( start, len )
 		
 	}
+	
+	
+	func hilight( line num : Int )
+	{
+		if let curHilight = self.curHilight
+		{
+			let range = lines[curHilight].range
+			tv?.setTextColor(NSColor.textColor, range: range)
+		}
+		
+		let range = lines[num].range
+		
+		tv?.scrollRangeToVisible(range)
+		tv?.setTextColor(NSColor.red, range: range)
+		
+		self.curHilight = num
+	}
 
 	
 	override func viewWillAppear() {
@@ -268,7 +287,7 @@ class SourceViewController: NSViewController {
 		print( rr! )
 		
 		let vrr = self.view.window?.convertFromScreen(rr!)
-		print( vrr )
+		print( vrr! )
 		
 		mv?.setBlip(pos: 6)
 		

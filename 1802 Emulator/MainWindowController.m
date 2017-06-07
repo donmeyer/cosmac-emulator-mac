@@ -66,6 +66,7 @@ NS_ENUM( NSInteger, RunMode ) {
 
 @property (strong) AllIOPortsViewController *ioPorts;
 @property (strong) TerminalWindowController *terminalWindowController;
+@property (strong) SourceViewController *sourceViewController;
 
 @property (strong) NSTimer *cycleTimer;
 
@@ -132,9 +133,9 @@ NS_ENUM( NSInteger, RunMode ) {
 	//
 	// Sourcecode View
 	//
-	SourceViewController *svc = [[SourceViewController alloc] init];
-	NSLog( @"Source view frame: %@", NSStringFromRect( svc.view.frame ) );
-	NSView *svv = svc.view;
+	self.sourceViewController = [[SourceViewController alloc] init];
+	NSLog( @"Source view frame: %@", NSStringFromRect( self.sourceViewController.view.frame ) );
+	NSView *svv = self.sourceViewController.view;
 	[self.sourceView addSubview:svv];
 	
 	
@@ -353,6 +354,7 @@ static void iotrap( void *userData, int inputPort, int outputPort )
 		if( line )
 		{
 			LogDebug( @":::: %4d : %@", line.lineNum, line.text );
+			[self.sourceViewController hilightWithLine:line.lineNum-1];
 		}
 
 		if( self.currentSymbol )
@@ -618,6 +620,11 @@ static void iotrap( void *userData, int inputPort, int outputPort )
 	 }];
 	
 	LogDebug( @"Listing loaded into memory, %lu bytes", self.loader.byteCount );
+	
+	for (SourceLine *line in self.loader.sourceLines) {
+		[self.sourceViewController appendWithLine:line.text];
+//		LogVerbose( @"%d : %@", line.lineNum, line.text );
+	}
 	
 	self.runmode = RunModePause;
 	

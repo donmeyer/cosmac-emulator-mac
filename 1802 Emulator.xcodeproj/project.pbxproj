@@ -137,9 +137,8 @@
 				F603A57F1EBD3F4A000EA85D /* IOPortView.xib */,
 				F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */,
 				F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */,
-				F66963421EE66AD700E2E0E4 /* MarkerView.swift */,
-				F63B5F311EE0D4F00095A892 /* SourceViewController.swift */,
-				F63B5F351EE206660095A892 /* SourceViewController.xib */,
+				F603A5791EBA2F65000EA85D /* Register Display */,
+				F66963441EE76BCB00E2E0E4 /* Source View */,
 			);
 			name = "Main Window";
 			sourceTree = "<group>";
@@ -161,6 +160,16 @@
 				F6D63B661B200D8A006724FC /* HexLoader.m */,
 			);
 			name = Loader;
+			sourceTree = "<group>";
+		};
+		F66963441EE76BCB00E2E0E4 /* Source View */ = {
+			isa = PBXGroup;
+			children = (
+				F66963421EE66AD700E2E0E4 /* MarkerView.swift */,
+				F63B5F351EE206660095A892 /* SourceViewController.xib */,
+				F63B5F311EE0D4F00095A892 /* SourceViewController.swift */,
+			);
+			name = "Source View";
 			sourceTree = "<group>";
 		};
 		F6D63B351B1D6A6B006724FC = {
@@ -194,7 +203,6 @@
 				F6D63B441B1D6A6B006724FC /* AppDelegate.m */,
 				F66F0D181EB8E6F500D7891A /* Log.h */,
 				F603A57A1EBA2F8E000EA85D /* Main Window */,
-				F603A5791EBA2F65000EA85D /* Register Display */,
 				F603A57C1EBA3022000EA85D /* Loader */,
 				F603A57B1EBA2F9E000EA85D /* CPU Emulation */,
 				F6D63B411B1D6A6B006724FC /* Supporting Files */,
