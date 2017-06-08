@@ -193,7 +193,7 @@ class SourceViewController: NSViewController {
 		let range = lines[num].range
 		
 		textView?.scrollRangeToVisible(range)
-		textView?.setTextColor(NSColor.red, range: range)
+		textView?.setTextColor(NSColor.blue, range: range)
 		
 		self.curHilight = num
 	}
