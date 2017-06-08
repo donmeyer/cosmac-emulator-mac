@@ -133,10 +133,7 @@
 				F66F6DD61B2BCEF5000ABAC6 /* MainWindowController.m */,
 				F63B5F2C1EDE74AC0095A892 /* TerminalWindow.xib */,
 				F63B5F2B1EDE74AC0095A892 /* TerminalWindowController.swift */,
-				F603A57E1EBD3F4A000EA85D /* IOPortView.swift */,
-				F603A57F1EBD3F4A000EA85D /* IOPortView.xib */,
-				F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */,
-				F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */,
+				F649DB2B1EE9E0F200DCE61A /* IO Ports */,
 				F603A5791EBA2F65000EA85D /* Register Display */,
 				F66963441EE76BCB00E2E0E4 /* Source View */,
 			);
@@ -160,6 +157,17 @@
 				F6D63B661B200D8A006724FC /* HexLoader.m */,
 			);
 			name = Loader;
+			sourceTree = "<group>";
+		};
+		F649DB2B1EE9E0F200DCE61A /* IO Ports */ = {
+			isa = PBXGroup;
+			children = (
+				F603A57E1EBD3F4A000EA85D /* IOPortView.swift */,
+				F603A57F1EBD3F4A000EA85D /* IOPortView.xib */,
+				F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */,
+				F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */,
+			);
+			name = "IO Ports";
 			sourceTree = "<group>";
 		};
 		F66963441EE76BCB00E2E0E4 /* Source View */ = {
