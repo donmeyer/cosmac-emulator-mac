@@ -91,7 +91,7 @@ class SourceViewController: NSViewController {
 		
 		tv.isEditable = false
 		
-//		tv.backgroundColor = NSColor.init(red: 0.6, green: 0.6, blue: 0.7, alpha: 1.0)
+		tv.backgroundColor = NSColor.init(red: 0.7, green: 0.8, blue: 0.9, alpha: 1.0)
 		
 		tv.minSize = NSMakeSize( 0.0, contentSize.height )
 		tv.maxSize = NSMakeSize( contentSize.width, CGFloat.greatestFiniteMagnitude )
@@ -154,7 +154,7 @@ class SourceViewController: NSViewController {
 		
 		let start = (textView?.textStorage?.length)!
 		
-		let font = NSFont.init(name: "Consolas", size: 12)
+		let font = NSFont.init(name: "Consolas", size: 13)
 		let astr = NSAttributedString.init(string: s, attributes: [NSAttributedStringKey.font : font!])
 		textView?.textStorage?.append( astr )
 		textView?.textStorage?.append( NSAttributedString.init(string: "\n") )
