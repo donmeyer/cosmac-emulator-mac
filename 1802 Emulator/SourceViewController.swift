@@ -44,6 +44,8 @@ class SourceViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		self.view.autoresizingMask = NSView.AutoresizingMask(arrayLiteral: .width, .height)
+		
 		/* determine the size for the NSTextView */
 		var vFrame : NSRect = self.view.frame
 		
@@ -77,7 +79,7 @@ class SourceViewController: NSViewController {
 //		sv.borderType = .noBorder
 		sv.hasVerticalScroller = true
 //		sv.hasHorizontalScroller = false
-		sv.autoresizingMask = NSAutoresizingMaskOptions(arrayLiteral: .viewWidthSizable, .viewHeightSizable)
+		sv.autoresizingMask = NSView.AutoresizingMask(arrayLiteral: .width, .height)
 
 //		sv.backgroundColor = NSColor.init(red: 0.8, green: 0.6, blue: 0.5, alpha: 1.0)
 		
@@ -97,7 +99,7 @@ class SourceViewController: NSViewController {
 		tv.isVerticallyResizable = true
 		tv.isHorizontallyResizable = false
 		
-		tv.autoresizingMask = NSAutoresizingMaskOptions( arrayLiteral: .viewWidthSizable, .viewHeightSizable)
+		tv.autoresizingMask = NSView.AutoresizingMask( arrayLiteral: .width, .height)
 		
 		tv.textContainer?.containerSize = NSMakeSize( contentSize.width, CGFloat.greatestFiniteMagnitude )
 		tv.textContainer?.widthTracksTextView = true
@@ -123,7 +125,7 @@ class SourceViewController: NSViewController {
 		sv.borderType = .noBorder
 		sv.hasVerticalScroller = false
 		sv.hasHorizontalScroller = false
-		sv.autoresizingMask = NSAutoresizingMaskOptions(arrayLiteral: .viewHeightSizable)
+		sv.autoresizingMask = NSView.AutoresizingMask(arrayLiteral: .height)
 		
 		sv.backgroundColor = NSColor.init(red: 0.2, green: 0.2, blue: 0.9, alpha: 1.0)
 		
@@ -147,12 +149,14 @@ class SourceViewController: NSViewController {
 	/**
 	 * Append a source line
 	 */
-	func append( line s: String )
+	@objc func append( line s: String )
 	{
 		
 		let start = (textView?.textStorage?.length)!
 		
-		textView?.textStorage?.append( NSAttributedString.init(string: s) )
+		let font = NSFont.init(name: "Consolas", size: 12)
+		let astr = NSAttributedString.init(string: s, attributes: [NSAttributedStringKey.font : font!])
+		textView?.textStorage?.append( astr )
 		textView?.textStorage?.append( NSAttributedString.init(string: "\n") )
 		
 		// Store the range of the line so we can hilght it as needed
@@ -163,7 +167,7 @@ class SourceViewController: NSViewController {
 	}
 	
 	
-	func clear()
+	@objc func clear()
 	{
 		lines = [SourceLine]()
 
@@ -178,7 +182,7 @@ class SourceViewController: NSViewController {
 	 *
 	 * First line is index 0
 	 */
-	func hilight( line num : Int )
+	@objc func hilight( line num : Int )
 	{
 		if let curHilight = self.curHilight
 		{
