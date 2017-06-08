@@ -56,7 +56,7 @@ typedef void (*ioTrapCallback_t)(void *userData, int inputPort, int outputPort )
 
 int CPU_makeReadPage( int page );
 int CPU_makeReadWritePage( int page );
-void CPU_makeAllPagesRAM();
+void CPU_makeAllPagesRAM(void);
 
 int CPU_writeByteToMemory( uint8_t data, uint16_t addr );
 int CPU_writeToMemory( const uint8_t *src, uint16_t addr, uint16_t length );
@@ -65,15 +65,15 @@ int CPU_readByteFromMemory( uint16_t addr, uint8_t *data_p );
 int CPU_readFromMemory( uint16_t addr, uint16_t length, uint8_t *dest );
 
 
-void CPU_reset();
+void CPU_reset(void);
 
-void CPU_step();
-void CPU_fetch();
-void CPU_execute();
+void CPU_step(void);
+void CPU_fetch(void);
+void CPU_execute(void);
 
-const CPU *CPU_getCPU();
+const CPU *CPU_getCPU(void);
 
-long CPU_getCycleCount();
+long CPU_getCycleCount(void);
 
 
 void CPU_setInputCallback( inputCallback_t callback, void *userData );
@@ -83,6 +83,6 @@ void CPU_setOutputCallback( outputCallback_t callback, void *userData );
 void CPU_setIOTrapCallback( ioTrapCallback_t callback, void *userData );
 
 
-CPU *CPU_getCPU_Unit_Test();
+CPU *CPU_getCPU_Unit_Test(void);
 
 #endif

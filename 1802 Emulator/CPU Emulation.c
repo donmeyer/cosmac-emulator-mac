@@ -4,26 +4,26 @@
 #include "CPU Emulation.h"
 
 
-static void checkIOTrap();
+static void checkIOTrap(void);
 
 static uint8_t getPageBits( uint16_t addr );
 
-static void opcode_0();
-static void opcode_1();
-static void opcode_2();
-static void opcode_3();
-static void opcode_4();
-static void opcode_5();
-static void opcode_6();
-static void opcode_7();
-static void opcode_8();
-static void opcode_9();
-static void opcode_A();
-static void opcode_B();
-static void opcode_C();
-static void opcode_D();
-static void opcode_E();
-static void opcode_F();
+static void opcode_0(void);
+static void opcode_1(void);
+static void opcode_2(void);
+static void opcode_3(void);
+static void opcode_4(void);
+static void opcode_5(void);
+static void opcode_6(void);
+static void opcode_7(void);
+static void opcode_8(void);
+static void opcode_9(void);
+static void opcode_A(void);
+static void opcode_B(void);
+static void opcode_C(void);
+static void opcode_D(void);
+static void opcode_E(void);
+static void opcode_F(void);
 
 
 #define PAGE_READ		(1<<0)
@@ -39,7 +39,7 @@ static uint8_t memory[CPU_MEM_SIZE];
 
 static CPU cpu;
 
-typedef void(*op_func)();
+typedef void(*op_func)(void);
 
 static const op_func opfuncs[16] = {
 	opcode_0,
