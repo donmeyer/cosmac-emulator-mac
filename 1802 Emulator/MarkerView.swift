@@ -39,11 +39,11 @@ class MarkerView : NSView
 		super.draw( dirtyRect )
 		
 		NSColor.green.setFill()
-		NSRectFill(bounds)
+		bounds.fill()
 		
 		if let pos = pos
 		{
-			let gc = NSGraphicsContext.current()?.cgContext
+			let gc = NSGraphicsContext.current?.cgContext
 			gc?.setLineWidth(1.0)
 			gc?.setFillColor(NSColor.red.cgColor)
 			

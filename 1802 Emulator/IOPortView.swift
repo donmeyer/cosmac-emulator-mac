@@ -33,13 +33,13 @@ open class IOPortView: NSViewController
 	
 	var shouldBreakOnPortRead : Bool {
 		get {
-			return inoutBreak.state != 0 ? true : false
+			return inoutBreak.state == NSControl.StateValue.onState ? true : false
 		}
 	}
 	
 	var shouldBreakOnPortWrite : Bool {
 		get {
-			return outputBreak.state != 0 ? true : false
+			return outputBreak.state == NSControl.StateValue.onState ? true : false
 		}
 	}
 	
@@ -58,8 +58,8 @@ open class IOPortView: NSViewController
         super.viewDidLoad()
         // Do view setup here.
 		
-		inoutBreak.state = 0
-		outputBreak.state = 0
+		inoutBreak.state = NSControl.StateValue(rawValue: 0)
+		outputBreak.state = NSControl.StateValue(rawValue: 0)
     }
 	
 	

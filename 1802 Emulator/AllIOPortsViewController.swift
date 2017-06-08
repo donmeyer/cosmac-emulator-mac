@@ -93,28 +93,28 @@ class AllIOPortsViewController: NSViewController
 //		return label
 //	}
 	
-	func setOutputPort( _ port: Int, byte: UInt8 )
+	@objc func setOutputPort( _ port: Int, byte: UInt8 )
 	{
 		assert( ports[port] != nil, "Port out of range 1-7" )
 		ports[port]!.setOutputPort(byte: byte)
 	}
 	
 	
-	func readInputPort( _ port: Int ) -> UInt8
+	@objc func readInputPort( _ port: Int ) -> UInt8
 	{
 		assert( ports[port] != nil, "Port out of range 1-7" )
 		return ports[port]!.readInputPort()
 	}
 	
 	
-	func shouldBreakOnPortRead( _ port: Int ) -> Bool
+	@objc func shouldBreakOnPortRead( _ port: Int ) -> Bool
 	{
 		assert( ports[port] != nil, "Port out of range 1-7" )
 		return ports[port]!.shouldBreakOnPortRead
 	}
 
 
-	func shouldBreakOnPortWrite( _ port: Int ) -> Bool
+	@objc func shouldBreakOnPortWrite( _ port: Int ) -> Bool
 	{
 		assert( ports[port] != nil, "Port out of range 1-7" )
 		return ports[port]!.shouldBreakOnPortWrite

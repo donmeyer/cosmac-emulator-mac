@@ -26,7 +26,7 @@ class TerminalWindowController: NSWindowController {
     }
 
 	
-	public func emitTerminalText( _ text : String )
+	@objc public func emitTerminalText( _ text : String )
 	{
 		let astr = NSAttributedString.init(string: text)
 		outputTextView.textStorage?.append(astr)
@@ -35,7 +35,7 @@ class TerminalWindowController: NSWindowController {
 	}
 	
 	
-	public func emitTerminalCharacter( _ c : UInt8 )
+	@objc public func emitTerminalCharacter( _ c : UInt8 )
 	{
 		let s = String.init(format: "%c", c )
 		let astr = NSAttributedString.init(string: s)
@@ -45,14 +45,14 @@ class TerminalWindowController: NSWindowController {
 	}
 	
 	
-	func hasCmdChar() -> Bool
+	@objc func hasCmdChar() -> Bool
 	{
 		return cmdString.characters.count > 0 ? true : false
 	}
 	
 	
 	/// returns -1 if none available.
-	func nextCommandChar() -> Int
+	@objc func nextCommandChar() -> Int
 	{
 		if self.hasCmdChar()
 		{

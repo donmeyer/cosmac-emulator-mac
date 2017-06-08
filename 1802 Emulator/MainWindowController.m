@@ -134,11 +134,11 @@ NS_ENUM( NSInteger, RunMode ) {
 	// Sourcecode View
 	//
 	self.sourceViewController = [[SourceViewController alloc] init];
-	NSLog( @"Source view frame: %@", NSStringFromRect( self.sourceViewController.view.frame ) );
 	NSView *svv = self.sourceViewController.view;
 	self.sourceView.autoresizesSubviews = YES;
 	
 	NSRect r = self.sourceViewController.view.frame;
+	NSLog( @"Source view frame: %@", NSStringFromRect( r ) );
 	r.size.width = self.sourceView.bounds.size.width;
 	r.size.height = self.sourceView.bounds.size.height;
 	self.sourceViewController.view.frame = r;
@@ -146,13 +146,12 @@ NS_ENUM( NSInteger, RunMode ) {
 	[self.sourceView addSubview:svv];
 	
 	
-
 	self.terminalWindowController = [[TerminalWindowController alloc] initWithWindowNibName:@"TerminalWindow"];
 	self.terminalWindowController.window.delegate = self;
 
 
 	CPU_reset();
-	//	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
+//	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
 	[self loadFile:@"/Users/don/Code/Cosmac 1802/asm_src/slowq.lst"];
 }
 

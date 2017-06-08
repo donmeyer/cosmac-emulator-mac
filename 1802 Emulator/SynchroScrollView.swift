@@ -41,11 +41,11 @@ class SynchroScrollView: NSScrollView {
 		synchronizedContentView.postsBoundsChangedNotifications = true
 	 
 		// a register for those notifications on the synchronized content view.
-		NotificationCenter.default.addObserver(self, selector: #selector(synchronizedViewContentBoundsDidChange), name: NSNotification.Name.NSViewBoundsDidChange, object: synchronizedContentView )
+		NotificationCenter.default.addObserver(self, selector: #selector(synchronizedViewContentBoundsDidChange), name: NSView.boundsDidChangeNotification, object: synchronizedContentView )
 	}
 	
 	
-	func synchronizedViewContentBoundsDidChange( notification: NSNotification )
+	@objc func synchronizedViewContentBoundsDidChange( notification: NSNotification )
 	{
 		// get the changed content view from the notification
 		let changedContentView : NSClipView = notification.object as! NSClipView
@@ -94,7 +94,7 @@ class SynchroScrollView: NSScrollView {
 		 
 			// remove any existing notification registration
 			NotificationCenter.default.removeObserver( self,
-			                                           name : NSNotification.Name.NSViewBoundsDidChange,
+			                                           name : NSView.boundsDidChangeNotification,
 			                                           object : synchronizedContentView )
 		 
 			// set synchronizedScrollView to nil
@@ -103,3 +103,4 @@ class SynchroScrollView: NSScrollView {
 	}
 	
 }
+
