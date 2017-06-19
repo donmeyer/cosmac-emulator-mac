@@ -10,7 +10,6 @@
 
 #import "AppDelegate.h"
 #import "MainWindowController.h"
-#import "Log.h"
 
 
 //static const DDLogLevel ddLogLevel = DDLogLevelVerbose;

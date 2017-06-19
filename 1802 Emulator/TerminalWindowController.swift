@@ -8,6 +8,7 @@
 
 import Cocoa
 
+
 class TerminalWindowController: NSWindowController {
 
 	@IBOutlet private weak var inputTextField: NSTextField!
