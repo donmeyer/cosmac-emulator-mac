@@ -6,15 +6,7 @@
 //  Copyright (c) 2015 Donald Meyer. All rights reserved.
 //
 
-@import os.log;
-
 #import "HexLoader.h"
-
-
-
-//static const DDLogLevel ddLogLevel = DDLogLevelDebug;
-
-
 
 
 
@@ -132,7 +124,7 @@
 	if( s == nil )
 	{
 		// Error reading file
-		LogWarn( @"Unable to load listing" );
+		LogError( @"Unable to load listing" );
 	}
 	
 	LogDebug( @"File %@ is a string of len %lu", path, [s length] );
@@ -216,9 +208,6 @@
 	//	NSUInteger matchCount = [regex numberOfMatchesInString:line options:0 range:NSMakeRange(0, line.length)];
 	//	LogVerbose( @"Regex=%@, matchcount=%lu", regex, matchCount );
 	
-	os_log( OS_LOG_DEFAULT, "default Line: %@", line );
-	os_log_debug( OS_LOG_DEFAULT, "debug Line: %@", line );
-	os_log_info( OS_LOG_DEFAULT, "info Line: %@", line );
 	LogVerbose( @"-------------------- Line: '%@'", line );
 
 	NSTextCheckingResult *result;

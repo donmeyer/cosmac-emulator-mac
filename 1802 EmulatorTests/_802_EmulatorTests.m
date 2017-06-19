@@ -424,7 +424,7 @@ static int ioData;
 
 static void ocb( void *userData, uint8_t port, uint8_t data )
 {
-//	NSLog( @"Output port %d  data 0x%02X", port, data );
+//	LogDebug( @"Output port %d  data 0x%02X", port, data );
 	ioUserdata = userData;
 	ioPort = port;
 	ioData = data;

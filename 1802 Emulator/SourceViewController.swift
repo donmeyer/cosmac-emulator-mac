@@ -50,16 +50,16 @@ class SourceViewController: NSViewController {
 		var vFrame : NSRect = self.view.frame
 		
 		vFrame = vFrame.insetBy(dx: 30, dy: 30)
-		print( vFrame )
+//FOOP		LogDebug( vFrame )
 		
 		
 		let cFrame = NSMakeRect( vFrame.origin.x + 20, vFrame.origin.y, vFrame.size.width - 20, vFrame.size.height)
-		print( cFrame )
+//FOOP		LogDebug( cFrame )
 		self._textSetup(cFrame: cFrame )
 		
 		
 		let mFrame = NSMakeRect( vFrame.origin.x, vFrame.origin.y, 15, vFrame.size.height)
-		print( mFrame )
+//FOOP		LogDebug( mFrame )
 		self._markersetup(cFrame: mFrame)
 		
 		

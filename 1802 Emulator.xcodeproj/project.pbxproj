@@ -25,6 +25,7 @@
 		F66F6DDD1B2BEEAE000ABAC6 /* RegistersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F66F6DDA1B2BEEAE000ABAC6 /* RegistersViewController.m */; };
 		F66F6DDE1B2BEEAE000ABAC6 /* RegistersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66F6DDB1B2BEEAE000ABAC6 /* RegistersView.xib */; };
 		F66F6DDF1B2BEEAE000ABAC6 /* RegistersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66F6DDB1B2BEEAE000ABAC6 /* RegistersView.xib */; };
+		F687B0981EEE060A00FBC277 /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = F687B0971EEE060A00FBC277 /* Logging.m */; };
 		F6925AFB1ECC06480031DF17 /* AllIOPortsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */; };
 		F6925AFC1ECC06480031DF17 /* AllIOPortsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */; };
 		F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B441B1D6A6B006724FC /* AppDelegate.m */; };
@@ -57,8 +58,8 @@
 		F63B5F311EE0D4F00095A892 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchroScrollView.swift; sourceTree = "<group>"; };
 		F63B5F351EE206660095A892 /* SourceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SourceViewController.xib; sourceTree = "<group>"; };
+		F6677EE31EF865C600494883 /* To-Do.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "To-Do.md"; sourceTree = "<group>"; };
 		F66963421EE66AD700E2E0E4 /* MarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
-		F66F0D181EB8E6F500D7891A /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
 		F66F6DCD1B24C668000ABAC6 /* ScratchpadRegistersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScratchpadRegistersView.h; sourceTree = "<group>"; };
 		F66F6DCE1B24C668000ABAC6 /* ScratchpadRegistersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScratchpadRegistersView.m; sourceTree = "<group>"; };
 		F66F6DD01B293A01000ABAC6 /* 1802 Emulator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "1802 Emulator.entitlements"; sourceTree = "<group>"; };
@@ -69,6 +70,8 @@
 		F66F6DD91B2BEEAE000ABAC6 /* RegistersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistersViewController.h; sourceTree = "<group>"; };
 		F66F6DDA1B2BEEAE000ABAC6 /* RegistersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistersViewController.m; sourceTree = "<group>"; };
 		F66F6DDB1B2BEEAE000ABAC6 /* RegistersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistersView.xib; sourceTree = "<group>"; };
+		F687B0961EEE060A00FBC277 /* Logging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
+		F687B0971EEE060A00FBC277 /* Logging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Logging.m; sourceTree = "<group>"; };
 		F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllIOPortsViewController.swift; sourceTree = "<group>"; };
 		F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllIOPortsViewController.xib; sourceTree = "<group>"; };
 		F6D63B3E1B1D6A6B006724FC /* 1802 Emulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1802 Emulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +187,7 @@
 		F6D63B351B1D6A6B006724FC = {
 			isa = PBXGroup;
 			children = (
+				F6677EE31EF865C600494883 /* To-Do.md */,
 				F66F6DD11B2941FC000ABAC6 /* Prefix.pch */,
 				F603A57D1EBD3F4A000EA85D /* 1802 Emulator-Bridging-Header.h */,
 				BFC897131B25EB2000627D5D /* 1802 Emulator.txt */,
@@ -209,7 +213,8 @@
 				F66F6DD21B2BCD28000ABAC6 /* MainMenu.xib */,
 				F6D63B431B1D6A6B006724FC /* AppDelegate.h */,
 				F6D63B441B1D6A6B006724FC /* AppDelegate.m */,
-				F66F0D181EB8E6F500D7891A /* Log.h */,
+				F687B0961EEE060A00FBC277 /* Logging.h */,
+				F687B0971EEE060A00FBC277 /* Logging.m */,
 				F603A57A1EBA2F8E000EA85D /* Main Window */,
 				F603A57C1EBA3022000EA85D /* Loader */,
 				F603A57B1EBA2F9E000EA85D /* CPU Emulation */,
@@ -375,6 +380,7 @@
 				F66963431EE66AD700E2E0E4 /* MarkerView.swift in Sources */,
 				F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */,
 				F63B5F321EE0D4F00095A892 /* SourceViewController.swift in Sources */,
+				F687B0981EEE060A00FBC277 /* Logging.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,8 @@
 #import "RegistersViewController.h"
 #import "_802_Emulator-Swift.h"
 
+#import "Logging.h"
+
 //static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 
 
@@ -119,7 +121,7 @@ NS_ENUM( NSInteger, RunMode ) {
 	// IO Ports
 	//
 	AllIOPortsViewController *pv = [[AllIOPortsViewController alloc] init];
-	NSLog( @"IO port view frame: %@", NSStringFromRect( pv.view.frame ) );
+	LogDebug( @"IO port view frame: %@", NSStringFromRect( pv.view.frame ) );
 	
 //	NSSize pre = pv.preferredContentSize;
 //	[pv.view setFrameSize:pre];
@@ -138,7 +140,7 @@ NS_ENUM( NSInteger, RunMode ) {
 	self.sourceView.autoresizesSubviews = YES;
 	
 	NSRect r = self.sourceViewController.view.frame;
-	NSLog( @"Source view frame: %@", NSStringFromRect( r ) );
+	LogDebug( @"Source view frame: %@", NSStringFromRect( r ) );
 	r.size.width = self.sourceView.bounds.size.width;
 	r.size.height = self.sourceView.bounds.size.height;
 	self.sourceViewController.view.frame = r;
@@ -158,6 +160,11 @@ NS_ENUM( NSInteger, RunMode ) {
 
 - (void)awakeFromNib
 {
+	LogDebug( @"WTF" );
+	
+	LogDebug( @"bats %d", 6 );
+	LogDebug( @"one mouse" );
+	
 	[self.statusLabel setStringValue:@""];
 	
 	self.stepIgnoreSymbols = [[NSMutableSet alloc] init];

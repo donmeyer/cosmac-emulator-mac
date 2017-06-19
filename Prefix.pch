@@ -14,9 +14,7 @@
 
 #import <Foundation/Foundation.h>
 
-//#define LOG_LEVEL_DEF ddLogLevel
-
-#import "Log.h"
+#import "Logging.h"
 
 #endif
 

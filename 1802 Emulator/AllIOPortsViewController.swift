@@ -59,7 +59,7 @@ class AllIOPortsViewController: NSViewController
 			pv.view.frame = r
 			yPos += r.size.height
 			
-			print( "IO port view frame:", NSStringFromRect( pv.view.frame ) )
+//FOOP			LogDebug( "IO port view frame:", NSStringFromRect( pv.view.frame ) )
 			self.view.addSubview( pv.view )
 			// Cannot set this until the view has been loaded!
 			pv.portNum = i
