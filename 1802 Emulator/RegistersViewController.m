@@ -31,6 +31,8 @@
 
 @property (weak) IBOutlet NSButton *liveUpdateCheckbox;
 
+@property (nonatomic, assign) CPU prevCPU;
+
 @end
 
 
@@ -69,6 +71,13 @@
 }
 
 
+- (void)doField:(NSTextField*)field text:(NSString*)text changed:(BOOL)changed
+{
+	field.textColor = changed ?  [NSColor redColor] : [NSColor blackColor];
+	[field setStringValue:text];
+}
+
+
 - (void)updateCPUState:(const CPU*)cpu force:(BOOL)force
 {
 	if( ! force && self.liveUpdateCheckbox.state == 0 )
@@ -82,31 +91,33 @@
 	NSString *str;
  
 	str = [NSString stringWithFormat:@"%04X", cpu->reg[cpu->P]];
-	[self.pcField setStringValue:str];
+	[self doField:self.pcField text:str changed:cpu->reg[cpu->P] != self.prevCPU.reg[cpu->P]];
 	
 	str = [NSString stringWithFormat:@"%02X", cpu->D];
-	[self.dField setStringValue:str];
+	[self doField:self.dField text:str changed:cpu->D != self.prevCPU.D];
 	
 	str = [NSString stringWithFormat:@"%X", cpu->DF];
-	[self.dfField setStringValue:str];
-
+	[self doField:self.dfField text:str changed:cpu->DF != self.prevCPU.DF];
+	
 	str = [NSString stringWithFormat:@"%X", cpu->X];
-	[self.xField setStringValue:str];
-
+	[self doField:self.xField text:str changed:cpu->X != self.prevCPU.X];
+	
 	str = [NSString stringWithFormat:@"%X", cpu->P];
-	[self.pField setStringValue:str];
-
+	[self doField:self.pField text:str changed:cpu->P != self.prevCPU.P];
+	
 	str = [NSString stringWithFormat:@"%X", cpu->N];
-	[self.nField setStringValue:str];
+	[self doField:self.nField text:str changed:cpu->N != self.prevCPU.N];
 	
 	str = [NSString stringWithFormat:@"%X", cpu->I];
-	[self.iField setStringValue:str];
-
+	[self doField:self.iField text:str changed:cpu->I != self.prevCPU.I];
+	
 	str = [NSString stringWithFormat:@"%X", cpu->IE];
-	[self.ieField setStringValue:str];
-
+	[self doField:self.ieField text:str changed:cpu->IE != self.prevCPU.IE];
+	
 	str = [NSString stringWithFormat:@"%02X", cpu->T];
-	[self.tField setStringValue:str];
+	[self doField:self.tField text:str changed:cpu->T != self.prevCPU.T];
+	
+	self.prevCPU = *cpu;
 }
 
 
