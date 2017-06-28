@@ -19,6 +19,8 @@ class AllIOPortsViewController: NSViewController
 {
 	var ports = [Int : IOPortView]()
 	
+	var efButtons = [Int : NSButton]()
+	
 	lazy var inLabel = { () -> NSTextField in
 		let label = NSTextField.init()
 		label.isEditable = false
@@ -48,6 +50,53 @@ class AllIOPortsViewController: NSViewController
         super.viewDidLoad()
 		
 		var yPos : CGFloat = 0
+		
+		if #available(OSX 10.12, *) {
+			var button : NSButton
+			
+			var x : CGFloat = 20.0
+			let BGAP : CGFloat = 50
+			
+			
+			let img = NSImage.init(named: NSImage.Name(rawValue: "onButtonEF"))
+//			let img = NSImage.init(size: NSMakeSize(20, 20))
+//			img!.resizingMode = .stretch
+//			img.backgroundColor = NSColor.green
+			
+			button = NSButton.init(image: img!, target: self, action: #selector(foo))
+			button.isBordered = false
+//			button.sizeToFit()
+//			button = NSButton.init(title: "EF1", target: self, action: #selector(foo))
+//			button.setButtonType(.pushOnPushOff)
+//			button.image = img
+			button.setFrameOrigin( NSMakePoint(x, yPos+10) )
+			button.setFrameSize(img!.size)
+			self.view.addSubview(button)
+			self.efButtons[1] = button
+			x += BGAP
+			
+			button = NSButton.init(title: "EF2", target: self, action: #selector(foo))
+			button.setFrameOrigin( NSMakePoint(x, yPos+10) )
+//			self.view.addSubview(button)
+			self.efButtons[2] = button
+			x += BGAP
+			
+			button = NSButton.init(title: "EF3", target: self, action: #selector(foo))
+			button.setFrameOrigin( NSMakePoint(x, yPos+10) )
+			self.view.addSubview(button)
+			self.efButtons[3] = button
+			x += BGAP
+			
+			button = NSButton.init(title: "EF4", target: self, action: #selector(foo))
+			button.setFrameOrigin( NSMakePoint(x, yPos+10) )
+			self.view.addSubview(button)
+			self.efButtons[4] = button
+			
+			yPos += 50
+		} else {
+			// Fallback on earlier versions
+			// sadness
+		}
 		
 		var i = 7
 		while( i >= 0 )
@@ -81,7 +130,14 @@ class AllIOPortsViewController: NSViewController
 		
 //		self.preferredContentSize = NSMakeSize(300, yPos+50)
 	}
-
+	
+	@objc func foo( sender : Any? )
+	{
+//		print( sender )
+		let button = sender as! NSButton
+		button.title = "ef1"
+	}
+	
 //	func inLabel() -> NSTextField
 //	{
 //		let label = NSTextField.init()
