@@ -29,8 +29,6 @@
 @property (weak) IBOutlet NSTextField *ieField;
 @property (weak) IBOutlet NSTextField *tField;
 
-@property (weak) IBOutlet NSButton *liveUpdateCheckbox;
-
 @property (nonatomic, strong) NSColor *changedColor;
 
 @property (nonatomic, assign) CPU prevCPU;
@@ -63,13 +61,8 @@
 }
 
 
-- (void)updateCPUState:(const CPU*)cpu force:(BOOL)force
+- (void)updateCPUState:(const CPU*)cpu
 {
-	if( ! force && self.liveUpdateCheckbox.state == 0 )
-	{
-		return;
-	}
-
 	[self.scratchpadView updateRegisters:cpu];
 
 
@@ -114,7 +107,7 @@
  */
 - (void)reset
 {
-	[self updateCPUState:&_prevCPU force:YES];
+	[self updateCPUState:&_prevCPU];
 }
 
 

@@ -12,7 +12,6 @@
                 <outlet property="dfField" destination="Ysk-Ip-eIk" id="D7L-Ej-8eH"/>
                 <outlet property="iField" destination="cm3-7H-Nso" id="aAu-HI-jjY"/>
                 <outlet property="ieField" destination="6ma-co-SrH" id="1lT-Cr-SKb"/>
-                <outlet property="liveUpdateCheckbox" destination="sGa-Je-4sg" id="Ten-rc-Vwh"/>
                 <outlet property="nField" destination="GBQ-Pf-637" id="IQO-O8-MWO"/>
                 <outlet property="pField" destination="RwN-KR-g7X" id="CQi-GI-lVS"/>
                 <outlet property="pcField" destination="Rhs-89-E23" id="deN-Bn-dmQ"/>
@@ -185,14 +184,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sGa-Je-4sg">
-                    <rect key="frame" x="14" y="18" width="61" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Live" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="PRI-qP-QGA">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                </button>
             </subviews>
             <point key="canvasLocation" x="435.5" y="514"/>
         </customView>

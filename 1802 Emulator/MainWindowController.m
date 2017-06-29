@@ -375,15 +375,15 @@ static void iotrap( void *userData, int inputPort, int outputPort )
 {
 	const CPU *cpu = CPU_getCPU();
 	
-	BOOL stepping = self.runmode != RunModeRunning;
-	
-	[self.registersViewController updateCPUState:cpu force:stepping];
+	const BOOL stepping = self.runmode != RunModeRunning;
 	
 	// We always update the current symbol, even if we don't always display it.
 	[self calcCurrentSymbol];
 	
 	if( stepping || self.liveSymbolUpdates )
 	{
+		[self.registersViewController updateCPUState:cpu];
+		
 		unsigned int pc = cpu->reg[cpu->P];
 		
 		SourceLine *line = [self.loader lineForAddr:pc];
