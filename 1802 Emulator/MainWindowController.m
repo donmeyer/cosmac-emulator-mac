@@ -384,6 +384,9 @@ static void iotrap( void *userData, int inputPort, int outputPort )
 	{
 		[self.registersViewController updateCPUState:cpu];
 		
+		unsigned long cycles = CPU_getCycleCount();
+		[self.totalCyclesField setStringValue:[NSString stringWithFormat:@"%lu", cycles]];
+		
 		unsigned int pc = cpu->reg[cpu->P];
 		
 		SourceLine *line = [self.loader lineForAddr:pc];

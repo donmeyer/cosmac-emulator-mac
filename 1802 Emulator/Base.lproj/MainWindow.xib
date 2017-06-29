@@ -113,7 +113,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GjQ-OV-56M">
-                                    <rect key="frame" x="107" y="80" width="117" height="17"/>
+                                    <rect key="frame" x="103" y="81" width="119" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;tot cycles&gt;" id="j1D-sb-tmJ">
                                         <font key="font" metaFont="system"/>
