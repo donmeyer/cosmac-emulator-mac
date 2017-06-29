@@ -155,16 +155,13 @@ NS_ENUM( NSInteger, RunMode ) {
 	CPU_reset();
 //	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
 	[self loadFile:@"/Users/don/Code/Cosmac 1802/asm_src/slowq.lst"];
+	
+	[self setDescriptionsForForth];
 }
 
 
 - (void)awakeFromNib
 {
-	LogDebug( @"WTF" );
-	
-	LogDebug( @"bats %d", 6 );
-	LogDebug( @"one mouse" );
-	
 	[self.statusLabel setStringValue:@""];
 	
 	self.stepIgnoreSymbols = [[NSMutableSet alloc] init];
@@ -179,6 +176,32 @@ NS_ENUM( NSInteger, RunMode ) {
 		self.useTerminalForIO = NO;
 	}
 }
+
+
+- (void)setDescriptionsForForth
+{
+	[self.registersViewController setDescription:@"DMA" forReg:0x00];
+	
+	[self.registersViewController setDescription:@"Interupt PC" forReg:0x01];
+	
+	[self.registersViewController setDescription:@"RP" forReg:0x02];
+	[self.registersViewController setDescription:@"Primitive PC" forReg:0x03];
+	
+	[self.registersViewController setDescription:@"Scratch Accum" forReg:0x07];
+	[self.registersViewController setDescription:@"Scratch Accum" forReg:0x08];
+	
+	[self.registersViewController setDescription:@"SP" forReg:0x09];
+	
+	[self.registersViewController setDescription:@"IP" forReg:0x0A];
+	[self.registersViewController setDescription:@"W (CFA)" forReg:0x0B];
+	
+	[self.registersViewController setDescription:@"PC for NEXT" forReg:0x0C];
+	
+	[self.registersViewController setDescription:@"UP" forReg:0x0D];
+	
+	[self.registersViewController setDescription:@"Interrupt SP" forReg:0x0E];
+}
+
 
 
 #pragma mark - IO Port Emulation
@@ -644,6 +667,8 @@ static void iotrap( void *userData, int inputPort, int outputPort )
 	self.runmode = RunModePause;
 	
 	[self updateState];
+	
+	[self.registersViewController reset];
 }
 
 

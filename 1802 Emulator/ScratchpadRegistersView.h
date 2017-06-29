@@ -14,7 +14,10 @@
 
 @interface ScratchpadRegistersView : NSView
 
+@property (nonatomic, strong) NSColor *changedColor;
+
 - (void)setDescription:(NSString*)desc forReg:(int)reg;
+- (void)clearDescriptions;
 
 - (void)updateRegisters:(const CPU*)cpu;
 
