@@ -15,6 +15,7 @@
 		F63B5F321EE0D4F00095A892 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B5F311EE0D4F00095A892 /* SourceViewController.swift */; };
 		F63B5F341EE1FBF90095A892 /* SynchroScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */; };
 		F63B5F361EE206660095A892 /* SourceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63B5F351EE206660095A892 /* SourceViewController.xib */; };
+		F663822D1F09B63E00ADAD96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F663822C1F09B63E00ADAD96 /* AppDelegate.swift */; };
 		F66963431EE66AD700E2E0E4 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66963421EE66AD700E2E0E4 /* MarkerView.swift */; };
 		F66F6DCF1B24C668000ABAC6 /* ScratchpadRegistersView.m in Sources */ = {isa = PBXBuildFile; fileRef = F66F6DCE1B24C668000ABAC6 /* ScratchpadRegistersView.m */; };
 		F66F6DD31B2BCD28000ABAC6 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66F6DD21B2BCD28000ABAC6 /* MainMenu.xib */; };
@@ -28,8 +29,6 @@
 		F687B0981EEE060A00FBC277 /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = F687B0971EEE060A00FBC277 /* Logging.m */; };
 		F6925AFB1ECC06480031DF17 /* AllIOPortsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */; };
 		F6925AFC1ECC06480031DF17 /* AllIOPortsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */; };
-		F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B441B1D6A6B006724FC /* AppDelegate.m */; };
-		F6D63B471B1D6A6B006724FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B461B1D6A6B006724FC /* main.m */; };
 		F6D63B491B1D6A6C006724FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B481B1D6A6C006724FC /* Images.xcassets */; };
 		F6D63B4C1B1D6A6C006724FC /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B4A1B1D6A6C006724FC /* MainWindow.xib */; };
 		F6D63B581B1D6A6C006724FC /* _802_EmulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B571B1D6A6C006724FC /* _802_EmulatorTests.m */; };
@@ -58,6 +57,7 @@
 		F63B5F311EE0D4F00095A892 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchroScrollView.swift; sourceTree = "<group>"; };
 		F63B5F351EE206660095A892 /* SourceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SourceViewController.xib; sourceTree = "<group>"; };
+		F663822C1F09B63E00ADAD96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6677EE31EF865C600494883 /* To-Do.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "To-Do.md"; sourceTree = "<group>"; };
 		F66963421EE66AD700E2E0E4 /* MarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		F66F6DCD1B24C668000ABAC6 /* ScratchpadRegistersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScratchpadRegistersView.h; sourceTree = "<group>"; };
@@ -76,9 +76,6 @@
 		F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllIOPortsViewController.xib; sourceTree = "<group>"; };
 		F6D63B3E1B1D6A6B006724FC /* 1802 Emulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1802 Emulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6D63B421B1D6A6B006724FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F6D63B431B1D6A6B006724FC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		F6D63B441B1D6A6B006724FC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F6D63B461B1D6A6B006724FC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F6D63B481B1D6A6C006724FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F6D63B4B1B1D6A6C006724FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		F6D63B511B1D6A6C006724FC /* 1802 EmulatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "1802 EmulatorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,8 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				F66F6DD21B2BCD28000ABAC6 /* MainMenu.xib */,
-				F6D63B431B1D6A6B006724FC /* AppDelegate.h */,
-				F6D63B441B1D6A6B006724FC /* AppDelegate.m */,
+				F663822C1F09B63E00ADAD96 /* AppDelegate.swift */,
 				F687B0961EEE060A00FBC277 /* Logging.h */,
 				F687B0971EEE060A00FBC277 /* Logging.m */,
 				F603A57A1EBA2F8E000EA85D /* Main Window */,
@@ -229,7 +225,6 @@
 			children = (
 				F66F6DD01B293A01000ABAC6 /* 1802 Emulator.entitlements */,
 				F6D63B421B1D6A6B006724FC /* Info.plist */,
-				F6D63B461B1D6A6B006724FC /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -367,9 +362,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6D63B471B1D6A6B006724FC /* main.m in Sources */,
 				F63B5F2D1EDE74AC0095A892 /* TerminalWindowController.swift in Sources */,
 				F66F6DCF1B24C668000ABAC6 /* ScratchpadRegistersView.m in Sources */,
+				F663822D1F09B63E00ADAD96 /* AppDelegate.swift in Sources */,
 				F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */,
 				F603A5801EBD3F4A000EA85D /* IOPortView.swift in Sources */,
 				F66F6DD71B2BCEF5000ABAC6 /* MainWindowController.m in Sources */,
@@ -378,7 +373,6 @@
 				F6D63B671B200D8A006724FC /* HexLoader.m in Sources */,
 				F66F6DDC1B2BEEAE000ABAC6 /* RegistersViewController.m in Sources */,
 				F66963431EE66AD700E2E0E4 /* MarkerView.swift in Sources */,
-				F6D63B451B1D6A6B006724FC /* AppDelegate.m in Sources */,
 				F63B5F321EE0D4F00095A892 /* SourceViewController.swift in Sources */,
 				F687B0981EEE060A00FBC277 /* Logging.m in Sources */,
 			);
