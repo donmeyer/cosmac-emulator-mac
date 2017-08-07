@@ -16,7 +16,6 @@
 		F63B5F341EE1FBF90095A892 /* SynchroScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */; };
 		F63B5F361EE206660095A892 /* SourceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63B5F351EE206660095A892 /* SourceViewController.xib */; };
 		F63F835C1F34DE710030B2BF /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63F835B1F34D08D0030B2BF /* MainWindowController.swift */; };
-		F63F83D41F35499E0030B2BF /* Fooop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63F83D31F35499E0030B2BF /* Fooop.swift */; };
 		F663822D1F09B63E00ADAD96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F663822C1F09B63E00ADAD96 /* AppDelegate.swift */; };
 		F66963431EE66AD700E2E0E4 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66963421EE66AD700E2E0E4 /* MarkerView.swift */; };
 		F66F6DCF1B24C668000ABAC6 /* ScratchpadRegistersView.m in Sources */ = {isa = PBXBuildFile; fileRef = F66F6DCE1B24C668000ABAC6 /* ScratchpadRegistersView.m */; };
@@ -58,7 +57,6 @@
 		F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchroScrollView.swift; sourceTree = "<group>"; };
 		F63B5F351EE206660095A892 /* SourceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SourceViewController.xib; sourceTree = "<group>"; };
 		F63F835B1F34D08D0030B2BF /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
-		F63F83D31F35499E0030B2BF /* Fooop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fooop.swift; sourceTree = "<group>"; };
 		F663822C1F09B63E00ADAD96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6677EE31EF865C600494883 /* To-Do.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "To-Do.md"; sourceTree = "<group>"; };
 		F66963421EE66AD700E2E0E4 /* MarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 			isa = PBXGroup;
 			children = (
 				F63F835B1F34D08D0030B2BF /* MainWindowController.swift */,
-				F63F83D31F35499E0030B2BF /* Fooop.swift */,
 				F6D63B4A1B1D6A6C006724FC /* MainWindow.xib */,
 				F63B5F2C1EDE74AC0095A892 /* TerminalWindow.xib */,
 				F63B5F2B1EDE74AC0095A892 /* TerminalWindowController.swift */,
@@ -367,7 +364,6 @@
 				F63F835C1F34DE710030B2BF /* MainWindowController.swift in Sources */,
 				F663822D1F09B63E00ADAD96 /* AppDelegate.swift in Sources */,
 				F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */,
-				F63F83D41F35499E0030B2BF /* Fooop.swift in Sources */,
 				F603A5801EBD3F4A000EA85D /* IOPortView.swift in Sources */,
 				F63B5F341EE1FBF90095A892 /* SynchroScrollView.swift in Sources */,
 				F6925AFB1ECC06480031DF17 /* AllIOPortsViewController.swift in Sources */,
