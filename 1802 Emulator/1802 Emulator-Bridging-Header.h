@@ -4,3 +4,6 @@
 
 #import "Logging.h"
 #import "MainWindowController.h"
+#import "CPU Emulation.h"
+#import "HexLoader.h"
+#import "RegistersViewController.h"

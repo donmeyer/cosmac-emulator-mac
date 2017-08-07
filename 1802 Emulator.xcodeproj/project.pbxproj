@@ -15,13 +15,13 @@
 		F63B5F321EE0D4F00095A892 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B5F311EE0D4F00095A892 /* SourceViewController.swift */; };
 		F63B5F341EE1FBF90095A892 /* SynchroScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */; };
 		F63B5F361EE206660095A892 /* SourceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63B5F351EE206660095A892 /* SourceViewController.xib */; };
+		F63F835C1F34DE710030B2BF /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63F835B1F34D08D0030B2BF /* MainWindowController.swift */; };
+		F63F83D41F35499E0030B2BF /* Fooop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63F83D31F35499E0030B2BF /* Fooop.swift */; };
 		F663822D1F09B63E00ADAD96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F663822C1F09B63E00ADAD96 /* AppDelegate.swift */; };
 		F66963431EE66AD700E2E0E4 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66963421EE66AD700E2E0E4 /* MarkerView.swift */; };
 		F66F6DCF1B24C668000ABAC6 /* ScratchpadRegistersView.m in Sources */ = {isa = PBXBuildFile; fileRef = F66F6DCE1B24C668000ABAC6 /* ScratchpadRegistersView.m */; };
 		F66F6DD31B2BCD28000ABAC6 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66F6DD21B2BCD28000ABAC6 /* MainMenu.xib */; };
 		F66F6DD41B2BCD28000ABAC6 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66F6DD21B2BCD28000ABAC6 /* MainMenu.xib */; };
-		F66F6DD71B2BCEF5000ABAC6 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F66F6DD61B2BCEF5000ABAC6 /* MainWindowController.m */; };
-		F66F6DD81B2BCEF5000ABAC6 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F66F6DD61B2BCEF5000ABAC6 /* MainWindowController.m */; };
 		F66F6DDC1B2BEEAE000ABAC6 /* RegistersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F66F6DDA1B2BEEAE000ABAC6 /* RegistersViewController.m */; };
 		F66F6DDD1B2BEEAE000ABAC6 /* RegistersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F66F6DDA1B2BEEAE000ABAC6 /* RegistersViewController.m */; };
 		F66F6DDE1B2BEEAE000ABAC6 /* RegistersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F66F6DDB1B2BEEAE000ABAC6 /* RegistersView.xib */; };
@@ -57,6 +57,8 @@
 		F63B5F311EE0D4F00095A892 /* SourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		F63B5F331EE1FBF90095A892 /* SynchroScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchroScrollView.swift; sourceTree = "<group>"; };
 		F63B5F351EE206660095A892 /* SourceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SourceViewController.xib; sourceTree = "<group>"; };
+		F63F835B1F34D08D0030B2BF /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		F63F83D31F35499E0030B2BF /* Fooop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fooop.swift; sourceTree = "<group>"; };
 		F663822C1F09B63E00ADAD96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6677EE31EF865C600494883 /* To-Do.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "To-Do.md"; sourceTree = "<group>"; };
 		F66963421EE66AD700E2E0E4 /* MarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
@@ -65,8 +67,6 @@
 		F66F6DD01B293A01000ABAC6 /* 1802 Emulator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "1802 Emulator.entitlements"; sourceTree = "<group>"; };
 		F66F6DD11B2941FC000ABAC6 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		F66F6DD21B2BCD28000ABAC6 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
-		F66F6DD51B2BCEF5000ABAC6 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
-		F66F6DD61B2BCEF5000ABAC6 /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		F66F6DD91B2BEEAE000ABAC6 /* RegistersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistersViewController.h; sourceTree = "<group>"; };
 		F66F6DDA1B2BEEAE000ABAC6 /* RegistersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistersViewController.m; sourceTree = "<group>"; };
 		F66F6DDB1B2BEEAE000ABAC6 /* RegistersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistersView.xib; sourceTree = "<group>"; };
@@ -128,9 +128,9 @@
 		F603A57A1EBA2F8E000EA85D /* Main Window */ = {
 			isa = PBXGroup;
 			children = (
+				F63F835B1F34D08D0030B2BF /* MainWindowController.swift */,
+				F63F83D31F35499E0030B2BF /* Fooop.swift */,
 				F6D63B4A1B1D6A6C006724FC /* MainWindow.xib */,
-				F66F6DD51B2BCEF5000ABAC6 /* MainWindowController.h */,
-				F66F6DD61B2BCEF5000ABAC6 /* MainWindowController.m */,
 				F63B5F2C1EDE74AC0095A892 /* TerminalWindow.xib */,
 				F63B5F2B1EDE74AC0095A892 /* TerminalWindowController.swift */,
 				F649DB2B1EE9E0F200DCE61A /* IO Ports */,
@@ -364,10 +364,11 @@
 			files = (
 				F63B5F2D1EDE74AC0095A892 /* TerminalWindowController.swift in Sources */,
 				F66F6DCF1B24C668000ABAC6 /* ScratchpadRegistersView.m in Sources */,
+				F63F835C1F34DE710030B2BF /* MainWindowController.swift in Sources */,
 				F663822D1F09B63E00ADAD96 /* AppDelegate.swift in Sources */,
 				F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */,
+				F63F83D41F35499E0030B2BF /* Fooop.swift in Sources */,
 				F603A5801EBD3F4A000EA85D /* IOPortView.swift in Sources */,
-				F66F6DD71B2BCEF5000ABAC6 /* MainWindowController.m in Sources */,
 				F63B5F341EE1FBF90095A892 /* SynchroScrollView.swift in Sources */,
 				F6925AFB1ECC06480031DF17 /* AllIOPortsViewController.swift in Sources */,
 				F6D63B671B200D8A006724FC /* HexLoader.m in Sources */,
@@ -382,7 +383,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F66F6DD81B2BCEF5000ABAC6 /* MainWindowController.m in Sources */,
 				BFC896B91B223AD900627D5D /* LoaderTests.m in Sources */,
 				F6D63B581B1D6A6C006724FC /* _802_EmulatorTests.m in Sources */,
 				F66F6DDD1B2BEEAE000ABAC6 /* RegistersViewController.m in Sources */,

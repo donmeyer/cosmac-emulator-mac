@@ -14,7 +14,7 @@
 @interface Symbol : NSObject
 
 @property (readonly, strong) NSString *name;
-@property (readonly, assign) unsigned int addr;
+@property (readonly, assign) NSInteger addr;
 @property (assign) unsigned int endAddr;
 
 - (instancetype)initWithName:(NSString*)name addr:(unsigned int) addr;
@@ -26,7 +26,7 @@
 @interface SourceLine : NSObject
 
 @property (readonly, strong) NSString *text;
-@property (readonly, assign) unsigned int addr;
+@property (readonly, assign) NSInteger addr;
 @property (readonly, assign) int lineNum;
 @property (readonly) unsigned int endAddr;
 @property (readonly) BOOL hasCode;
