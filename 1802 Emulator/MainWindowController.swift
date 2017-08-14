@@ -27,6 +27,13 @@ enum RunMode {
 }
 
 
+func ocb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8, data : UInt8 )
+{
+	//		LogVerbose( @"Output port %d  data 0x%02X  '%c'", port, data, data );
+	
+	let mvc : MainWindowController = unsafeBitCast(userData, to: MainWindowController.self)
+	mvc.writeOutputPort( port: port, data:data )
+}
 
 
 class MainWindowController : NSWindowController, NSWindowDelegate {
@@ -122,8 +129,9 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		// Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 		CPU_makeAllPagesRAM();
 		
+		
 		// Callback that we get when the CPU writes to an IO port.
-//		CPU_setOutputCallback( ocb, (__bridge void *)(self) );
+		CPU_setOutputCallback( ocb, Unmanaged.passUnretained(self).toOpaque() )
 		
 		// Callback that we get when the CPU reades from an IO port.
 //		CPU_setInputCallback( icb, (__bridge void *)(self) );
@@ -222,14 +230,6 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 //	#pragma mark - IO Port Emulation
 	
 	
-//	static void ocb( void *userData, uint8_t port, uint8_t data )
-//{
-//	LogVerbose( @"Output port %d  data 0x%02X  '%c'", port, data, data );
-//
-//	MainWindowController *mvc = (__bridge MainWindowController*)userData;
-//	[mvc writeOutputPort:port data:data];
-//
-//	}
 //
 //
 //	static uint8_t icb( void *userData, uint8_t port )
