@@ -29,11 +29,25 @@ enum RunMode {
 
 func ocb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8, data : UInt8 )
 {
-	//		LogVerbose( @"Output port %d  data 0x%02X  '%c'", port, data, data );
-	
+//	LogVerbose( @"Output port %d  data 0x%02X  '%c'", port, data, data );
 	let mvc : MainWindowController = unsafeBitCast(userData, to: MainWindowController.self)
 	mvc.writeOutputPort( port: port, data:data )
 }
+
+
+func icb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8 ) -> UInt8
+{
+	//	LogDebug( @"Input port %d", port );
+	let mvc : MainWindowController = unsafeBitCast(userData, to: MainWindowController.self)
+	return mvc.readInputPort( port: port )
+}
+//
+//
+//	static void iotrap( void *userData, int inputPort, int outputPort )
+//{
+//	MainWindowController *mvc = (__bridge MainWindowController*)userData;
+//	[mvc handleIOTrap:inputPort outputPort:outputPort];
+//	}
 
 
 class MainWindowController : NSWindowController, NSWindowDelegate {
@@ -134,7 +148,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		CPU_setOutputCallback( ocb, Unmanaged.passUnretained(self).toOpaque() )
 		
 		// Callback that we get when the CPU reades from an IO port.
-//		CPU_setInputCallback( icb, (__bridge void *)(self) );
+		CPU_setInputCallback( icb, Unmanaged.passUnretained(self).toOpaque() )
 		
 		// Callback we get during the CPU fetch cycle that tells us an IO instruction is what will excute next.
 		// This early warning allows us to trigger a breakpoint before the IO instruction executes.
@@ -232,20 +246,6 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 //
 //
-//	static uint8_t icb( void *userData, uint8_t port )
-//{
-//	//	LogDebug( @"Input port %d", port );
-//
-//	MainWindowController *mvc = (__bridge MainWindowController*)userData;
-//	return [mvc readInputPort:port];
-//	}
-//
-//
-//	static void iotrap( void *userData, int inputPort, int outputPort )
-//{
-//	MainWindowController *mvc = (__bridge MainWindowController*)userData;
-//	[mvc handleIOTrap:inputPort outputPort:outputPort];
-//	}
 //
 //
 //	- (void)handleIOTrap:(int)inputPort outputPort:(int)outputPort
