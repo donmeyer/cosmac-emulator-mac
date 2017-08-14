@@ -709,15 +709,14 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 		panel.beginSheetModal(for: self.window!, completionHandler: { (modalResponse) in
 			print( modalResponse )
-			if modalResponse != NSApplication.ModalResponse.alertFirstButtonReturn
+			
+			if modalResponse == NSApplication.ModalResponse.OK
 			{
-				return
+				let url = panel.urls.first
+				
+				// If a completion block (and there really shhould be, else what's the point?) call it with the filename.
+				completion( url )
 			}
-	
-			let url = panel.urls.first
-	
-			// If a completion block (and there really shhould be, else what's the point?) call it with the filename.
-			completion( url )
 		})
 	}
 	
