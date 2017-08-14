@@ -338,8 +338,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 //	#pragma mark - Terminal Emulation
 	
-	func openTerminal( sender : Any? )
-	{
+	@IBAction func openTerminal(_ sender: Any) {
 		self.terminalWindowController.showWindow(self)
 		self.useTerminalForIO = true
 	}

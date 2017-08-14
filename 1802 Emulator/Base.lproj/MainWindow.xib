@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="Main">
+        <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController" customModule="_802_Emulator" customModuleProvider="target">
             <connections>
                 <outlet property="REGVIEW" destination="kB2-Tk-jcu" id="047-mt-dyT"/>
                 <outlet property="STEPBUTTON" destination="6aV-Ov-fuP" id="SCl-EP-Efy"/>
@@ -247,7 +247,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="openTerminal:" target="-2" id="eog-Ym-nv8"/>
+                            <action selector="openTerminal:" target="-2" id="frY-eg-CeX"/>
                         </connections>
                     </button>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jyw-WQ-yHH">
