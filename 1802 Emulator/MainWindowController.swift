@@ -41,13 +41,13 @@ func icb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8 ) -> UInt
 	let mvc : MainWindowController = unsafeBitCast(userData, to: MainWindowController.self)
 	return mvc.readInputPort( port: port )
 }
-//
-//
-//	static void iotrap( void *userData, int inputPort, int outputPort )
-//{
-//	MainWindowController *mvc = (__bridge MainWindowController*)userData;
-//	[mvc handleIOTrap:inputPort outputPort:outputPort];
-//	}
+
+
+func iotrap( userData : (Optional<UnsafeMutableRawPointer>), inputPort : CInt, outputPort : CInt )
+{
+	let mvc : MainWindowController = unsafeBitCast(userData, to: MainWindowController.self)
+	mvc.handleIOTrap( inputPort:Int(inputPort), outputPort:Int(outputPort) )
+}
 
 
 class MainWindowController : NSWindowController, NSWindowDelegate {
@@ -131,7 +131,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	}
 	
 	
-	var liveSymbolUpdates : Bool = true
+	var liveSymbolUpdates : Bool = false
 	
 	var useTerminalForIO : Bool = false
 	
@@ -152,7 +152,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		
 		// Callback we get during the CPU fetch cycle that tells us an IO instruction is what will excute next.
 		// This early warning allows us to trigger a breakpoint before the IO instruction executes.
-//		CPU_setIOTrapCallback( iotrap, (__bridge void *)(self) );
+		CPU_setIOTrapCallback( iotrap, Unmanaged.passUnretained(self).toOpaque() )
 		
 		self.regView.addSubview(self.registersViewController.view)
 		
@@ -243,31 +243,26 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 //	#pragma mark - IO Port Emulation
 	
-	
-//
-//
-//
-//
-//	- (void)handleIOTrap:(int)inputPort outputPort:(int)outputPort
-//	{
-//	if( inputPort > 0 )
-//	{
-//	if( [self.ioPorts shouldBreakOnPortRead:inputPort] )
-//	{
-//	NSString *s = [NSString stringWithFormat:@"Input Port %d", inputPort];
-//	[self doBreakpointWithTitle:s];
-//	}
-//	}
-//
-//	if( outputPort > 0 )
-//	{
-//	if( [self.ioPorts shouldBreakOnPortWrite:outputPort] )
-//	{
-//	NSString *s = [NSString stringWithFormat:@"Output Port %d", outputPort];
-//	[self doBreakpointWithTitle:s];
-//	}
-//	}
-//	}
+	func handleIOTrap( inputPort : Int, outputPort: Int )
+	{
+		if inputPort > 0
+		{
+			if self.ioPorts.shouldBreakOnPortRead(inputPort)
+			{
+				let s = "Input Port \(inputPort)"
+				self.doBreakpointWithTitle( s )
+			}
+		}
+		
+		if outputPort > 0
+		{
+			if self.ioPorts.shouldBreakOnPortWrite(outputPort)
+			{
+				let s = "Output Port \(outputPort)"
+				self.doBreakpointWithTitle( s )
+			}
+		}
+	}
 	
 	
 	func writeOutputPort( port : uint8, data : uint8 )
