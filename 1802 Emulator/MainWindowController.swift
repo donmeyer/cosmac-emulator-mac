@@ -125,7 +125,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	}
 	
 	
-	var liveSymbolUpdates : Bool = false
+	var liveSymbolUpdates : Bool = true
 	
 	var useTerminalForIO : Bool = false
 	
@@ -351,21 +351,16 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	func calcCurrentSymbol()
 	{
-		let cpu = CPU_getCPU()
-		
-		let x = 1
-//		let pc : uint16 = (cpu?.pointee.reg[x])!
-//
-//		if let sym = self.currentSymbol
-//		{
-//			if pc >= sym.addr && pc <= sym.endAddr
-//			{
-//				// No change
-//				return;
-//			}
-//
-//			self.currentSymbol = self.symbolForAddr(pc)
-//		}
+		let pc = CPU_getPC()
+		if let sym = self.currentSymbol
+		{
+			if pc >= sym.addr && pc <= sym.endAddr
+			{
+				// No change
+				return;
+			}
+		}
+		self.currentSymbol = self.symbolForAddr(pc)
 	}
 	
 	
@@ -388,8 +383,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 			let cycles = CPU_getCycleCount()
 			self.totalCyclesField.stringValue = String.init(format: "%lu", cycles)
 	
-//			let pc = cpu->reg[cpu->P];
-			let pc = 0
+			let pc = Int(CPU_getPC())
 			
 			if let loader = self.loader
 			{
@@ -459,18 +453,13 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	@objc func performStep( timer: Timer )
 	{
-		let cpu = CPU_getCPU()
-		
-		
 		if self.breakpoint1Checkbox.state == NSControl.StateValue.onState
 		{
 			let s = self.breakpoint1Field.stringValue
 			var hexAddr : UInt32 = 0
 			if Scanner.init(string: s).scanHexInt32(&hexAddr) == true
 			{
-				let pc = 0
-//				if hexAddr == cpu->reg[cpu->P]
-				if hexAddr == pc
+				if hexAddr == CPU_getPC()
 				{
 					self.doBreakpointWithTitle("Address 1")
 				}
