@@ -91,6 +91,12 @@ const CPU *CPU_getCPU()
 }
 
 
+uint16_t CPU_getPC(void)
+{
+	return cpu.reg[cpu.P];
+}
+
+
 long CPU_getCycleCount()
 {
 	return cycleCount;
