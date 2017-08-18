@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import os.log
 
 // #import "MainWindowController.h"
 // #import "CPU Emulation.h"
@@ -27,9 +28,13 @@ enum RunMode {
 }
 
 
+let mainwin_log = OSLog(subsystem: "com.sgsw.1802emulator", category: "MainWindow")
+
+
+
 func ocb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8, data : UInt8 )
 {
-//	LogVerbose( @"Output port %d  data 0x%02X  '%c'", port, data, data );
+	os_log( "Output port %d  data 0x%02X  '%c'", log:mainwin_log, port, data, data )
 	let mvc : MainWindowController = unsafeBitCast(userData, to: MainWindowController.self)
 	mvc.writeOutputPort( port: port, data:data )
 }
@@ -37,7 +42,7 @@ func ocb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8, data : U
 
 func icb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8 ) -> UInt8
 {
-	//	LogDebug( @"Input port %d", port );
+	os_log( "Input port %d", port )
 	let mvc : MainWindowController = unsafeBitCast(userData, to: MainWindowController.self)
 	return mvc.readInputPort( port: port )
 }
@@ -167,7 +172,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		//
 		// IO Ports
 		//
-//		LogDebug( "IO port view frame: %@", NSStringFromRect( pv.view.frame ) );
+		os_log( "IO port view frame: %@", log: mainwin_log, NSStringFromRect( self.regView.frame ) )
 		
 		//	NSSize pre = pv.preferredContentSize;
 		//	[pv.view setFrameSize:pre];
@@ -183,16 +188,14 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		self.sourceView.autoresizesSubviews = true
 		
 		var r : NSRect = self.sourceViewController.view.frame
-//		LogDebug( @"Source view frame: %@", NSStringFromRect( r ) );
+		os_log( "Source view frame: %@", log: mainwin_log, NSStringFromRect( self.sourceViewController.view.frame ) )
 		r.size.width = self.sourceView.bounds.size.width
 		r.size.height = self.sourceView.bounds.size.height
 		self.sourceViewController.view.frame = r;
 		
 		self.sourceView.addSubview(svv)
 		
-		
 		self.terminalWindowController.window?.delegate = self
-		
 		
 		CPU_reset();
 		//	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
@@ -214,7 +217,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	{
 		if notification.object as! NSWindow == self.terminalWindowController.window
 		{
-//			LogDebug( "Terminal close" );
+			os_log( "Terminal close", log: mainwin_log, type: .debug )
 			self.useTerminalForIO = false
 		}
 	}
@@ -527,22 +530,26 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 //				lastSymbol = self.currentSymbol;
 //			}
 		#endif
-	
-		if let trapsym = self.stepTrapSymbol
+		
+		if let currentSymbol = self.currentSymbol
 		{
-			if trapsym != self.currentSymbol
+			if let trapsym = self.stepTrapSymbol
 			{
-				// Ok, new symbol. Is it one we ignore?
-				if self.stepIgnoreSymbols.contains(self.currentSymbol)
+				if trapsym != currentSymbol
 				{
-					// It is
-					self.stepTrapSymbol = self.currentSymbol
-				}
-				else
-				{
-					// Break
-//					LogDebug( @"Stopped on symbol %@", self.currentSymbol.name );
-					self.doBreakpointWithTitle("Next Symbol")
+					// Ok, new symbol. Is it one we ignore?
+					if self.stepIgnoreSymbols.contains(currentSymbol)
+					{
+						// It is
+						stepTrapSymbol = currentSymbol
+					}
+					else
+					{
+						// Break
+						os_log( "Stopped on symbol %@", log: mainwin_log, type: .debug, currentSymbol.name )
+						
+						self.doBreakpointWithTitle("Next Symbol")
+					}
 				}
 			}
 		}
@@ -563,7 +570,8 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 //	#pragma mark - Actions
 	
 	@IBAction func stepAction(_ sender: Any) {
-//		LogDebug( @"Step" );
+		os_log( "Step", log: mainwin_log, type: .debug )
+		
 		self.runmode = .Stepping
 		CPU_step()
 	
@@ -579,12 +587,15 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	
 	@IBAction func ignoreStepNextAction(_ sender: Any) {
-		self.stepIgnoreSymbols.add(self.currentSymbol)
+		if let currentSymbol = self.currentSymbol
+		{
+			self.stepIgnoreSymbols.add(currentSymbol)
 	
-//		LogDebug( @"Add ignored symbol %@", self.currentSymbol.name );
+			os_log( "Add ignored symbol %@", log: mainwin_log, type: .debug, currentSymbol.name )
 		
-		self.stepTrapSymbol = self.currentSymbol
-	
+			self.stepTrapSymbol = currentSymbol
+		}
+		
 		self.startCycleTimer()
 	}
 	
@@ -594,7 +605,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		if self.runmode == .Running
 		{
 			// Pause
-//			LogDebug( @"Pause" );
+			os_log( "Pause", log: mainwin_log, type: .debug )
 			
 			self.statusLabel.stringValue = "Paused"
 	
@@ -606,7 +617,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		}
 		else
 		{
-//			LogDebug( @"Run" );
+			os_log( "Run", log: mainwin_log, type: .debug )
 			
 			self.stepTrapSymbol = nil;
 	
@@ -618,7 +629,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	
 	@IBAction func pauseAction(_ sender: Any) {
-//		LogDebug( @"Pause" );
+		os_log( "Pause", log: mainwin_log, type: .debug )
 		
 		self.statusLabel.stringValue = "Paused"
 	
@@ -631,7 +642,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	
 	@IBAction func resetAction(_ sender: Any) {
-//		LogDebug( @"Reset" );
+		os_log( "Reset", log: mainwin_log, type: .debug )
 		
 		self.statusLabel.stringValue = "Reset"
 	
@@ -663,7 +674,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 				}
 				else
 				{
-//					LogDebug( @"No file chosen" );
+					os_log( "No file chosen", log: mainwin_log, type: .debug )
 				}
 			}
 		}
@@ -678,18 +689,26 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 		self.loader = HexLoader.init(listingPath: path)
 		
-		self.loader?.load({ (addr: Int, byte : UInt8) in
-			CPU_writeByteToMemory( byte, UInt16(addr) )
-		})
+		if let loader = self.loader
+		{
+			loader.load({ (addr: Int, byte : UInt8) in
+				CPU_writeByteToMemory( byte, UInt16(addr) )
+			})
 		
-//		LogDebug( @"Listing loaded into memory, %lu bytes", self.loader.byteCount );
+			os_log( "Listing loaded into memory, %lu bytes", log: mainwin_log, type: .info, loader.byteCount )
 		
-		self.sourceViewController.clear()
+			self.sourceViewController.clear()
 	
-		for line in (self.loader?.sourceLines)!  {
-			let l = line as! SourceLine
-			self.sourceViewController.append(line: l.text)
-	//		LogVerbose( @"%d : %@", line.lineNum, line.text );
+			for line in (self.loader?.sourceLines)!  {
+				let l = line as! SourceLine
+				self.sourceViewController.append(line: l.text)
+	//			os_log( "%d : %@", log: mainwin_log, type: .debug, l.lineNum, l.text )
+			}
+		}
+		else
+		{
+			// TODO: Should be a dialog alert
+			os_log( "Failed to load file %@", log: mainwin_log, type: .error, path )
 		}
 	
 		self.runmode = .Pause
