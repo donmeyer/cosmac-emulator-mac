@@ -9,16 +9,6 @@
 import Cocoa
 import os.log
 
-// #import "MainWindowController.h"
-// #import "CPU Emulation.h"
-// #import "HexLoader.h"
-// #import "ScratchpadRegistersView.h"
-// #import "RegistersViewController.h"
-// #import "_802_Emulator-Swift.h"
-//
-// #import "Logging.h"
-
-//static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 
 
 enum RunMode {
@@ -36,7 +26,7 @@ func ocb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8, data : U
 {
 	os_log( "Output port %d  data 0x%02X  '%c'", log:mainwin_log, port, data, data )
 	let mvc : MainWindowController = unsafeBitCast(userData, to: MainWindowController.self)
-	mvc.writeOutputPort( port: port, data:data )
+	mvc.writeOutputPort( port: Int(port), data:data )
 }
 
 
@@ -44,7 +34,7 @@ func icb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8 ) -> UInt
 {
 	os_log( "Input port %d", port )
 	let mvc : MainWindowController = unsafeBitCast(userData, to: MainWindowController.self)
-	return mvc.readInputPort( port: port )
+	return mvc.readInputPort( port: Int(port) )
 }
 
 
@@ -60,8 +50,6 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	//
 	// Status
 	//
-//	@property (strong) IBOutlet RegistersViewController *registersViewController;
-//	@property (weak) IBOutlet NSView *regView;
 	@IBOutlet weak var regView: NSView!
 	
 	//
@@ -69,18 +57,16 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	//
 	@IBOutlet weak var sourceView: NSView!
 	@IBOutlet weak var portsView: NSView!
+	var registersViewController : RegistersViewController = RegistersViewController.init(nibName: NSNib.Name(rawValue: "RegistersView"), bundle: nil)
+	
+	var ioPorts : AllIOPortsViewController = AllIOPortsViewController()
+	
 	
 	//
 	// Timing
 	//
 	@IBOutlet weak var totalCyclesField: NSTextField!
 	
-//	@property (weak) IBOutlet NSTextField *breakpoint1Field;
-//	@property (weak) IBOutlet NSButton *breakpoint1Checkbox;
-//
-//	@property (weak) IBOutlet NSTextField *breakpoint2Field;
-//	@property (weak) IBOutlet NSButton *breakpoint2Checkbox;
-//
 	
 	@IBOutlet weak var breakpoint1Field: NSTextField!
 	@IBOutlet weak var breakpoint1Checkbox: NSButton!
@@ -101,10 +87,6 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	@IBOutlet weak var runButton: NSButton!
 	@IBOutlet weak var importButton: NSButton!
 	
-	
-	var registersViewController : RegistersViewController = RegistersViewController.init(nibName: NSNib.Name(rawValue: "RegistersView"), bundle: nil)
-	
-	var ioPorts : AllIOPortsViewController = AllIOPortsViewController()
 	
 	var terminalWindowController : TerminalWindowController = TerminalWindowController.init(windowNibName:NSNib.Name(rawValue: "TerminalWindow"))
 	
@@ -174,9 +156,6 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		//
 		os_log( "IO port view frame: %@", log: mainwin_log, NSStringFromRect( self.regView.frame ) )
 		
-		//	NSSize pre = pv.preferredContentSize;
-		//	[pv.view setFrameSize:pre];
-		
 		self.portsView.addSubview(self.ioPorts.view)
 		self.ioPorts.setOutputPort(2, byte:22)
 		self.ioPorts.setOutputPort(7, byte:77)
@@ -208,14 +187,12 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	override func awakeFromNib() {
 		self.statusLabel.stringValue = ""
-		
-//		self.stepIgnoreSymbols = [[NSMutableSet alloc] init];
 	}
 	
 	
 	func windowWillClose(_ notification: Notification)
 	{
-		if notification.object as! NSWindow == self.terminalWindowController.window
+		if notification.object as? NSWindow == self.terminalWindowController.window
 		{
 			os_log( "Terminal close", log: mainwin_log, type: .debug )
 			self.useTerminalForIO = false
@@ -275,14 +252,13 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	}
 	
 	
-	func writeOutputPort( port : uint8, data : uint8 )
+	func writeOutputPort( port : Int, data : uint8 )
 	{
-	//	if( [self.ioPorts shouldBreakOnPortWrite:port] )
-	//	{
-	//		NSString *s = [NSString stringWithFormat:@"Output Port %d", port];
-	//		[self doBreakpointWithTitle:s];
-	//	}
-	
+		if self.ioPorts.shouldBreakOnPortWrite(port)
+		{
+			self.doBreakpointWithTitle(String.init(format: "Output Port %d", port))
+		}
+		
 		self.ioPorts.setOutputPort( Int(port), byte:data )
 	
 		if self.useTerminalForIO == true
@@ -295,14 +271,13 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	}
 	
 	
-	func readInputPort( port : uint8 ) -> uint8
+	func readInputPort( port : Int ) -> uint8
 	{
-	//	if( [self.ioPorts shouldBreakOnPortRead:port] )
-	//	{
-	//		NSString *s = [NSString stringWithFormat:@"Input Port %d", port];
-	//		[self doBreakpointWithTitle:s];
-	//	}
-	
+		if self.ioPorts.shouldBreakOnPortRead(port)
+		{
+			self.doBreakpointWithTitle(String.init(format: "Input Port %d", port))
+		}
+		
 		if self.useTerminalForIO == true
 		{
 			if port == 3
@@ -492,7 +467,6 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 			let s = self.breakpoint1Field.stringValue
 			var hexAddr : UInt32 = 0
 			if Scanner.init(string: s).scanHexInt32(&hexAddr) == true
-//			if [[NSScanner scannerWithString:s] scanHexInt:&hexAddr] == YES )
 			{
 				let pc = 0
 //				if hexAddr == cpu->reg[cpu->P]
