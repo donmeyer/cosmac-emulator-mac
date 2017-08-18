@@ -14,6 +14,7 @@
                 <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="93d-AW-mlT"/>
                 <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="JGt-og-YpO"/>
                 <outlet property="importButton" destination="XiB-5E-iyo" id="hVb-ge-X5r"/>
+                <outlet property="liveSymbolUpdatesCheckbox" destination="UGd-s0-e3f" id="zRu-P7-W3e"/>
                 <outlet property="portsView" destination="24P-7w-NDf" id="RCZ-El-OlX"/>
                 <outlet property="regView" destination="kB2-Tk-jcu" id="LCc-gp-RUJ"/>
                 <outlet property="resetButton" destination="uBR-sd-2dX" id="8lN-4b-mPq"/>
@@ -217,6 +218,9 @@
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="liveSymbolUpdateAction:" target="-2" id="lSY-So-dCm"/>
+                        </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMU-mW-qyZ">
                         <rect key="frame" x="18" y="222" width="222" height="17"/>

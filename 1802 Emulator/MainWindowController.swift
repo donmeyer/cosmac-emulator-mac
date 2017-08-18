@@ -124,6 +124,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		}
 	}
 	
+	@IBOutlet weak var liveSymbolUpdatesCheckbox: NSButton!
 	
 	var liveSymbolUpdates : Bool = true
 	
@@ -176,6 +177,8 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		
 		self.terminalWindowController.window?.delegate = self
 		
+		self.liveSymbolUpdatesCheckbox.state = .on
+
 		CPU_reset();
 		//	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
 		self.loadFile(path: "/Users/don/Code/Cosmac 1802/asm_src/slowq.lst")
@@ -531,6 +534,18 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	
 //	#pragma mark - Actions
+	
+	@IBAction func liveSymbolUpdateAction(_ sender: Any) {
+		let button = sender as! NSButton
+		if button.state == .on
+		{
+			self.liveSymbolUpdates = true
+		}
+		else
+		{
+			self.liveSymbolUpdates = false
+		}
+	}
 	
 	@IBAction func stepAction(_ sender: Any) {
 		os_log( "Step", log: mainwin_log, type: .debug )
