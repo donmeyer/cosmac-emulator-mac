@@ -383,11 +383,11 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 			let cycles = CPU_getCycleCount()
 			self.totalCyclesField.stringValue = String.init(format: "%lu", cycles)
 	
-			let pc = Int(CPU_getPC())
+			let pc = UInt16(CPU_getPC())
 			
 			if let loader = self.loader
 			{
-				let line : SourceLine? = loader.line( forAddr: UInt32(pc) )
+				let line : SourceLine? = loader.line( forAddr: pc )
 				if let line = line
 				{
 //					LogVerbose( @":::: %4d : %@", line.lineNum, line.text );
