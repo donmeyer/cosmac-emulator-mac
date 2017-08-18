@@ -9,18 +9,14 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController" customModule="_802_Emulator" customModuleProvider="target">
             <connections>
-                <outlet property="REGVIEW" destination="kB2-Tk-jcu" id="047-mt-dyT"/>
-                <outlet property="STEPBUTTON" destination="6aV-Ov-fuP" id="SCl-EP-Efy"/>
-                <outlet property="breakpoint1Checkbox" destination="3xN-oM-8xd" id="EKV-1w-VC4"/>
-                <outlet property="breakpoint1Field" destination="Twf-Tb-jjO" id="uqs-hx-Ilt"/>
-                <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="0qX-gT-rp1"/>
-                <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="OpW-7F-HnW"/>
-                <outlet property="ignoreNextStepAction" destination="0ha-54-ZZ6" id="q7n-9R-ndk"/>
+                <outlet property="breakpoint1Checkbox" destination="3xN-oM-8xd" id="xOE-Dw-3uX"/>
+                <outlet property="breakpoint1Field" destination="Twf-Tb-jjO" id="7dV-S3-MBS"/>
+                <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="93d-AW-mlT"/>
+                <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="JGt-og-YpO"/>
                 <outlet property="importButton" destination="XiB-5E-iyo" id="hVb-ge-X5r"/>
                 <outlet property="portsView" destination="24P-7w-NDf" id="RCZ-El-OlX"/>
                 <outlet property="regView" destination="kB2-Tk-jcu" id="LCc-gp-RUJ"/>
                 <outlet property="resetButton" destination="uBR-sd-2dX" id="8lN-4b-mPq"/>
-                <outlet property="runAction" destination="st7-FM-QOH" id="U72-r7-PPy"/>
                 <outlet property="runButton" destination="st7-FM-QOH" id="TrF-2C-4re"/>
                 <outlet property="sourceView" destination="Jyw-WQ-yHH" id="PCQ-Lv-hDZ"/>
                 <outlet property="statusLabel" destination="Odv-2V-cgT" id="uj8-Px-zS2"/>

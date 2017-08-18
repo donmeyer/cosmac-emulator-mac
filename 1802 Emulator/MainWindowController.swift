@@ -77,6 +77,13 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 //	@property (weak) IBOutlet NSButton *breakpoint2Checkbox;
 //
 	
+	@IBOutlet weak var breakpoint1Field: NSTextField!
+	@IBOutlet weak var breakpoint1Checkbox: NSButton!
+	
+	@IBOutlet weak var breakpoint2Field: NSTextField!
+	@IBOutlet weak var breakpoint2Checkbox: NSButton!
+	
+	
 	@IBOutlet weak var symbolLabel: NSTextField!
 	@IBOutlet weak var statusLabel: NSTextField!
 	
@@ -475,19 +482,23 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	@objc func performStep( timer: Timer )
 	{
 		let cpu = CPU_getCPU()
-	
-//		if self.breakpoint1Checkbox.state == NSOnState
-//		{
-//			NSString *s = self.breakpoint1Field.stringValue;
-//			unsigned hexAddr;
-//			if( [[NSScanner scannerWithString:s] scanHexInt:&hexAddr] == YES )
-//			{
-//				if( hexAddr == cpu->reg[cpu->P] )
-//				{
-//					[self doBreakpointWithTitle:@"Address 1"];
-//				}
-//			}
-//		}
+		
+		
+		if self.breakpoint1Checkbox.state == NSControl.StateValue.onState
+		{
+			let s = self.breakpoint1Field.stringValue
+			var hexAddr : UInt32 = 0
+			if Scanner.init(string: s).scanHexInt32(&hexAddr) == true
+//			if [[NSScanner scannerWithString:s] scanHexInt:&hexAddr] == YES )
+			{
+				let pc = 0
+//				if hexAddr == cpu->reg[cpu->P]
+				if hexAddr == pc
+				{
+					self.doBreakpointWithTitle("Address 1")
+				}
+			}
+		}
 		
 		CPU_step()
 	
