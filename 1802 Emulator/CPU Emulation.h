@@ -73,6 +73,8 @@ void CPU_execute(void);
 
 const CPU *CPU_getCPU(void);
 
+uint16_t CPU_getPC(void);
+
 long CPU_getCycleCount(void);
 
 

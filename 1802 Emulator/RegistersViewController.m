@@ -29,7 +29,7 @@
 @property (weak) IBOutlet NSTextField *ieField;
 @property (weak) IBOutlet NSTextField *tField;
 
-@property (weak) IBOutlet NSButton *liveUpdateCheckbox;
+@property (nonatomic, strong) NSColor *changedColor;
 
 @property (nonatomic, assign) CPU prevCPU;
 
@@ -43,55 +43,34 @@
 {
     [super viewDidLoad];
     // Do view setup here.
+	
+	self.changedColor = [NSColor blueColor];
+	self.scratchpadView.changedColor = self.changedColor;
 }
 
 
 - (void)awakeFromNib
 {
-	[self.scratchpadView setDescription:@"DMA" forReg:0x00];
-
-	[self.scratchpadView setDescription:@"Interupt PC" forReg:0x01];
-
-	[self.scratchpadView setDescription:@"RP" forReg:0x02];
-	[self.scratchpadView setDescription:@"Primitive PC" forReg:0x03];
-	
-	[self.scratchpadView setDescription:@"Scratch Accum" forReg:0x07];
-	[self.scratchpadView setDescription:@"Scratch Accum" forReg:0x08];
-
-	[self.scratchpadView setDescription:@"SP" forReg:0x09];
-	
-	[self.scratchpadView setDescription:@"IP" forReg:0x0A];
-	[self.scratchpadView setDescription:@"W (CFA)" forReg:0x0B];
-
-	[self.scratchpadView setDescription:@"PC for NEXT" forReg:0x0C];
-
-	[self.scratchpadView setDescription:@"UP" forReg:0x0D];
-
-	[self.scratchpadView setDescription:@"Interupt SP" forReg:0x0E];
 }
 
 
 - (void)doField:(NSTextField*)field text:(NSString*)text changed:(BOOL)changed
 {
-	field.textColor = changed ?  [NSColor redColor] : [NSColor blackColor];
+	field.textColor = changed ?  self.changedColor : [NSColor blackColor];
 	[field setStringValue:text];
 }
 
 
-- (void)updateCPUState:(const CPU*)cpu force:(BOOL)force
+- (void)updateCPUState:(const CPU*)cpu
 {
-	if( ! force && self.liveUpdateCheckbox.state == 0 )
-	{
-		return;
-	}
-
 	[self.scratchpadView updateRegisters:cpu];
 
 
 	NSString *str;
  
 	str = [NSString stringWithFormat:@"%04X", cpu->reg[cpu->P]];
-	[self doField:self.pcField text:str changed:cpu->reg[cpu->P] != self.prevCPU.reg[cpu->P]];
+//	[self doField:self.pcField text:str changed:cpu->reg[cpu->P] != self.prevCPU.reg[cpu->P]];
+	[self doField:self.pcField text:str changed:NO];
 	
 	str = [NSString stringWithFormat:@"%02X", cpu->D];
 	[self doField:self.dField text:str changed:cpu->D != self.prevCPU.D];
@@ -106,10 +85,12 @@
 	[self doField:self.pField text:str changed:cpu->P != self.prevCPU.P];
 	
 	str = [NSString stringWithFormat:@"%X", cpu->N];
-	[self doField:self.nField text:str changed:cpu->N != self.prevCPU.N];
+//	[self doField:self.nField text:str changed:cpu->N != self.prevCPU.N];
+	[self doField:self.nField text:str changed:NO];
 	
 	str = [NSString stringWithFormat:@"%X", cpu->I];
-	[self doField:self.iField text:str changed:cpu->I != self.prevCPU.I];
+//	[self doField:self.iField text:str changed:cpu->I != self.prevCPU.I];
+	[self doField:self.iField text:str changed:NO];
 	
 	str = [NSString stringWithFormat:@"%X", cpu->IE];
 	[self doField:self.ieField text:str changed:cpu->IE != self.prevCPU.IE];
@@ -119,6 +100,27 @@
 	
 	self.prevCPU = *cpu;
 }
+
+
+/**
+ * Clear the changed markers.
+ */
+- (void)reset
+{
+	[self updateCPUState:&_prevCPU];
+}
+
+
+- (void)setDescription:(NSString*)desc forReg:(int)reg
+{
+	[self.scratchpadView setDescription:desc forReg:reg];
+}
+
+- (void)clearDescriptions
+{
+	[self.scratchpadView clearDescriptions];
+}
+
 
 
 @end

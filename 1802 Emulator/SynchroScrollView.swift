@@ -54,8 +54,8 @@ class SynchroScrollView: NSScrollView {
 		// we're watching
 		let changedBoundsOrigin : NSPoint = changedContentView.documentVisibleRect.origin
 		
-		//		Swift.print( "marker bounds", self.documentView!.bounds )
-		Swift.print( "clip view (doc rec, visible rect)", changedContentView.documentRect, changedContentView.documentVisibleRect )
+		// Swift.print( "marker bounds", self.documentView!.bounds )
+		// Swift.print( "clip view (doc rec, visible rect)", changedContentView.documentRect, changedContentView.documentVisibleRect )
 		
 		// HACK - try to make the size of this view match
 		var br = self.documentView!.bounds

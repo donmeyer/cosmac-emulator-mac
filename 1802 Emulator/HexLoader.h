@@ -14,10 +14,10 @@
 @interface Symbol : NSObject
 
 @property (readonly, strong) NSString *name;
-@property (readonly, assign) unsigned int addr;
-@property (assign) unsigned int endAddr;
+@property (readonly, assign) UInt16 addr;
+@property (assign) UInt16 endAddr;
 
-- (instancetype)initWithName:(NSString*)name addr:(unsigned int) addr;
+- (instancetype)initWithName:(NSString*)name addr:(UInt16) addr;
 
 @end
 
@@ -26,9 +26,9 @@
 @interface SourceLine : NSObject
 
 @property (readonly, strong) NSString *text;
-@property (readonly, assign) unsigned int addr;
+@property (readonly, assign) UInt16 addr;
 @property (readonly, assign) int lineNum;
-@property (readonly) unsigned int endAddr;
+@property (readonly) UInt16 endAddr;
 @property (readonly) BOOL hasCode;
 
 @end
@@ -49,6 +49,6 @@
 
 - (BOOL)load:(void (^)(long addr, unsigned char byte))writeBlock;
 
-- (SourceLine*)lineForAddr:(unsigned int)addr;
+- (SourceLine*)lineForAddr:(UInt16)addr;
 
 @end

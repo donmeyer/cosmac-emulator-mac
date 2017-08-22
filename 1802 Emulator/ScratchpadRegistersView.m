@@ -53,6 +53,9 @@
 	if( self )
 	{
 		_descDict = [[NSMutableDictionary alloc] init];
+		
+		_changedColor = [NSColor redColor];
+		
 		[self calcFonts];
 	}
 	
@@ -65,6 +68,12 @@
 	[super awakeFromNib];
 
 	self.descDict = [[NSMutableDictionary alloc] init];
+	[self calcFonts];
+}
+
+- (void)setChangedColor:(NSColor *)changedColor
+{
+	_changedColor = changedColor;
 	[self calcFonts];
 }
 
@@ -92,7 +101,7 @@
 	self.regAttr = @{ NSFontAttributeName : font,
 					  NSForegroundColorAttributeName : [NSColor blackColor] };
 	self.regAttrDelta = @{ NSFontAttributeName : font,
-						   NSForegroundColorAttributeName : [NSColor redColor] };
+						   NSForegroundColorAttributeName : self.changedColor };
 	fs = [@"M" sizeWithAttributes:self.regAttr];
 	self.regSize = NSMakeSize( fs.width * 4, fs.height );
 	
@@ -268,6 +277,13 @@
 	self.descDict[@(reg)] = desc;
 }
 
+- (void)clearDescriptions
+{
+	for( int reg=0; reg<CPU_NUM_REGS; reg++ )
+	{
+		[self setDescription:@"" forReg:reg];
+	}
+}
 
 
 // Make the origin of the view the upper left corner, like iOS!

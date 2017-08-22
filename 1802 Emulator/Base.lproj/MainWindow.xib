@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.17"/>
@@ -7,22 +7,23 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController">
+        <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController" customModule="_802_Emulator" customModuleProvider="target">
             <connections>
-                <outlet property="breakpoint1Checkbox" destination="3xN-oM-8xd" id="EKV-1w-VC4"/>
-                <outlet property="breakpoint1Field" destination="Twf-Tb-jjO" id="uqs-hx-Ilt"/>
-                <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="0qX-gT-rp1"/>
-                <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="OpW-7F-HnW"/>
-                <outlet property="importButton" destination="XiB-5E-iyo" id="JM3-7l-rot"/>
-                <outlet property="portsView" destination="24P-7w-NDf" id="JNJ-4h-V6i"/>
+                <outlet property="breakpoint1Checkbox" destination="3xN-oM-8xd" id="xOE-Dw-3uX"/>
+                <outlet property="breakpoint1Field" destination="Twf-Tb-jjO" id="7dV-S3-MBS"/>
+                <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="93d-AW-mlT"/>
+                <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="JGt-og-YpO"/>
+                <outlet property="importButton" destination="XiB-5E-iyo" id="hVb-ge-X5r"/>
+                <outlet property="liveSymbolUpdatesCheckbox" destination="UGd-s0-e3f" id="zRu-P7-W3e"/>
+                <outlet property="portsView" destination="24P-7w-NDf" id="RCZ-El-OlX"/>
                 <outlet property="regView" destination="kB2-Tk-jcu" id="LCc-gp-RUJ"/>
-                <outlet property="resetButton" destination="uBR-sd-2dX" id="NtV-dn-ea3"/>
-                <outlet property="runButton" destination="st7-FM-QOH" id="ov9-b6-mOr"/>
-                <outlet property="sourceView" destination="Jyw-WQ-yHH" id="7Jm-0L-YX5"/>
-                <outlet property="statusLabel" destination="Odv-2V-cgT" id="CC5-Jo-hmn"/>
-                <outlet property="stepButton" destination="6aV-Ov-fuP" id="Bxc-uu-JDN"/>
-                <outlet property="symbolLabel" destination="SMU-mW-qyZ" id="eMN-N7-Ke1"/>
-                <outlet property="totalCyclesField" destination="GjQ-OV-56M" id="uRL-j8-QP9"/>
+                <outlet property="resetButton" destination="uBR-sd-2dX" id="8lN-4b-mPq"/>
+                <outlet property="runButton" destination="st7-FM-QOH" id="TrF-2C-4re"/>
+                <outlet property="sourceView" destination="Jyw-WQ-yHH" id="PCQ-Lv-hDZ"/>
+                <outlet property="statusLabel" destination="Odv-2V-cgT" id="uj8-Px-zS2"/>
+                <outlet property="stepButton" destination="6aV-Ov-fuP" id="Q9R-ks-Gks"/>
+                <outlet property="symbolLabel" destination="SMU-mW-qyZ" id="Oq1-cL-ZRD"/>
+                <outlet property="totalCyclesField" destination="GjQ-OV-56M" id="3oU-MS-DHY"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="63F-zY-dLP"/>
             </connections>
         </customObject>
@@ -46,7 +47,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="stepAction:" target="-2" id="ybF-if-6EK"/>
+                            <action selector="stepAction:" target="-2" id="tM2-gd-cQd"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UgB-Q4-Nk6">
@@ -57,7 +58,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="stepNextSymbolAction:" target="-2" id="o4Q-i3-qDZ"/>
+                            <action selector="stepNextSymbolAction:" target="-2" id="90i-bA-jdt"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="st7-FM-QOH">
@@ -79,7 +80,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="pauseAction:" target="-2" id="JPZ-ap-7nG"/>
+                            <action selector="pauseAction:" target="-2" id="JzR-hf-olm"/>
                         </connections>
                     </button>
                     <box autoresizesSubviews="NO" fixedFrame="YES" borderType="line" title="Status" translatesAutoresizingMaskIntoConstraints="NO" id="V7W-FL-Yod">
@@ -113,7 +114,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GjQ-OV-56M">
-                                    <rect key="frame" x="107" y="80" width="117" height="17"/>
+                                    <rect key="frame" x="103" y="81" width="119" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&lt;tot cycles&gt;" id="j1D-sb-tmJ">
                                         <font key="font" metaFont="system"/>
@@ -132,7 +133,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="importAction:" target="-2" id="5Nv-S1-foZ"/>
+                            <action selector="importAction:" target="-2" id="ZU4-2u-Eix"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ha-54-ZZ6">
@@ -207,7 +208,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="resetAction:" target="-2" id="3xi-H0-zRW"/>
+                            <action selector="resetAction:" target="-2" id="wfv-4x-mU4"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UGd-s0-e3f">
@@ -218,7 +219,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <binding destination="-2" name="value" keyPath="self.liveSymbolUpdates" id="hff-vm-Mni"/>
+                            <action selector="liveSymbolUpdateAction:" target="-2" id="lSY-So-dCm"/>
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMU-mW-qyZ">
@@ -246,7 +247,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="openTerminal:" target="-2" id="eog-Ym-nv8"/>
+                            <action selector="openTerminal:" target="-2" id="frY-eg-CeX"/>
                         </connections>
                     </button>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jyw-WQ-yHH">

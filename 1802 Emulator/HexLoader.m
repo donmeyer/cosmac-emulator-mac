@@ -12,7 +12,7 @@
 
 @implementation Symbol
 
-- (instancetype)initWithName:(NSString*)name addr:(unsigned int) addr
+- (instancetype)initWithName:(NSString*)name addr:(UInt16) addr
 {
 	self = [super init];
 	if( self )
@@ -30,14 +30,14 @@
 
 
 @interface SourceLine ()
-@property (assign) int count;
+@property (assign) NSInteger count;
 @end
 
 
 
 @implementation SourceLine
 
-- (instancetype)initWithText:(NSString*)text lineNum:(int)lineNum addr:(unsigned int) addr count:(int)count
+- (instancetype)initWithText:(NSString*)text lineNum:(int)lineNum addr:(UInt16) addr count:(int)count
 {
 	self = [super init];
 	if( self )
@@ -70,7 +70,7 @@
 	return self.count != 0;
 }
 
-- (unsigned int)endAddr
+- (UInt16)endAddr
 {
 	return self.addr + self.count - 1;
 }
@@ -360,7 +360,7 @@
 
 
 
-- (SourceLine*)lineForAddr:(unsigned int)addr
+- (SourceLine*)lineForAddr:(UInt16)addr
 {
 	for( SourceLine *line in self.sourceLines )
 	{

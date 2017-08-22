@@ -14,6 +14,10 @@
 
 @interface RegistersViewController : NSViewController
 
-- (void)updateCPUState:(const CPU*)cpu force:(BOOL)force;
+- (void)updateCPUState:(const CPU*)cpu;
+- (void)reset;
+
+- (void)setDescription:(NSString*)desc forReg:(int)reg;
+- (void)clearDescriptions;
 
 @end
