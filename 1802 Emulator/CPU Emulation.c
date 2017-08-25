@@ -232,6 +232,15 @@ void CPU_makeAllPagesRAM()
 }
 
 
+void CPU_setEF( int ef, int state )
+{
+	if( ef >= 0 && ef <= 3 )
+	{
+		cpu.EF[ef] = state ? 1 : 0;
+	}
+}
+
+
 void CPU_setInputCallback( inputCallback_t callback, void *userData )
 {
 	inputCallback = callback;

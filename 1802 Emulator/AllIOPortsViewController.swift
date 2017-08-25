@@ -52,45 +52,22 @@ class AllIOPortsViewController: NSViewController
 		var yPos : CGFloat = 0
 		
 		if #available(OSX 10.12, *) {
-			var button : NSButton
+			let dia : CGFloat = 32.0
+			let BGAP : CGFloat = 52
+			print( self.view.frame )
 			
-			var x : CGFloat = 20.0
-			let BGAP : CGFloat = 50
+			var x : CGFloat = ( self.view.frame.size.width - ( dia * 4) - ( BGAP * 3 ) ) / 2  //30.0
 			
+			let buttonY = yPos + 10
 			
-			let img = NSImage.init(named: NSImage.Name(rawValue: "onButtonEF"))
-//			let img = NSImage.init(size: NSMakeSize(20, 20))
-//			img!.resizingMode = .stretch
-//			img.backgroundColor = NSColor.green
-			
-			button = NSButton.init(image: img!, target: self, action: #selector(foo))
-			button.isBordered = false
-//			button.sizeToFit()
-//			button = NSButton.init(title: "EF1", target: self, action: #selector(foo))
-//			button.setButtonType(.pushOnPushOff)
-//			button.image = img
-			button.setFrameOrigin( NSMakePoint(x, yPos+10) )
-			button.setFrameSize(img!.size)
-			self.view.addSubview(button)
-			self.efButtons[1] = button
+			self.efButtons[0] = self.makeEFButton(title: "EF1", diameter : dia, x:x, y:buttonY)
 			x += BGAP
-			
-			button = NSButton.init(title: "EF2", target: self, action: #selector(foo))
-			button.setFrameOrigin( NSMakePoint(x, yPos+10) )
-//			self.view.addSubview(button)
-			self.efButtons[2] = button
+			self.efButtons[1] = self.makeEFButton(title: "EF2", diameter : dia, x:x, y:buttonY)
 			x += BGAP
-			
-			button = NSButton.init(title: "EF3", target: self, action: #selector(foo))
-			button.setFrameOrigin( NSMakePoint(x, yPos+10) )
-			self.view.addSubview(button)
-			self.efButtons[3] = button
+			self.efButtons[2] = self.makeEFButton(title: "EF3", diameter : dia, x:x, y:buttonY)
 			x += BGAP
-			
-			button = NSButton.init(title: "EF4", target: self, action: #selector(foo))
-			button.setFrameOrigin( NSMakePoint(x, yPos+10) )
-			self.view.addSubview(button)
-			self.efButtons[4] = button
+			self.efButtons[3] = self.makeEFButton(title: "EF4", diameter : dia, x:x, y:buttonY)
+			x += BGAP
 			
 			yPos += 50
 		} else {
@@ -131,23 +108,30 @@ class AllIOPortsViewController: NSViewController
 //		self.preferredContentSize = NSMakeSize(300, yPos+50)
 	}
 	
-	@objc func foo( sender : Any? )
-	{
-//		print( sender )
-		let button = sender as! NSButton
-		button.title = "ef1"
+	
+	override func viewWillLayout() {
+		super.viewWillLayout()
+		print( self.view.frame )
 	}
 	
-//	func inLabel() -> NSTextField
-//	{
-//		let label = NSTextField.init()
-//		label.isEditable = false
-//		label.isBordered = false
-//		label.drawsBackground = false
-//		label.stringValue = "In"
-//		label.sizeToFit()
-//		return label
-//	}
+	@objc func efButtonAction( sender : Any? )
+	{
+		let button = sender as! NSButton
+		switch( button )
+		{
+		case self.efButtons[0]!:
+			CPU_setEF(0, Int32(button.state.rawValue))
+		case self.efButtons[1]!:
+			CPU_setEF(1, Int32(button.state.rawValue))
+		case self.efButtons[2]!:
+			CPU_setEF(2, Int32(button.state.rawValue))
+		case self.efButtons[3]!:
+			CPU_setEF(3, Int32(button.state.rawValue))
+		default:
+			print ("This cannot happen with only 4 EF buttons!")
+		}
+	}
+	
 	
 	@objc func setOutputPort( _ port: Int, byte: UInt8 )
 	{
@@ -175,5 +159,59 @@ class AllIOPortsViewController: NSViewController
 		assert( ports[port] != nil, "Port out of range 1-7" )
 		return ports[port]!.shouldBreakOnPortWrite
 	}
-
+	
+	
+	/// Makes the button and adds it to the view at the specified point.
+	private func makeEFButton( title: String, diameter : CGFloat, x: CGFloat, y: CGFloat ) -> NSButton
+	{
+//		let img = NSImage.init(named: NSImage.Name(rawValue: "onButtonEF"))
+//		let img = NSImage.init(size: NSMakeSize(20, 20))
+//		img!.resizingMode = .stretch
+//		img.backgroundColor = NSColor.green
+		
+		let img = self.efButtonImage( diameter : diameter, color: NSColor.red)
+		let button = NSButton.init(image: img, target: self, action: #selector(efButtonAction))
+		button.isBordered = false
+//		button.sizeToFit()
+//		button = NSButton.init(title: "EF1", target: self, action: #selector(foo))
+//		button.setButtonType(.pushOnPushOff)
+//		button.image = img
+		button.setFrameSize(img.size)
+		button.setFrameOrigin( NSMakePoint(x, y) )
+		button.title = title
+		button.setButtonType(.toggle)
+		button.alternateImage = self.efButtonImage( diameter : diameter, color: NSColor.green)
+		self.view.addSubview(button)
+		return button
+	}
+	
+	
+	private func efButtonImage( diameter : CGFloat, color: NSColor ) -> NSImage
+	{
+		//
+		// Calculate the sizes
+		//
+		let size = CGSize.init( width: diameter, height: diameter )
+		let rect = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
+		
+		let image = NSImage.init(size: size)
+		image.lockFocus()
+		
+		let context = NSGraphicsContext.current!.cgContext
+		
+		context.setFillColor( NSColor.clear.cgColor )
+		context.fill(rect)
+		
+		context.setFillColor( NSColor.black.cgColor )
+		context.fillEllipse( in: rect );
+		
+		context.setFillColor( color.cgColor )
+		let innerRect = rect.insetBy(dx: 1, dy: 1)
+		context.fillEllipse( in: innerRect );
+		
+		image.unlockFocus()
+		
+		return image
+	}
+	
 }

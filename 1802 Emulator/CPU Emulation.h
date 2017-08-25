@@ -78,6 +78,8 @@ uint16_t CPU_getPC(void);
 long CPU_getCycleCount(void);
 
 
+void CPU_setEF( int ef, int state );
+
 void CPU_setInputCallback( inputCallback_t callback, void *userData );
 
 void CPU_setOutputCallback( outputCallback_t callback, void *userData );

@@ -142,7 +142,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		// Callback that we get when the CPU writes to an IO port.
 		CPU_setOutputCallback( ocb, Unmanaged.passUnretained(self).toOpaque() )
 		
-		// Callback that we get when the CPU reades from an IO port.
+		// Callback that we get when the CPU reads from an IO port.
 		CPU_setInputCallback( icb, Unmanaged.passUnretained(self).toOpaque() )
 		
 		// Callback we get during the CPU fetch cycle that tells us an IO instruction is what will excute next.
