@@ -21,6 +21,8 @@ class AllIOPortsViewController: NSViewController
 	
 	var efButtons = [Int : NSButton]()
 	
+	@IBOutlet weak var buttonView: NSStackView!
+	
 	lazy var inLabel = { () -> NSTextField in
 		let label = NSTextField.init()
 		label.isEditable = false
@@ -109,11 +111,6 @@ class AllIOPortsViewController: NSViewController
 	}
 	
 	
-	override func viewWillLayout() {
-		super.viewWillLayout()
-		print( self.view.frame )
-	}
-	
 	@objc func efButtonAction( sender : Any? )
 	{
 		let button = sender as! NSButton
@@ -169,7 +166,7 @@ class AllIOPortsViewController: NSViewController
 //		img!.resizingMode = .stretch
 //		img.backgroundColor = NSColor.green
 		
-		let img = self.efButtonImage( diameter : diameter, color: NSColor.red)
+		let img = self.efButtonImage( diameter : diameter, color: NSColor.lightGray)
 		let button = NSButton.init(image: img, target: self, action: #selector(efButtonAction))
 		button.isBordered = false
 //		button.sizeToFit()
@@ -177,11 +174,10 @@ class AllIOPortsViewController: NSViewController
 //		button.setButtonType(.pushOnPushOff)
 //		button.image = img
 		button.setFrameSize(img.size)
-		button.setFrameOrigin( NSMakePoint(x, y) )
 		button.title = title
 		button.setButtonType(.toggle)
-		button.alternateImage = self.efButtonImage( diameter : diameter, color: NSColor.green)
-		self.view.addSubview(button)
+		button.alternateImage = self.efButtonImage( diameter : diameter, color: NSColor.init(red: 0.1, green: 0.8, blue: 0.1, alpha: 1.0))
+		self.buttonView.addView(button, in: .trailing)
 		return button
 	}
 	

@@ -59,7 +59,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	@IBOutlet weak var portsView: NSView!
 	var registersViewController : RegistersViewController = RegistersViewController.init(nibName: NSNib.Name(rawValue: "RegistersView"), bundle: nil)
 	
-	var ioPorts : AllIOPortsViewController = AllIOPortsViewController()
+	let ioPorts : AllIOPortsViewController = AllIOPortsViewController()
 	
 	
 	//
@@ -155,11 +155,20 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		//
 		// IO Ports
 		//
-		os_log( "IO port view frame: %@", log: mainwin_log, NSStringFromRect( self.regView.frame ) )
+		os_log( "IO port view frame: %@", log: mainwin_log, NSStringFromRect( self.portsView.frame ) )
 		
+//		self.ioPorts.view.autoresizingMask = .width
+//		self.portsView.autoresizingMask = .width
+//		self.portsView.autoresizesSubviews = true
+		
+		self.ioPorts.view.frame = CGRect.init(origin: CGPoint.zero, size: self.portsView.frame.size)
+//		self.ioPorts.view.needsLayout = true
+		os_log( "All IO ports view frame: %@", log: mainwin_log, NSStringFromRect( self.ioPorts.view.frame ) )
 		self.portsView.addSubview(self.ioPorts.view)
-		self.ioPorts.setOutputPort(2, byte:22)
-		self.ioPorts.setOutputPort(7, byte:77)
+//		self.ioPorts.setOutputPort(2, byte:22)
+//		self.ioPorts.setOutputPort(7, byte:77)
+		
+		os_log( "All IO ports view frame: %@", log: mainwin_log, NSStringFromRect( self.ioPorts.view.frame ) )
 		
 		//
 		// Sourcecode View
