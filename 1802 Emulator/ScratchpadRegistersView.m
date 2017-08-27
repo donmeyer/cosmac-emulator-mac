@@ -15,7 +15,7 @@
 #define COLOR_DEBUG		0
 
 #define VERT_INSET		20
-#define HORIZ_INSET		20
+#define HORIZ_INSET		12
 
 
 
@@ -25,21 +25,20 @@
 @property (nonatomic, assign) CPU prevCPU;
 
 @property (nonatomic, strong) NSDictionary *tagAttr;
-@property (nonatomic, assign) NSSize tagSize;
+@property (nonatomic) CGRect tagRect;
 
 @property (nonatomic, strong) NSDictionary *labelAttr;
-@property (nonatomic, assign) NSSize labelSize;
+@property (nonatomic) CGRect labelRect;
 
 @property (nonatomic, strong) NSDictionary *regAttr;
 @property (nonatomic, strong) NSDictionary *regAttrDelta;
-@property (nonatomic, assign) NSSize regSize;
+@property (nonatomic) CGRect regRect;
 
 @property (nonatomic, strong) NSDictionary *descAttr;
-@property (nonatomic, assign) NSSize descSize;
+@property (nonatomic) CGRect descRect;
+@property (strong) NSMutableDictionary *descDict;
 
 @property (nonatomic, assign) CGFloat rowHeight;
-
-@property (strong) NSMutableDictionary *descDict;
 
 @end
 
@@ -84,18 +83,19 @@
 	NSFont *font2 = [NSFont fontWithName:@"Times" size:12.0];
 	
 	NSSize fs;
+	CGFloat x;
 	
 	// Tags
 	self.tagAttr = @{ NSFontAttributeName : font,
 						NSForegroundColorAttributeName : [NSColor darkGrayColor] };
 	fs = [@"M" sizeWithAttributes:self.tagAttr];
-	self.tagSize = NSMakeSize( fs.width * 4,fs.height );
+	self.tagRect = NSMakeRect( HORIZ_INSET, 0, fs.width * 4,fs.height );
 	
 	// Labels
 	self.labelAttr = @{ NSFontAttributeName : font,
 						NSForegroundColorAttributeName : [NSColor blackColor] };
 	fs = [@"M" sizeWithAttributes:self.labelAttr];
-	self.labelSize = NSMakeSize( fs.width * 2,fs.height );
+	self.labelRect = NSMakeRect( HORIZ_INSET + self.tagRect.size.width + 6, 0, fs.width * 2,fs.height );
 	
 	// Register values
 	self.regAttr = @{ NSFontAttributeName : font,
@@ -103,7 +103,8 @@
 	self.regAttrDelta = @{ NSFontAttributeName : font,
 						   NSForegroundColorAttributeName : self.changedColor };
 	fs = [@"M" sizeWithAttributes:self.regAttr];
-	self.regSize = NSMakeSize( fs.width * 4, fs.height );
+	x = HORIZ_INSET + self.tagRect.size.width + self.labelRect.size.width + 6 + 6;
+	self.regRect = NSMakeRect( x, 0, fs.width * 4, fs.height );
 	
 	self.rowHeight = fs.height + 5;		// let's use the register value size as the row size...
 	
@@ -111,7 +112,10 @@
 	self.descAttr = @{ NSFontAttributeName : font2,
 					   NSForegroundColorAttributeName : [NSColor darkGrayColor] };
 	fs = [@"M" sizeWithAttributes:self.descAttr];
-	self.descSize = NSMakeSize( fs.width * 20, fs.height );	// TODO: this should be remainder of space
+//	self.descSize = NSMakeSize( fs.width * 20, fs.height );	// TODO: this should be remainder of space
+	x = HORIZ_INSET + self.tagRect.size.width + self.labelRect.size.width + 10 + self.regRect.size.width + 4;
+	CGFloat w = self.frame.size.width - x - 4;
+	self.descRect = NSMakeRect( x, 0, w, fs.height );
 }
 
 
@@ -120,11 +124,10 @@
 {
 //    [super drawRect:dirtyRect];	// Not needed since we are a direct subclass of NSView
 	
-//	[[NSColor grayColor] set];
-//	NSRectFill( dirtyRect );
-
-	
-//	NSString *dateString = @"rats and bats";
+#if COLOR_DEBUG
+	[[NSColor blueColor] set];
+	NSRectFill( dirtyRect );
+#endif
 	
 	[self drawTags];
 	[self drawLabels];
@@ -135,14 +138,14 @@
 
 - (void)drawTags
 {
-	NSRect rowRect = NSMakeRect( HORIZ_INSET, 0, self.tagSize.width, self.tagSize.height );
-	
 	int pc = self.cpu.P;
 	int x = self.cpu.X;
 	
+	CGRect rowRect = self.tagRect;
+	
 	if( pc == x )
 	{
-		// Samed reg
+		// Same reg
 		NSString *rowStr = [NSString stringWithFormat:@"PC X" ];
 		rowRect.origin.y = VERT_INSET + ( pc * self.rowHeight );
 		[rowStr drawInRect:rowRect withAttributes:self.tagAttr];
@@ -177,7 +180,7 @@
 
 - (void)drawLabels
 {
-	NSRect rowRect = NSMakeRect( HORIZ_INSET + self.tagSize.width + 6, 0, self.labelSize.width, self.tagSize.height );
+	CGRect rowRect = self.labelRect;
 	
 	for( int i=0; i<CPU_NUM_REGS; i++ )
 	{
@@ -202,9 +205,7 @@
 //		return;
 //	}
 	
-	CGFloat x = HORIZ_INSET + self.tagSize.width + self.labelSize.width + 6 + 6;
-	
-	NSRect rowRect = NSMakeRect( x, 0, self.regSize.width, self.regSize.height );
+	NSRect rowRect = self.regRect;
 	
 	for( int i=0; i<CPU_NUM_REGS; i++ )
 	{
@@ -241,9 +242,7 @@
 
 - (void)drawDescs
 {
-	CGFloat x = HORIZ_INSET + self.tagSize.width + self.labelSize.width + 10 + self.regSize.width + 4;
-	
-	NSRect rowRect = NSMakeRect( x, 0, self.descSize.width, self.descSize.height );
+	NSRect rowRect = self.descRect;
 	
 	for( int i=0; i<CPU_NUM_REGS; i++ )
 	{

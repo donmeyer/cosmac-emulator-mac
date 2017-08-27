@@ -561,7 +561,9 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		
 		self.runmode = .Stepping
 		CPU_step()
-	
+		
+		self.statusLabel.stringValue = "Stepping"
+		
 		self.updateState()
 	}
 	
@@ -592,15 +594,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		if self.runmode == .Running
 		{
 			// Pause
-			os_log( "Pause", log: mainwin_log, type: .debug )
-			
-			self.statusLabel.stringValue = "Paused"
-	
-			self.cycleTimer?.invalidate()
-	
-			self.runmode = .Pause
-	
-			self.updateState()
+			self.pauseAction(sender)
 		}
 		else
 		{
