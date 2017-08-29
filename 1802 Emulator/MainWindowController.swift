@@ -440,30 +440,9 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	}
 	
 	
-	func setRunmode( _ runmode : RunMode)
-	{
-		self.runmode = runmode
-	
-		switch runmode
-		{
-			case .Pause:
-				self.resetButton.isEnabled = true
-				self.importButton.isEnabled = true
-				self.stepButton.isEnabled = true
-				self.runButton.title = "Run"
-			
-		case .Running:
-			self.resetButton.isEnabled = false
-			self.importButton.isEnabled = false
-			self.stepButton.isEnabled = false
-			self.runButton.title = "Pause"
-			
-		case .Stepping:
-			break
-		}
-	}
-	
-	
+	/**
+	 * This is called by both the single-step actions as well as from the cycle timer when in run mode.
+	 */
 	@objc func performStep( timer: Timer )
 	{
 		if self.breakpoint1Checkbox.state == NSControl.StateValue.onState
@@ -538,7 +517,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 		self.cycleTimer?.invalidate()
 	
-		self.setRunmode( .Pause )
+		self.runmode = .Pause
 	}
 	
 	
