@@ -88,6 +88,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	@IBOutlet weak var importButton: NSButton!
 	
 	
+	
 	var terminalWindowController : TerminalWindowController = TerminalWindowController.init(windowNibName:NSNib.Name(rawValue: "TerminalWindow"))
 	
 	var sourceViewController : SourceViewController = SourceViewController()
@@ -195,7 +196,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		self.setDescriptionsForForth()
 	}
 	
-	
+	//what does the ignore symbol button do? need to clear on reset? or be shown?
 	
 	override func awakeFromNib() {
 		self.statusLabel.stringValue = ""
@@ -640,6 +641,42 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		self.openDocument(self)
 	}
 	
+	@IBAction func liveMenuAction(_ sender: Any) {
+		self.liveSymbolUpdates = !self.liveSymbolUpdates
+		self.liveSymbolUpdatesCheckbox.state = self.liveSymbolUpdates == true ? NSControl.StateValue.on : NSControl.StateValue.off
+	}
+	
+	override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+		let action = menuItem.action
+		
+		if action == #selector(runAction(_:))
+		{
+			if self.runmode == .Running
+			{
+				return false
+			}
+		}
+		else if action == #selector(stepAction(_:))
+		{
+			if self.runmode == .Running
+			{
+				return false
+			}
+		}
+		else if action == #selector(pauseAction(_:))
+		{
+			if self.runmode != .Running
+			{
+				return false
+			}
+		}
+		else if action == #selector(liveMenuAction(_:))
+		{
+			menuItem.state = self.liveSymbolUpdates == true ? NSControl.StateValue.on : NSControl.StateValue.off
+		}
+		
+		return true
+	}
 	
 	
 //	#pragma mark - Ask For File
