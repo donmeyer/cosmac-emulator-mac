@@ -14,7 +14,7 @@
 
 #define CPU_MEM_SIZE	0x10000		// 64k
 
-#define CPU_PAGE_SIZE	0x0800		// 1k
+#define CPU_PAGE_SIZE	0x0400		// 1k
 
 #define CPU_NUM_PAGES	( CPU_MEM_SIZE / CPU_PAGE_SIZE )
 
