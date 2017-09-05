@@ -28,7 +28,7 @@ static void opcode_F(void);
 
 #define PAGE_READ		(1<<0)
 #define PAGE_WRITE		(1<<1)
-
+// If no page bits set, page does not exist
 
 static int pageFlags[CPU_NUM_PAGES];		// True means the page is writeable
 
@@ -65,18 +65,16 @@ static long cycleCount;
 
 
 static outputCallback_t outputCallback;
-
 static void *outputCallbackUserdata;
 
-
 static inputCallback_t inputCallback;
-
 static void *inputCallbackUserdata;
 
-
 static ioTrapCallback_t ioTrapCallback;
-
 static void *ioTrapCallbackUserdata;
+
+static pageFaultCallback_t pageFaultCallback;
+static void *pageFaultUserdata;
 
 
 
@@ -291,6 +289,13 @@ void CPU_setIOTrapCallback( ioTrapCallback_t callback, void *userData )
 }
 
 
+void CPU_setPageFaultCallback( pageFaultCallback_t callback, void *userData )
+{
+	pageFaultCallback = callback;
+	pageFaultUserdata = userData;
+}
+
+
 
 #pragma mark Unit Test Support
 
@@ -308,8 +313,14 @@ static uint8_t read( uint16_t addr )
 	uint8_t pageBits = getPageBits( addr );
 	if( ( pageBits & PAGE_READ ) == 0 )
 	{
-		// Invalid page
-		// TODO: trap error. Maybe set a global error flag we check during processing?
+		// Invalid page or not readable
+		if( pageFaultCallback )
+		{
+			(pageFaultCallback)( pageFaultUserdata,
+								  pageBits == 0 ? CPU_MemoryFaultReadNoPage : CPU_MemoryFaultRead,
+								  addr, 0 );
+		}
+
 		return 0;
 	}
 
@@ -322,8 +333,14 @@ static void write( uint16_t addr, uint8_t data )
 	uint8_t pageBits = getPageBits( addr );
 	if( ( pageBits & PAGE_WRITE ) == 0 )
 	{
-		// Invalid page
-		// TODO: trap error
+		// Invalid page or not readable
+		if( pageFaultCallback )
+		{
+			(pageFaultCallback)( pageFaultUserdata,
+								  pageBits == 0 ? CPU_MemoryFaultWriteNoPage : CPU_MemoryFaultWrite,
+								  addr, data );
+		}
+		
 		return;
 	}
 

@@ -46,11 +46,20 @@ struct CPU {
 typedef struct CPU  CPU;
 
 
+enum CPU_PageFaultCode {
+	CPU_MemoryFaultReadNoPage,
+	CPU_MemoryFaultWriteNoPage,
+	CPU_MemoryFaultRead,			// Page exists but is not readable. Yeah, this is a weird error.
+	CPU_MemoryFaultWrite			// Page exists but is not writeable
+};
+
 typedef void (*outputCallback_t)(void *userData, uint8_t port, uint8_t data);
 
 typedef uint8_t (*inputCallback_t)(void *userData, uint8_t port );
 
 typedef void (*ioTrapCallback_t)(void *userData, int inputPort, int outputPort );
+
+typedef void (*pageFaultCallback_t)(void *userData, enum CPU_PageFaultCode code, uint16_t addr, uint8_t data );
 
 
 
@@ -85,6 +94,8 @@ void CPU_setInputCallback( inputCallback_t callback, void *userData );
 void CPU_setOutputCallback( outputCallback_t callback, void *userData );
 
 void CPU_setIOTrapCallback( ioTrapCallback_t callback, void *userData );
+
+void CPU_setPageFaultCallback( pageFaultCallback_t callback, void *userData );
 
 
 CPU *CPU_getCPU_Unit_Test(void);
