@@ -11,6 +11,16 @@ import os.log
 
 
 
+let CPUStepsPerTimerTick = 4
+
+let timerInterval = 0.000_008_988 * Double(CPUStepsPerTimerTick)
+// Clock was 1.78Mhz
+// 561.79ns per clock
+// times 8 gives 4.494us per cpu cycle
+// 8.988us per normal instruction cycle (2 CPU cycles)
+//
+// About 21us per timer cycle is about as fast as my Mac will go
+
 enum RunMode {
 	case Pause
 	case Stepping
@@ -19,7 +29,6 @@ enum RunMode {
 
 
 let mainwin_log = OSLog(subsystem: "com.sgsw.1802emulator", category: "MainWindow")
-
 
 
 func ocb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8, data : UInt8 )
@@ -433,17 +442,24 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	func startCycleTimer()
 	{
 		self.runmode = .Running
-		self.cycleTimer = Timer.init(timeInterval: 0.000001, target: self, selector: #selector(performStep), userInfo: nil, repeats: true)
-		
+		self.cycleTimer = Timer.init(timeInterval: timerInterval, target: self, selector: #selector(timerAction(timer:)), userInfo: nil, repeats: true)
 		
 		RunLoop.main.add(self.cycleTimer!, forMode: RunLoopMode.defaultRunLoopMode)
 	}
 	
 	
-	/**
-	 * This is called by both the single-step actions as well as from the cycle timer when in run mode.
-	 */
-	@objc func performStep( timer: Timer )
+	@objc func timerAction( timer: Timer )
+	{
+		timerTicks += 1
+		
+		for _ in 1...CPUStepsPerTimerTick
+		{
+			self.performRunStep()
+		}
+	}
+	
+	
+	private func performRunStep()
 	{
 		if self.breakpoint1Checkbox.state == NSControl.StateValue.onState
 		{
@@ -462,7 +478,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 		// This will update registers, calculate the curent symbol, etc.
 		self.updateState()
-	
+		
 	
 		#if false
 			// Hack
