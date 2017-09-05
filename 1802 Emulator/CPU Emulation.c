@@ -133,6 +133,12 @@ void CPU_step()
 }
 
 
+/**
+ * Write multiple bytes to the emulator memory.
+ *
+ * This is for use by the client code, this is never called internally.
+ * This ignores the page read/write flags - it will *always* succeed in writing to memory if the page exists.
+ */
 int CPU_writeToMemory( const uint8_t *src, uint16_t addr, uint16_t length )
 {
 	while( length-- )
@@ -151,6 +157,15 @@ int CPU_writeToMemory( const uint8_t *src, uint16_t addr, uint16_t length )
 }
 
 
+/**
+ * Write a byte to the emulator memory.
+ *
+ * This is for use by the client code, this is never called internally.
+ *
+ * This ignores the page read/write flags - it will *always* succeed in writing to memory if the page exists.
+ *
+ * Returns -1 for an invalid page, 0 for success.
+ */
 int CPU_writeByteToMemory( uint8_t data, uint16_t addr )
 {
 	uint8_t pageBits = getPageBits( addr );
@@ -166,6 +181,13 @@ int CPU_writeByteToMemory( uint8_t data, uint16_t addr )
 }
 
 
+/**
+ * Read bytes from the emulator memory.
+ *
+ * This is for use by the client code, this is never called internally.
+ *
+ * Returns -1 for an invalid page, 0 for success.
+ */
 int CPU_readFromMemory( uint16_t addr, uint16_t length, uint8_t *dest )
 {
 	while( length-- )
@@ -184,6 +206,13 @@ int CPU_readFromMemory( uint16_t addr, uint16_t length, uint8_t *dest )
 }
 
 
+/**
+ * Read a byte from the emulator memory.
+ *
+ * This is for use by the client code, this is never called internally.
+ *
+ * Returns -1 for an invalid page, 0 for success.
+ */
 int CPU_readByteFromMemory( uint16_t addr, uint8_t *data_p )
 {
 	uint8_t pageBits = getPageBits( addr );
