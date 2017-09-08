@@ -54,6 +54,14 @@ func iotrap( userData : (Optional<UnsafeMutableRawPointer>), inputPort : CInt, o
 }
 
 
+func accessError( userData : (Optional<UnsafeMutableRawPointer>), code : CPU_PageFaultCode, addr : UInt16, data : UInt8 )
+{
+	let mvc : MainWindowController = unsafeBitCast(userData, to: MainWindowController.self)
+	mvc.handleAccessError(code: code, addr: addr, data: data)
+}
+
+
+
 class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	//
@@ -146,8 +154,17 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		super.windowDidLoad()
 		
 		// Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-		CPU_makeAllPagesRAM();
+		CPU_makeAllPagesRAM()
+		CPU_makeReadPage( 0 )
+		CPU_makeReadPage( 1 )
+		CPU_makeReadPage( 2 )
+		CPU_makeReadPage( 3 )
+		CPU_makeReadPage( 4 )
+		CPU_makeReadPage( 5 )
+		CPU_makeReadPage( 6 )
+		CPU_makeReadPage( 7 )
 		
+		CPU_makeReadPage( 8 )
 		
 		// Callback that we get when the CPU writes to an IO port.
 		CPU_setOutputCallback( ocb, Unmanaged.passUnretained(self).toOpaque() )
@@ -158,6 +175,8 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		// Callback we get during the CPU fetch cycle that tells us an IO instruction is what will excute next.
 		// This early warning allows us to trigger a breakpoint before the IO instruction executes.
 		CPU_setIOTrapCallback( iotrap, Unmanaged.passUnretained(self).toOpaque() )
+		
+		CPU_setPageFaultCallback( accessError, Unmanaged.passUnretained(self).toOpaque() )
 		
 		self.regView.addSubview(self.registersViewController.view)
 		
@@ -248,6 +267,27 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		self.registersViewController.setDescription("Interrupt SP", forReg:0x0E)
 	}
 	
+	
+	
+	func handleAccessError( code : CPU_PageFaultCode, addr : uint16, data : uint8 )
+	{
+		var s : String
+		s = "foo"
+		switch code {
+		case CPU_MemoryFaultWrite:
+			s = "Write"
+		case CPU_MemoryFaultRead:
+			s = "read"
+		case CPU_MemoryFaultReadNoPage:
+			s = "read no page"
+		case CPU_MemoryFaultWriteNoPage:
+			s = "write no page"
+		default:
+			s = "???"
+		}
+		os_log( "Access error %@ at address 0x%04X", log : mainwin_log, type: .info, s, addr )
+		self.doBreakpointWithTitle( "access error" )
+	}
 	
 	
 //	#pragma mark - IO Port Emulation
