@@ -13,4 +13,5 @@
 	- Allow setting clock speed?
 	- Add a resetable cycle and time display (in addition to the total display)
 * Make the CPU emulation run on a background thread, with the foreground thread doing the UI.
+* Add configuration pulldown (or something) to set up memory map. Pick EPROM types, RAM sizes and locations, etc.
 	
