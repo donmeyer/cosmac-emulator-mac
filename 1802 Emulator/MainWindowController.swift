@@ -79,6 +79,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	let ioPorts : AllIOPortsViewController = AllIOPortsViewController()
 	
 	
+	
 	//
 	// Timing
 	//
@@ -126,13 +127,15 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 			{
 			case .Pause:
 				self.resetButton.isEnabled = true
-				self.importButton.isEnabled = true
+//				self.importButton.isEnabled = true
 				self.stepButton.isEnabled = true
 				self.runButton.title = "Run"
+//				self.openItem.label = "Run"
+//				self.openItem.image =
 				
 			case .Running:
 				self.resetButton.isEnabled = false
-				self.importButton.isEnabled = false
+//				self.importButton.isEnabled = false.
 				self.stepButton.isEnabled = false
 				self.runButton.title = "Pause"
 				
@@ -164,7 +167,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		CPU_makeReadPage( 6 )
 		CPU_makeReadPage( 7 )
 		
-		CPU_makeReadPage( 8 )
+//		CPU_makeReadPage( 8 )
 		
 		// Callback that we get when the CPU writes to an IO port.
 		CPU_setOutputCallback( ocb, Unmanaged.passUnretained(self).toOpaque() )
@@ -490,7 +493,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	@objc func timerAction( timer: Timer )
 	{
-		timerTicks += 1
+//		timerTicks += 1
 		
 		for _ in 1...CPUStepsPerTimerTick
 		{
@@ -501,7 +504,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	private func performRunStep()
 	{
-		if self.breakpoint1Checkbox.state == NSControl.StateValue.onState
+		if self.breakpoint1Checkbox.state == .on
 		{
 			let s = self.breakpoint1Field.stringValue
 			var hexAddr : UInt32 = 0
@@ -716,7 +719,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 //	#pragma mark - Ask For File
 	
-	@IBAction func openDocument(_ sender: Any )
+	private func openDocument(_ sender: Any )
 	{
 		self.browseForListingWithCompletion { (url: URL?) in
 			// Do this next runloop to let the file chooser go away!

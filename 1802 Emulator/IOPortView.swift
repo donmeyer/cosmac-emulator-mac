@@ -33,13 +33,13 @@ open class IOPortView: NSViewController
 	
 	var shouldBreakOnPortRead : Bool {
 		get {
-			return inoutBreak.state == NSControl.StateValue.onState ? true : false
+			return inoutBreak.state == .on ? true : false
 		}
 	}
 	
 	var shouldBreakOnPortWrite : Bool {
 		get {
-			return outputBreak.state == NSControl.StateValue.onState ? true : false
+			return outputBreak.state == .on ? true : false
 		}
 	}
 	

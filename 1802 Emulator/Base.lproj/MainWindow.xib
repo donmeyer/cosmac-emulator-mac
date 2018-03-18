@@ -13,7 +13,6 @@
                 <outlet property="breakpoint1Field" destination="Twf-Tb-jjO" id="7dV-S3-MBS"/>
                 <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="93d-AW-mlT"/>
                 <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="JGt-og-YpO"/>
-                <outlet property="importButton" destination="XiB-5E-iyo" id="hVb-ge-X5r"/>
                 <outlet property="liveSymbolUpdatesCheckbox" destination="UGd-s0-e3f" id="zRu-P7-W3e"/>
                 <outlet property="portsView" destination="24P-7w-NDf" id="RCZ-El-OlX"/>
                 <outlet property="regView" destination="OxK-yD-0Ir" id="UO3-Np-N2k"/>
@@ -211,38 +210,50 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                     </box>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rkO-xx-zGj">
-                        <rect key="frame" x="840" y="92" width="92" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Terminal" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nag-BY-k7S">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="openTerminal:" target="-2" id="frY-eg-CeX"/>
-                        </connections>
-                    </button>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jyw-WQ-yHH">
                         <rect key="frame" x="417" y="197" width="401.5" height="467"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </customView>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XiB-5E-iyo">
-                        <rect key="frame" x="825" y="30" width="81" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Import" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HUP-Kd-iHS">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="importAction:" target="-2" id="ZU4-2u-Eix"/>
-                        </connections>
-                    </button>
                 </subviews>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="6580836E-132B-420D-9347-9CB538A3DCAC" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="V4K-uR-9h7">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="4DED260B-541C-4273-86AA-F646CE3802AC" label="Open" paletteLabel="Open" tag="-1" image="onButtonEF" id="ekq-0M-067">
+                        <connections>
+                            <action selector="importAction:" target="-1" id="Mqa-6x-oth"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="3VF-w3-CEK"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Q29-Tg-1VP"/>
+                    <toolbarItem implicitItemIdentifier="6AA23D42-FCEA-4267-A355-403033139599" label="Run" paletteLabel="Run" tag="-1" id="eFW-wS-iNf"/>
+                    <toolbarItem implicitItemIdentifier="9E7D454D-D731-4E9F-93D4-351AAEC450D3" label="Reset" paletteLabel="Reset" tag="-1" id="QnJ-ZB-2kG"/>
+                    <toolbarItem implicitItemIdentifier="1D032425-BB8B-436C-B93E-2DC93BE9821B" label="Step" paletteLabel="Step" tag="-1" id="11b-Hf-50T"/>
+                    <toolbarItem implicitItemIdentifier="B337FC09-4799-4FA9-9026-526EF787342E" label="Step to Symbol" paletteLabel="Step to Symbol" tag="-1" id="Pon-7e-dDp"/>
+                    <toolbarItem implicitItemIdentifier="93381CBF-2E4A-4F18-AA62-03C3706E9BE7" label="Terminal" paletteLabel="Terminal Window" tag="-1" id="qRE-K5-g6L">
+                        <connections>
+                            <action selector="openTerminal:" target="-1" id="6tH-9T-NrF"/>
+                        </connections>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="ekq-0M-067"/>
+                    <toolbarItem reference="qRE-K5-g6L"/>
+                    <toolbarItem reference="Q29-Tg-1VP"/>
+                    <toolbarItem reference="QnJ-ZB-2kG"/>
+                    <toolbarItem reference="3VF-w3-CEK"/>
+                    <toolbarItem reference="eFW-wS-iNf"/>
+                    <toolbarItem reference="11b-Hf-50T"/>
+                    <toolbarItem reference="Pon-7e-dDp"/>
+                    <toolbarItem reference="Q29-Tg-1VP"/>
+                </defaultToolbarItems>
+            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="dRt-lg-Ikv"/>
             </connections>
             <point key="canvasLocation" x="721.5" y="704"/>
         </window>
     </objects>
+    <resources>
+        <image name="onButtonEF" width="40" height="40"/>
+    </resources>
 </document>
