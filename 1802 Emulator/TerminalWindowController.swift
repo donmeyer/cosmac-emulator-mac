@@ -48,7 +48,7 @@ class TerminalWindowController: NSWindowController {
 	
 	@objc func hasCmdChar() -> Bool
 	{
-		return cmdString.characters.count > 0 ? true : false
+		return cmdString.count > 0 ? true : false
 	}
 	
 	
@@ -58,7 +58,7 @@ class TerminalWindowController: NSWindowController {
 		if self.hasCmdChar()
 		{
 			let z = Array( cmdString.unicodeScalars )
-			cmdString.characters.removeFirst()
+			cmdString.removeFirst()
 			return Int(z[0].value)
 		}
 		else
