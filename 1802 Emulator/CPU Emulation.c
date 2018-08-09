@@ -365,7 +365,7 @@ static uint8_t input( uint8_t port )
 {
 	if( inputCallback )
 	{
-		return (inputCallback)( outputCallbackUserdata, port );
+		return (inputCallback)( inputCallbackUserdata, port );
 	}
 	else
 	{
