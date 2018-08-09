@@ -21,6 +21,8 @@ class AllIOPortsViewController: NSViewController
 	
 	var efButtons = [Int : NSButton]()
 	
+	private var qButton : NSButton?
+	
 	@IBOutlet weak var buttonView: NSStackView!
 	
 	lazy var inLabel = { () -> NSTextField in
@@ -46,38 +48,41 @@ class AllIOPortsViewController: NSViewController
 	}()
 	
 	
+	var qLED : Bool {
+		get {
+			return qButton?.state == .on
+		}
+		set {
+			qButton?.state = newValue ? .on : .off
+		}
+	}
 	
+
     override func viewDidLoad()
 	{
         super.viewDidLoad()
 		
-		var yPos : CGFloat = 0
-		
 		if #available(OSX 10.12, *) {
 			let dia : CGFloat = 32.0
-			let BGAP : CGFloat = 52
+//			let BGAP : CGFloat = 52
 			print( self.view.frame )
 			
-			var x : CGFloat = ( self.view.frame.size.width - ( dia * 4) - ( BGAP * 3 ) ) / 2  //30.0
 			
-			let buttonY = yPos + 10
-			
-			self.efButtons[0] = self.makeEFButton(title: "EF1", diameter : dia, x:x, y:buttonY)
-			x += BGAP
-			self.efButtons[1] = self.makeEFButton(title: "EF2", diameter : dia, x:x, y:buttonY)
-			x += BGAP
-			self.efButtons[2] = self.makeEFButton(title: "EF3", diameter : dia, x:x, y:buttonY)
-			x += BGAP
-			self.efButtons[3] = self.makeEFButton(title: "EF4", diameter : dia, x:x, y:buttonY)
-			x += BGAP
-			
-			yPos += 50
+			qButton = self.makeEFButton(title: "Q", diameter : dia * 0.8)
+//			qButton?.state = .on
+
+			self.efButtons[0] = self.makeEFButton(title: "EF1", diameter : dia)
+			self.efButtons[1] = self.makeEFButton(title: "EF2", diameter : dia)
+			self.efButtons[2] = self.makeEFButton(title: "EF3", diameter : dia)
+			self.efButtons[3] = self.makeEFButton(title: "EF4", diameter : dia)
 		} else {
 			// Fallback on earlier versions
 			// sadness
 		}
 		
 		var i = 7
+		var yPos : CGFloat = 50
+		
 		while( i >= 0 )
 		{
 			let pv = IOPortView.init()
@@ -125,7 +130,7 @@ class AllIOPortsViewController: NSViewController
 		case self.efButtons[3]!:
 			CPU_setEF(3, Int32(button.state.rawValue))
 		default:
-			print ("This cannot happen with only 4 EF buttons!")
+			assert( false, "This cannot happen with only 4 EF buttons!")
 		}
 	}
 	
@@ -153,13 +158,18 @@ class AllIOPortsViewController: NSViewController
 
 	@objc func shouldBreakOnPortWrite( _ port: Int ) -> Bool
 	{
+		if port == CPU_OUTPUT_PORT_Q
+		{
+			return false   // TODO: Should be able to break on Q output changing
+		}
+		
 		assert( ports[port] != nil, "Port out of range 1-7" )
 		return ports[port]!.shouldBreakOnPortWrite
 	}
 	
 	
-	/// Makes the button and adds it to the view at the specified point.
-	private func makeEFButton( title: String, diameter : CGFloat, x: CGFloat, y: CGFloat ) -> NSButton
+	/// Makes an EF line toggle button and adds it to the button view.
+	private func makeEFButton( title: String, diameter : CGFloat ) -> NSButton
 	{
 //		let img = NSImage.init(named: NSImage.Name(rawValue: "onButtonEF"))
 //		let img = NSImage.init(size: NSMakeSize(20, 20))

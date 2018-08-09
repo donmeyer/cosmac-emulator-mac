@@ -324,6 +324,12 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 			self.doBreakpointWithTitle(String.init(format: "Output Port %d", port))
 		}
 		
+		if port == CPU_OUTPUT_PORT_Q
+		{
+			self.ioPorts.qLED = data != 0 ? true : false
+			return
+		}
+		
 		self.ioPorts.setOutputPort( Int(port), byte:data )
 	
 		if self.useTerminalForIO == true
