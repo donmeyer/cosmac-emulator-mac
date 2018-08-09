@@ -761,11 +761,13 @@ static void opcode_7()
 		case 0x0A:
 			// REQ
 			cpu.Q = 0;
+			output( CPU_OUTPUT_PORT_Q, cpu.Q );
 			break;
 
 		case 0x0B:
 			// SEQ
 			cpu.Q = 1;
+			output( CPU_OUTPUT_PORT_Q, cpu.Q );
 			break;
 
 		case 0x0C:

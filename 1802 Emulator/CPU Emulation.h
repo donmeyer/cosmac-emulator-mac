@@ -53,6 +53,10 @@ enum CPU_PageFaultCode {
 	CPU_MemoryFaultWrite			// Page exists but is not writeable
 };
 
+
+/// Output port number that actually means we are setting the state of the 'Q' bit.
+#define CPU_OUTPUT_PORT_Q	0xFF
+
 typedef void (*outputCallback_t)(void *userData, uint8_t port, uint8_t data);
 
 typedef uint8_t (*inputCallback_t)(void *userData, uint8_t port );
