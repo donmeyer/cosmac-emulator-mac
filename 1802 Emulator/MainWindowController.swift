@@ -293,8 +293,9 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	}
 	
 	
-//	#pragma mark - IO Port Emulation
+	// MARK: - IO Port Emulation
 	
+	/// This is called before the IO instruction is executed to give us a chance to break before the instruction executes.
 	func handleIOTrap( inputPort : Int, outputPort: Int )
 	{
 		if inputPort > 0
@@ -316,7 +317,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		}
 	}
 	
-	
+	/// Called when an IO port is being written to.
 	func writeOutputPort( port : Int, data : uint8 )
 	{
 		if self.ioPorts.shouldBreakOnPortWrite(port)
@@ -342,6 +343,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	}
 	
 	
+	/// Called when an IO port is being read from.
 	func readInputPort( port : Int ) -> uint8
 	{
 		if self.ioPorts.shouldBreakOnPortRead(port)
@@ -387,7 +389,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	
 	
-//	#pragma mark - Terminal Emulation
+	// MARK: - Terminal Emulation
 	
 	@IBAction func openTerminal(_ sender: Any) {
 		self.terminalWindowController.showWindow(self)
@@ -396,7 +398,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	
 	
-//	#pragma mark - Symbol Display
+	// MARK: - Symbol Display
 	
 	func symbolForAddr( _ addr : uint16 ) -> Symbol?
 	{
@@ -436,7 +438,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	
 	
-//	#pragma mark - State
+	// MARK: - State
 	
 	func updateState()
 	{
@@ -587,7 +589,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	
 	
-//	#pragma mark - Actions
+	// MARK: - Actions
 	
 	@IBAction func liveSymbolUpdateAction(_ sender: Any) {
 		let button = sender as! NSButton
@@ -723,7 +725,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	}
 	
 	
-//	#pragma mark - Ask For File
+	// MARK: - Ask For File
 	
 	private func openDocument(_ sender: Any )
 	{
