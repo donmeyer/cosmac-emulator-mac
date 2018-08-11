@@ -28,6 +28,7 @@
 		F687B0981EEE060A00FBC277 /* Logging.m in Sources */ = {isa = PBXBuildFile; fileRef = F687B0971EEE060A00FBC277 /* Logging.m */; };
 		F6925AFB1ECC06480031DF17 /* AllIOPortsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */; };
 		F6925AFC1ECC06480031DF17 /* AllIOPortsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */; };
+		F698C946211D4518003F42D1 /* LEDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F698C945211D4518003F42D1 /* LEDView.swift */; };
 		F6D63B491B1D6A6C006724FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B481B1D6A6C006724FC /* Images.xcassets */; };
 		F6D63B4C1B1D6A6C006724FC /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D63B4A1B1D6A6C006724FC /* MainWindow.xib */; };
 		F6D63B581B1D6A6C006724FC /* _802_EmulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D63B571B1D6A6C006724FC /* _802_EmulatorTests.m */; };
@@ -72,6 +73,7 @@
 		F687B0971EEE060A00FBC277 /* Logging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Logging.m; sourceTree = "<group>"; };
 		F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllIOPortsViewController.swift; sourceTree = "<group>"; };
 		F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllIOPortsViewController.xib; sourceTree = "<group>"; };
+		F698C945211D4518003F42D1 /* LEDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LEDView.swift; sourceTree = "<group>"; };
 		F6D63B3E1B1D6A6B006724FC /* 1802 Emulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1802 Emulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6D63B421B1D6A6B006724FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6D63B481B1D6A6C006724FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				F603A57E1EBD3F4A000EA85D /* IOPortView.swift */,
 				F603A57F1EBD3F4A000EA85D /* IOPortView.xib */,
 				F6925AF91ECC06480031DF17 /* AllIOPortsViewController.swift */,
+				F698C945211D4518003F42D1 /* LEDView.swift */,
 				F6925AFA1ECC06480031DF17 /* AllIOPortsViewController.xib */,
 			);
 			name = "IO Ports";
@@ -364,6 +367,7 @@
 				F63F835C1F34DE710030B2BF /* MainWindowController.swift in Sources */,
 				F663822D1F09B63E00ADAD96 /* AppDelegate.swift in Sources */,
 				F6D63B621B1D6B01006724FC /* CPU Emulation.c in Sources */,
+				F698C946211D4518003F42D1 /* LEDView.swift in Sources */,
 				F603A5801EBD3F4A000EA85D /* IOPortView.swift in Sources */,
 				F63B5F341EE1FBF90095A892 /* SynchroScrollView.swift in Sources */,
 				F6925AFB1ECC06480031DF17 /* AllIOPortsViewController.swift in Sources */,

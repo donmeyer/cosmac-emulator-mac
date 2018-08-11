@@ -21,7 +21,7 @@ class AllIOPortsViewController: NSViewController
 	
 	var efButtons = [Int : NSButton]()
 	
-	private var qButton : NSButton?
+	private var qLEDView : LEDView?
 	
 	@IBOutlet weak var buttonView: NSStackView!
 	
@@ -50,15 +50,15 @@ class AllIOPortsViewController: NSViewController
 	
 	var qLED : Bool {
 		get {
-			return qButton?.state == .on
+			return (qLEDView?.state)!
 		}
 		set {
-			qButton?.state = newValue ? .on : .off
+			qLEDView?.state = newValue
 		}
 	}
 	
 
-    override func viewDidLoad()
+	override func viewDidLoad()
 	{
         super.viewDidLoad()
 		
@@ -68,8 +68,8 @@ class AllIOPortsViewController: NSViewController
 			print( self.view.frame )
 			
 			
-			qButton = self.makeEFButton(title: "Q", diameter : dia * 0.8)
-//			qButton?.state = .on
+			qLEDView = LEDView( diameter: 30 )
+			self.buttonView.addView(qLEDView!, in: .trailing)
 
 			self.efButtons[0] = self.makeEFButton(title: "EF1", diameter : dia)
 			self.efButtons[1] = self.makeEFButton(title: "EF2", diameter : dia)
