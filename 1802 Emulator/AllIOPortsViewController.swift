@@ -22,8 +22,10 @@ class AllIOPortsViewController: NSViewController
 	var efButtons = [Int : NSButton]()
 	
 	private var qLEDView : LEDView?
+	private var qLEDBreakButton : NSButton?
 	
 	@IBOutlet weak var buttonView: NSStackView!
+	@IBOutlet weak var ledStack: NSStackView!
 	
 	lazy var inLabel = { () -> NSTextField in
 		let label = NSTextField.init()
@@ -63,14 +65,18 @@ class AllIOPortsViewController: NSViewController
         super.viewDidLoad()
 		
 		if #available(OSX 10.12, *) {
-			let dia : CGFloat = 32.0
-//			let BGAP : CGFloat = 52
 			print( self.view.frame )
-			
-			
-			qLEDView = LEDView( diameter: 30 )
-			self.buttonView.addView(qLEDView!, in: .trailing)
 
+			// The Q LED
+			let label = NSTextField(labelWithString: "Q")
+			self.ledStack.addView(label, in: .trailing)
+			qLEDView = LEDView( diameter: 30 )
+			self.ledStack.addView(qLEDView!, in: .trailing)
+			qLEDBreakButton = NSButton(checkboxWithTitle: "Brk", target: self, action: #selector(qBreakButtonAction))
+			ledStack.addView(qLEDBreakButton!, in: .trailing)
+
+			// EF Buttons
+			let dia : CGFloat = 32.0
 			self.efButtons[0] = self.makeEFButton(title: "EF1", diameter : dia)
 			self.efButtons[1] = self.makeEFButton(title: "EF2", diameter : dia)
 			self.efButtons[2] = self.makeEFButton(title: "EF3", diameter : dia)
@@ -81,7 +87,7 @@ class AllIOPortsViewController: NSViewController
 		}
 		
 		var i = 7
-		var yPos : CGFloat = 50
+		var yPos : CGFloat = 150
 		
 		while( i >= 0 )
 		{
@@ -113,6 +119,12 @@ class AllIOPortsViewController: NSViewController
 //		self.view.frame = br
 		
 //		self.preferredContentSize = NSMakeSize(300, yPos+50)
+	}
+	
+	
+	@objc func qBreakButtonAction( sender : Any? )
+	{
+		let button = sender as! NSButton
 	}
 	
 	
@@ -160,7 +172,7 @@ class AllIOPortsViewController: NSViewController
 	{
 		if port == CPU_OUTPUT_PORT_Q
 		{
-			return false   // TODO: Should be able to break on Q output changing
+			return qLEDBreakButton!.state == .on ? true : false
 		}
 		
 		assert( ports[port] != nil, "Port out of range 1-7" )
