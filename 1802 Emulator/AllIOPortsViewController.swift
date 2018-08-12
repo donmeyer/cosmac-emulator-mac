@@ -26,6 +26,7 @@ class AllIOPortsViewController: NSViewController
 	
 	@IBOutlet weak var buttonView: NSStackView!
 	@IBOutlet weak var ledStack: NSStackView!
+	@IBOutlet weak var portsView: NSView!
 	
 	lazy var inLabel = { () -> NSTextField in
 		let label = NSTextField.init()
@@ -69,11 +70,11 @@ class AllIOPortsViewController: NSViewController
 
 			// The Q LED
 			let label = NSTextField(labelWithString: "Q")
-			self.ledStack.addView(label, in: .trailing)
+			self.ledStack.addView(label, in: .leading)
 			qLEDView = LEDView( diameter: 30 )
-			self.ledStack.addView(qLEDView!, in: .trailing)
-			qLEDBreakButton = NSButton(checkboxWithTitle: "Brk", target: self, action: #selector(qBreakButtonAction))
-			ledStack.addView(qLEDBreakButton!, in: .trailing)
+			self.ledStack.addView(qLEDView!, in: .leading)
+			qLEDBreakButton = NSButton(checkboxWithTitle: "Brk", target: self, action: nil)
+			ledStack.addView(qLEDBreakButton!, in: .leading)
 
 			// EF Buttons
 			let dia : CGFloat = 32.0
@@ -87,7 +88,7 @@ class AllIOPortsViewController: NSViewController
 		}
 		
 		var i = 7
-		var yPos : CGFloat = 150
+		var yPos : CGFloat = 0
 		
 		while( i >= 0 )
 		{
@@ -95,11 +96,12 @@ class AllIOPortsViewController: NSViewController
 			
 			var r = pv.view.frame
 			r.origin.y = yPos
+			r.origin.x = 0
 			pv.view.frame = r
 			yPos += r.size.height
 			
 //FOOP			LogDebug( "IO port view frame:", NSStringFromRect( pv.view.frame ) )
-			self.view.addSubview( pv.view )
+			self.portsView.addSubview( pv.view )
 			// Cannot set this until the view has been loaded!
 			pv.portNum = i
 			
@@ -109,22 +111,16 @@ class AllIOPortsViewController: NSViewController
 		}
 		
 		inLabel.setFrameOrigin( NSMakePoint(46, yPos+2) )
-		self.view.addSubview(inLabel)
+		self.portsView.addSubview(inLabel)
 
 		outLabel.setFrameOrigin( NSMakePoint(156, yPos+2) )
-		self.view.addSubview(outLabel)
+		self.portsView.addSubview(outLabel)
 
 //		var br = self.view.frame
 //		br.size.height = yPos + 50
 //		self.view.frame = br
 		
 //		self.preferredContentSize = NSMakeSize(300, yPos+50)
-	}
-	
-	
-	@objc func qBreakButtonAction( sender : Any? )
-	{
-		let button = sender as! NSButton
 	}
 	
 	

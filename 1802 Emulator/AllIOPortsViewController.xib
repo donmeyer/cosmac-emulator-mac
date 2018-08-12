@@ -11,25 +11,30 @@
             <connections>
                 <outlet property="buttonView" destination="hI1-cR-pvB" id="FQ9-uJ-qTu"/>
                 <outlet property="ledStack" destination="yLi-tp-wuo" id="Usq-fb-pGh"/>
+                <outlet property="portsView" destination="ySh-ir-sBL" id="weu-w6-Mld"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="251" height="411"/>
+            <rect key="frame" x="0.0" y="0.0" width="251" height="465"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <customView autoresizesSubviews="NO" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ySh-ir-sBL" userLabel="Ports View">
+                    <rect key="frame" x="0.0" y="161" width="251" height="304"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </customView>
+                <stackView orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yLi-tp-wuo" userLabel="LED Stack">
+                    <rect key="frame" x="20" y="60" width="211" height="34"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </stackView>
                 <stackView distribution="equalSpacing" orientation="horizontal" alignment="bottom" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hI1-cR-pvB">
                     <rect key="frame" x="20" y="12" width="211" height="40"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </stackView>
-                <stackView orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yLi-tp-wuo" userLabel="LED Stack">
-                    <rect key="frame" x="20" y="60" width="200" height="34"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                </stackView>
             </subviews>
-            <point key="canvasLocation" x="138.5" y="198.5"/>
+            <point key="canvasLocation" x="138.5" y="225.5"/>
         </customView>
     </objects>
 </document>
