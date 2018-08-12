@@ -1,6 +1,8 @@
 // CPU Emulation.c
 
 
+#include <stddef.h>
+
 #include "CPU Emulation.h"
 
 
@@ -473,25 +475,33 @@ void CPU_execute()
 
 static void checkIOTrap()
 {
-	if( cpu.N == 0 )
+	if( ioTrapCallback == NULL )
 	{
-		// IRX
+		return;
 	}
-	else if( cpu.N < 8 )
+	
+	if( cpu.I == 6 )
 	{
-		// Output 1-7  (1-7)
-		if( ioTrapCallback )
+		// Input/Output Instruction (except for IRX which is 60h an 68h which is reserved)
+		if( cpu.N == 0 )
 		{
+			// IRX
+		}
+		else if( cpu.N < 8 )
+		{
+			// Output 1-7  (1-7)
 			(ioTrapCallback)( ioTrapCallbackUserdata, -1, cpu.N );
 		}
-	}
-	else if( cpu.N > 8 )
-	{
-		// Input 1-7   (9-15)
-		if( ioTrapCallback )
+		else if( cpu.N > 8 )
 		{
+			// Input 1-7   (9-15)
 			(ioTrapCallback)( ioTrapCallbackUserdata, cpu.N - 8, -1 );
 		}
+	}
+	else if( cpu.I == 7 && (cpu.N == 0xA || cpu.N == 0xB) )
+	{
+		// Q-Bit
+		(ioTrapCallback)( ioTrapCallbackUserdata, -1, CPU_OUTPUT_PORT_Q );
 	}
 }
 
