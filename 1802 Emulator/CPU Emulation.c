@@ -482,7 +482,7 @@ static void checkIOTrap()
 	
 	if( cpu.I == 6 )
 	{
-		// Input/Output Instruction (except for IRX which is 60h an 68h which is reserved)
+		// Input/Output Instruction (except for IRX which is 60h and 68h which is reserved)
 		if( cpu.N == 0 )
 		{
 			// IRX
