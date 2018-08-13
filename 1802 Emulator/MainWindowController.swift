@@ -22,9 +22,11 @@ let timerInterval = 0.000_008_988 * Double(CPUStepsPerTimerTick)
 // About 21us per timer cycle is about as fast as my Mac will go
 
 enum RunMode {
-	case Pause
-	case Stepping
-	case Running
+	case Pause				// Not running
+	case Stepping			// Single stepping
+	case Running			// Running free
+	case Breaking			// Breakpoint hit, should stop running
+	case BreakpointResume	// Resuming `run` from a breakpoint.
 }
 
 
@@ -123,9 +125,12 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	var runmode : RunMode = .Pause {
 		didSet {
+			os_log( "RunMode = %@", log : mainwin_log, type: .debug, String(describing: runmode ) )
+
 			switch runmode
 			{
-			case .Pause:
+			case .Pause,
+				 .Breaking:
 				self.resetButton.isEnabled = true
 //				self.importButton.isEnabled = true
 				self.stepButton.isEnabled = true
@@ -140,6 +145,9 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 				self.runButton.title = "Pause"
 				
 			case .Stepping:
+				break
+				
+			case .BreakpointResume:
 				break
 			}
 		}
@@ -158,14 +166,15 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		
 		// Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 		CPU_makeAllPagesRAM()
-		CPU_makeReadPage( 0 )
-		CPU_makeReadPage( 1 )
-		CPU_makeReadPage( 2 )
-		CPU_makeReadPage( 3 )
-		CPU_makeReadPage( 4 )
-		CPU_makeReadPage( 5 )
-		CPU_makeReadPage( 6 )
-		CPU_makeReadPage( 7 )
+		
+//		CPU_makeReadPage( 0 )
+//		CPU_makeReadPage( 1 )
+//		CPU_makeReadPage( 2 )
+//		CPU_makeReadPage( 3 )
+//		CPU_makeReadPage( 4 )
+//		CPU_makeReadPage( 5 )
+//		CPU_makeReadPage( 6 )
+//		CPU_makeReadPage( 7 )
 		
 //		CPU_makeReadPage( 8 )
 		
@@ -243,7 +252,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		}
 	}
 	
-	
+
 	
 	func setDescriptionsForForth()
 	{
@@ -320,10 +329,10 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	/// Called when an IO port is being written to.
 	func writeOutputPort( port : Int, data : uint8 )
 	{
-		if self.ioPorts.shouldBreakOnPortWrite(port)
-		{
-			self.doBreakpointWithTitle(String.init(format: "Output Port %d", port))
-		}
+//		if self.ioPorts.shouldBreakOnPortWrite(port)
+//		{
+//			self.doBreakpointWithTitle(String.init(format: "Output Port %d", port))
+//		}
 		
 		if port == CPU_OUTPUT_PORT_Q
 		{
@@ -346,11 +355,11 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	/// Called when an IO port is being read from.
 	func readInputPort( port : Int ) -> uint8
 	{
-		if self.ioPorts.shouldBreakOnPortRead(port)
-		{
-			self.doBreakpointWithTitle(String.init(format: "Input Port %d", port))
-		}
-		
+//		if self.ioPorts.shouldBreakOnPortRead(port)
+//		{
+//			self.doBreakpointWithTitle(String.init(format: "Input Port %d", port))
+//		}
+//
 		if self.useTerminalForIO == true
 		{
 			if port == 3
@@ -492,7 +501,15 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	func startCycleTimer()
 	{
-		self.runmode = .Running
+		if self.runmode == .Breaking
+		{
+			self.runmode = .BreakpointResume
+		}
+		else
+		{
+			self.runmode = .Running
+		}
+		
 		self.cycleTimer = Timer.init(timeInterval: timerInterval, target: self, selector: #selector(timerAction(timer:)), userInfo: nil, repeats: true)
 		
 		RunLoop.main.add(self.cycleTimer!, forMode: RunLoopMode.defaultRunLoopMode)
@@ -505,32 +522,51 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		
 		for _ in 1...CPUStepsPerTimerTick
 		{
+			// TODO: handle breakpoints properly!
 			self.performRunStep()
+			
+			if self.runmode == .Breaking
+			{
+//				self.runmode = .Pause
+				
+				// This will update registers, calculate the curent symbol, etc.
+				self.updateState()
+
+				break
+			}
 		}
 	}
 	
 	
 	private func performRunStep()
 	{
-		if self.breakpoint1Checkbox.state == .on
+		if runmode == .BreakpointResume
 		{
-			let s = self.breakpoint1Field.stringValue
-			var hexAddr : UInt32 = 0
-			if Scanner.init(string: s).scanHexInt32(&hexAddr) == true
+			self.runmode = .Running
+		}
+		else
+		{
+			CPU_checkIOTrap()
+			
+			if self.breakpoint1Checkbox.state == .on
 			{
-				if hexAddr == CPU_getPC()
+				let s = self.breakpoint1Field.stringValue
+				var hexAddr : UInt32 = 0
+				if Scanner.init(string: s).scanHexInt32(&hexAddr) == true
 				{
-					self.doBreakpointWithTitle("Address 1")
+					if hexAddr == CPU_getPC()
+					{
+						self.doBreakpointWithTitle("Address 1")
+					}
 				}
 			}
 		}
 		
-		CPU_step()
-	
-		// This will update registers, calculate the curent symbol, etc.
-		self.updateState()
+		if runmode == .Running
+		{
+			CPU_step()
+		}
 		
-	
 		#if false
 			// Hack
 //			static int nestLevel = 0;
@@ -575,6 +611,9 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 				}
 			}
 		}
+		
+		// This will update registers, calculate the current symbol, etc.
+		self.updateState()
 	}
 	
 	
@@ -584,7 +623,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 		self.cycleTimer?.invalidate()
 	
-		self.runmode = .Pause
+		self.runmode = .Breaking
 	}
 	
 	
