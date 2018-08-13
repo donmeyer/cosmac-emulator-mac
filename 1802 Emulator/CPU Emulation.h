@@ -80,6 +80,8 @@ int CPU_readFromMemory( uint16_t addr, uint16_t length, uint8_t *dest );
 
 void CPU_reset(void);
 
+void CPU_checkIOTrap(void);
+
 void CPU_step(void);
 void CPU_fetch(void);
 void CPU_execute(void);

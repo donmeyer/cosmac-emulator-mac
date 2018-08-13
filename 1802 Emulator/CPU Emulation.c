@@ -6,7 +6,6 @@
 #include "CPU Emulation.h"
 
 
-static void checkIOTrap(void);
 
 static uint8_t getPageBits( uint16_t addr );
 
@@ -458,8 +457,6 @@ void CPU_fetch()
 	cpu.reg[cpu.P]++;
 	
 	cycleCount++;
-	
-	checkIOTrap();
 }
 
 
@@ -473,32 +470,38 @@ void CPU_execute()
 
 #pragma mark IO Pre-execute trap
 
-static void checkIOTrap()
+void CPU_checkIOTrap()
 {
 	if( ioTrapCallback == NULL )
 	{
 		return;
 	}
 	
-	if( cpu.I == 6 )
+	uint8_t op = read( cpu.reg[cpu.P] );
+	
+	uint8_t N = op & 0x0F;
+	uint8_t I = op>>4 & 0x0F;
+	
+
+	if( I == 6 )
 	{
 		// Input/Output Instruction (except for IRX which is 60h and 68h which is reserved)
-		if( cpu.N == 0 )
+		if( N == 0 )
 		{
 			// IRX
 		}
-		else if( cpu.N < 8 )
+		else if( N < 8 )
 		{
 			// Output 1-7  (1-7)
-			(ioTrapCallback)( ioTrapCallbackUserdata, -1, cpu.N );
+			(ioTrapCallback)( ioTrapCallbackUserdata, -1, N );
 		}
-		else if( cpu.N > 8 )
+		else if( N > 8 )
 		{
 			// Input 1-7   (9-15)
-			(ioTrapCallback)( ioTrapCallbackUserdata, cpu.N - 8, -1 );
+			(ioTrapCallback)( ioTrapCallbackUserdata, N - 8, -1 );
 		}
 	}
-	else if( cpu.I == 7 && (cpu.N == 0xA || cpu.N == 0xB) )
+	else if( op == 0x7A || op == 0x7B )
 	{
 		// Q-Bit
 		(ioTrapCallback)( ioTrapCallbackUserdata, -1, CPU_OUTPUT_PORT_Q );
