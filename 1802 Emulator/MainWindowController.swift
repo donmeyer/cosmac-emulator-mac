@@ -493,7 +493,9 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 				}
 				else
 				{
-					self.symbolLabel.stringValue = String.init(format: "%@ + %u", sym.name, offset )
+					let symtext = String.init(format: "%@ + %u", sym.name, offset )
+					self.symbolLabel.stringValue = symtext
+//					print( symtext)
 				}
 			}
 			else
@@ -661,7 +663,9 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	@IBAction func stepNextSymbolAction(_ sender: Any) {
 		self.stepTrapSymbol = self.currentSymbol
-	
+
+		self.statusLabel.stringValue = "Running to next symbol"
+
 		self.startCycleTimer()
 	}
 	
@@ -675,7 +679,9 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		
 			self.stepTrapSymbol = currentSymbol
 		}
-		
+
+		self.statusLabel.stringValue = "Running to next symbol"
+
 		self.startCycleTimer()
 	}
 	

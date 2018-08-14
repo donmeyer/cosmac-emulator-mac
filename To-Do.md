@@ -1,8 +1,9 @@
 #  To-Do
 
 
- * Add Q output LED
  * Breakpoints
+ * Symbolic breakpoints
+* List of ignored symbols. Way to re-enable them, or at least clear the list?
  * UI cleanup
 * Touchbar
 * Recent files support
