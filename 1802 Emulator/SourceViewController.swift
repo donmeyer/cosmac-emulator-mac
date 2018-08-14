@@ -171,6 +171,8 @@ class SourceViewController: NSViewController {
 	{
 		lines = [SourceLine]()
 
+		self.curHilight = nil
+
 		let start = (textView?.textStorage?.length)!
 		let range = NSMakeRange( 0, start )
 		textView?.textStorage?.deleteCharacters(in: range)

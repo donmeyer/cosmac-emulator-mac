@@ -816,6 +816,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 		self.runmode = .Pause
 	
+		CPU_reset()
 		self.updateState()
 	
 		self.registersViewController.reset()
