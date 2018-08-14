@@ -105,8 +105,9 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	@IBOutlet weak var stepButton: NSButton!
 	@IBOutlet weak var resetButton: NSButton!
 	@IBOutlet weak var runButton: NSButton!
-	@IBOutlet weak var importButton: NSButton!
+	@IBOutlet weak var stepNextSymbolButton: NSButton!
 	
+	@IBOutlet weak var ignoreSymbolButton: NSButton!
 	
 	
 	var terminalWindowController : TerminalWindowController = TerminalWindowController.init(windowNibName:NSNib.Name(rawValue: "TerminalWindow"))
@@ -134,6 +135,8 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 				self.resetButton.isEnabled = true
 //				self.importButton.isEnabled = true
 				self.stepButton.isEnabled = true
+				self.stepNextSymbolButton.isEnabled = true
+				self.ignoreSymbolButton.isEnabled = true
 				self.runButton.title = "Run"
 //				self.openItem.label = "Run"
 //				self.openItem.image =
@@ -142,6 +145,8 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 				self.resetButton.isEnabled = false
 //				self.importButton.isEnabled = false.
 				self.stepButton.isEnabled = false
+				self.stepNextSymbolButton.isEnabled = false
+				self.ignoreSymbolButton.isEnabled = false
 				self.runButton.title = "Pause"
 				
 			case .Stepping:

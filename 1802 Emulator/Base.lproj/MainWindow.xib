@@ -13,6 +13,7 @@
                 <outlet property="breakpoint1Field" destination="Twf-Tb-jjO" id="7dV-S3-MBS"/>
                 <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="93d-AW-mlT"/>
                 <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="JGt-og-YpO"/>
+                <outlet property="ignoreSymbolButton" destination="0ha-54-ZZ6" id="5hI-7r-PDU"/>
                 <outlet property="liveSymbolUpdatesCheckbox" destination="UGd-s0-e3f" id="zRu-P7-W3e"/>
                 <outlet property="portsView" destination="24P-7w-NDf" id="RCZ-El-OlX"/>
                 <outlet property="regView" destination="OxK-yD-0Ir" id="UO3-Np-N2k"/>
@@ -21,6 +22,7 @@
                 <outlet property="sourceView" destination="Jyw-WQ-yHH" id="PCQ-Lv-hDZ"/>
                 <outlet property="statusLabel" destination="Odv-2V-cgT" id="uj8-Px-zS2"/>
                 <outlet property="stepButton" destination="6aV-Ov-fuP" id="Q9R-ks-Gks"/>
+                <outlet property="stepNextSymbolButton" destination="UgB-Q4-Nk6" id="ycA-TA-xIb"/>
                 <outlet property="symbolLabel" destination="SMU-mW-qyZ" id="Oq1-cL-ZRD"/>
                 <outlet property="totalCyclesField" destination="GjQ-OV-56M" id="3oU-MS-DHY"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="63F-zY-dLP"/>
