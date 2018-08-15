@@ -557,6 +557,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 			
 			if self.breakpoint1Checkbox.state == .on
 			{
+				// TODO: This is really slow, do this the right way!
 				let s = self.breakpoint1Field.stringValue
 				var hexAddr : UInt32 = 0
 				if Scanner.init(string: s).scanHexInt32(&hexAddr) == true
@@ -564,6 +565,31 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 					if hexAddr == CPU_getPC()
 					{
 						self.doBreakpointWithTitle("Address 1")
+					}
+				}
+			}
+			
+			if let currentSymbol = self.currentSymbol
+			{
+				if let trapsym = self.stepTrapSymbol
+				{
+					// TODO: Slow also. Maybe we do something in the method that calculates the
+					// current symbol such as set a flag when it changes?
+					if trapsym != currentSymbol
+					{
+						// Ok, new symbol. Is it one we ignore?
+						if self.stepIgnoreSymbols.contains(currentSymbol)
+						{
+							// It is
+							stepTrapSymbol = currentSymbol
+						}
+						else
+						{
+							// Break
+							os_log( "Stopped on symbol %@", log: mainwin_log, type: .debug, currentSymbol.name )
+							
+							self.doBreakpointWithTitle("Next Symbol")
+						}
 					}
 				}
 			}
@@ -595,29 +621,6 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 //				lastSymbol = self.currentSymbol;
 //			}
 		#endif
-		
-		if let currentSymbol = self.currentSymbol
-		{
-			if let trapsym = self.stepTrapSymbol
-			{
-				if trapsym != currentSymbol
-				{
-					// Ok, new symbol. Is it one we ignore?
-					if self.stepIgnoreSymbols.contains(currentSymbol)
-					{
-						// It is
-						stepTrapSymbol = currentSymbol
-					}
-					else
-					{
-						// Break
-						os_log( "Stopped on symbol %@", log: mainwin_log, type: .debug, currentSymbol.name )
-						
-						self.doBreakpointWithTitle("Next Symbol")
-					}
-				}
-			}
-		}
 		
 		// This will update registers, calculate the current symbol, etc.
 		self.updateState()
