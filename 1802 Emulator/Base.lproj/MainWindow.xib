@@ -14,6 +14,7 @@
                 <outlet property="breakpoint2Checkbox" destination="7cH-ed-jtl" id="93d-AW-mlT"/>
                 <outlet property="breakpoint2Field" destination="JCC-4d-fFc" id="JGt-og-YpO"/>
                 <outlet property="ignoreSymbolButton" destination="0ha-54-ZZ6" id="5hI-7r-PDU"/>
+                <outlet property="liveSourceUpdatesCheckbox" destination="jPy-kH-H28" id="034-aR-NUs"/>
                 <outlet property="liveSymbolUpdatesCheckbox" destination="UGd-s0-e3f" id="zRu-P7-W3e"/>
                 <outlet property="portsView" destination="24P-7w-NDf" id="RCZ-El-OlX"/>
                 <outlet property="regView" destination="OxK-yD-0Ir" id="UO3-Np-N2k"/>
@@ -216,6 +217,17 @@
                             </subviews>
                         </view>
                     </box>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jPy-kH-H28">
+                        <rect key="frame" x="361" y="138" width="148" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Live Source Updates" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="uBH-a5-ako">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="liveSourceUpdateAction:" target="-2" id="c9R-8f-lMN"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <toolbar key="toolbar" implicitIdentifier="6580836E-132B-420D-9347-9CB538A3DCAC" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="V4K-uR-9h7">

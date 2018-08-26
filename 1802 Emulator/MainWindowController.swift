@@ -11,7 +11,8 @@ import os.log
 
 
 
-let CPUStepsPerTimerTick = 4
+/// If this is set to more than one, live updates suffer from an aliasing issue since we only update every n instructions.
+let CPUStepsPerTimerTick = 1
 
 let timerInterval = 0.000_008_988 * Double(CPUStepsPerTimerTick)
 // Clock was 1.78Mhz
@@ -162,6 +163,10 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	var liveSymbolUpdates : Bool = true
 	
+	@IBOutlet weak var liveSourceUpdatesCheckbox: NSButton!
+
+	var liveSourceUpdates : Bool = true
+
 	var useTerminalForIO : Bool = false
 	
 	
@@ -232,7 +237,8 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		
 		self.terminalWindowController.window?.delegate = self
 		
-		self.liveSymbolUpdatesCheckbox.state = .on
+		self.liveSymbolUpdatesCheckbox.state = self.liveSymbolUpdates ? .on : .off
+		self.liveSourceUpdatesCheckbox.state = self.liveSourceUpdates ? .on : .off
 
 		CPU_reset();
 		//	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
@@ -469,7 +475,32 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 			let cycles = CPU_getCycleCount()
 			self.totalCyclesField.stringValue = String.init(format: "%lu", cycles)
-	
+			
+			if let sym = self.currentSymbol
+			{
+				let pc = UInt16(CPU_getPC())
+				let offset = pc - sym.addr;
+				
+				if offset == 0
+				{
+					self.symbolLabel.stringValue = sym.name
+				}
+				else
+				{
+					let symtext = String.init(format: "%@ + %u", sym.name, offset )
+					self.symbolLabel.stringValue = symtext
+					//					print( symtext)
+				}
+			}
+			else
+			{
+				self.symbolLabel.stringValue = "------"
+			}
+		}
+
+		// Multiple switches for updates, since the source code update is quite slow.
+		if stepping || self.liveSourceUpdates
+		{
 			let pc = UInt16(CPU_getPC())
 			
 			if let loader = self.loader
@@ -481,26 +512,6 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 					let ln = line.lineNum - 1
 					self.sourceViewController.hilight(line: Int(ln) )
 				}
-			}
-	
-			if let sym = self.currentSymbol
-			{
-				let offset = pc - sym.addr;
-	
-				if offset == 0
-				{
-					self.symbolLabel.stringValue = sym.name
-				}
-				else
-				{
-					let symtext = String.init(format: "%@ + %u", sym.name, offset )
-					self.symbolLabel.stringValue = symtext
-//					print( symtext)
-				}
-			}
-			else
-			{
-				self.symbolLabel.stringValue = "------"
 			}
 		}
 	}
@@ -520,6 +531,21 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		self.cycleTimer = Timer.init(timeInterval: timerInterval, target: self, selector: #selector(timerAction(timer:)), userInfo: nil, repeats: true)
 		
 		RunLoop.main.add(self.cycleTimer!, forMode: RunLoopMode.defaultRunLoopMode)
+	}
+	
+	
+	/// If the cycle timer is running, reset its time interval based on the state of live updates.
+//	func rethinkCycleTimer()
+//	{
+		// If live updates, we do one step per runloop, so we cycle faster.
+	
+		// If not doing live updates
+//	}
+	
+	
+	func stopCycleTimer()
+	{
+		self.cycleTimer?.invalidate()
 	}
 	
 	
@@ -630,9 +656,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	func doBreakpointWithTitle( _ title : String )
 	{
 		self.statusLabel.stringValue = String.init(format: "Breakpoint: %@", title)
-	
-		self.cycleTimer?.invalidate()
-	
+		self.stopCycleTimer()
 		self.runmode = .Breaking
 	}
 	
@@ -642,14 +666,12 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	
 	@IBAction func liveSymbolUpdateAction(_ sender: Any) {
 		let button = sender as! NSButton
-		if button.state == .on
-		{
-			self.liveSymbolUpdates = true
-		}
-		else
-		{
-			self.liveSymbolUpdates = false
-		}
+		self.liveSymbolUpdates = button.state == .on
+	}
+	
+	@IBAction func liveSourceUpdateAction(_ sender: Any) {
+		let button = sender as! NSButton
+		self.liveSourceUpdates = button.state == .on
 	}
 	
 	@IBAction func stepAction(_ sender: Any) {
@@ -714,7 +736,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		
 		self.statusLabel.stringValue = "Paused"
 	
-		self.cycleTimer?.invalidate()
+		self.stopCycleTimer()
 	
 		self.runmode = .Pause
 	
@@ -745,6 +767,11 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		self.liveSymbolUpdatesCheckbox.state = self.liveSymbolUpdates == true ? NSControl.StateValue.on : NSControl.StateValue.off
 	}
 	
+	@IBAction func liveSourceMenuAction(_ sender: Any) {
+		self.liveSourceUpdates = !self.liveSourceUpdates
+		self.liveSourceUpdatesCheckbox.state = self.liveSourceUpdates == true ? NSControl.StateValue.on : NSControl.StateValue.off
+	}
+	
 	override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
 		let action = menuItem.action
 		
@@ -773,7 +800,11 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		{
 			menuItem.state = self.liveSymbolUpdates == true ? NSControl.StateValue.on : NSControl.StateValue.off
 		}
-		
+		else if action == #selector(liveSourceMenuAction(_:))
+		{
+			menuItem.state = self.liveSourceUpdates == true ? NSControl.StateValue.on : NSControl.StateValue.off
+		}
+
 		return true
 	}
 	
