@@ -33,7 +33,16 @@ enum RunMode {
 
 let mainwin_log = OSLog(subsystem: "com.sgsw.1802emulator", category: "MainWindow")
 
+/**
+ Callback for the CPU port output operation.
 
+ This is called from 'C'.
+
+ - parameters:
+   - userData: Optional opaque user data pointer passed back from the CPU emulation engine.
+   - port: CPU port number
+   - data: The data byte being sent out the port
+*/
 func ocb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8, data : UInt8 )
 {
 	os_log( "Output port %d  data 0x%02X  '%c'", log:mainwin_log, port, data, data )
@@ -42,6 +51,17 @@ func ocb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8, data : U
 }
 
 
+/**
+ Callback for the CPU port input operation.
+
+ This is called from 'C'.
+
+ - parameters:
+   - userData: Optional opaque user data pointer passed back from the CPU emulation engine.
+   - port: CPU port number
+
+ - returns: The byte being read from the CPU port
+ */
 func icb( userData : (Optional<UnsafeMutableRawPointer>), port : UInt8 ) -> UInt8
 {
 	os_log( "Input port %d", port )
