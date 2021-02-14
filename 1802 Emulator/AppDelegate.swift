@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		// Insert code here to initialize your application
 		
-		self.mainWindowController = MainWindowController.init(windowNibName:NSNib.Name(rawValue: "MainWindow"))
+		self.mainWindowController = MainWindowController.init(windowNibName:"MainWindow")
 			
 		self.mainWindowController?.showWindow( self )
 	}

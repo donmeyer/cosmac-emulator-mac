@@ -97,7 +97,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	//
 	@IBOutlet weak var sourceView: NSView!
 	@IBOutlet weak var portsView: NSView!
-	var registersViewController : RegistersViewController = RegistersViewController.init(nibName: NSNib.Name(rawValue: "RegistersView"), bundle: nil)
+	var registersViewController : RegistersViewController = RegistersViewController.init(nibName: "RegistersView", bundle: nil)
 	
 	let ioPorts : AllIOPortsViewController = AllIOPortsViewController()
 	
@@ -131,7 +131,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 	@IBOutlet weak var ignoreSymbolButton: NSButton!
 	
 	
-	var terminalWindowController : TerminalWindowController = TerminalWindowController.init(windowNibName:NSNib.Name(rawValue: "TerminalWindow"))
+	var terminalWindowController : TerminalWindowController = TerminalWindowController.init(windowNibName:"TerminalWindow")
 	
 	var sourceViewController : SourceViewController = SourceViewController()
 	
@@ -550,7 +550,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		
 		self.cycleTimer = Timer.init(timeInterval: timerInterval, target: self, selector: #selector(timerAction(timer:)), userInfo: nil, repeats: true)
 		
-		RunLoop.main.add(self.cycleTimer!, forMode: RunLoopMode.defaultRunLoopMode)
+		RunLoop.main.add(self.cycleTimer!, forMode: RunLoop.Mode.default)
 	}
 	
 	
@@ -792,7 +792,7 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		self.liveSourceUpdatesCheckbox.state = self.liveSourceUpdates == true ? NSControl.StateValue.on : NSControl.StateValue.off
 	}
 	
-	override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+	func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
 		let action = menuItem.action
 		
 		if action == #selector(runAction(_:))
