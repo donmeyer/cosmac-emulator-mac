@@ -260,9 +260,10 @@ class MainWindowController : NSWindowController, NSWindowDelegate {
 		self.liveSymbolUpdatesCheckbox.state = self.liveSymbolUpdates ? .on : .off
 		self.liveSourceUpdatesCheckbox.state = self.liveSourceUpdates ? .on : .off
 
+		self.loadFile(path: "/Users/don/Code/Cosmac 1802/FIG/figFORTH.lst");
+//		self.loadFile(path: "/Users/don/Code/Cosmac 1802/asm_src/slowq.lst")
+
 		CPU_reset();
-		//	[self loadFile:@"/Users/don/Code/Cosmac 1802/FIG/FIG_Forth.lst"];
-		self.loadFile(path: "/Users/don/Code/Cosmac 1802/asm_src/slowq.lst")
 		
 		self.setDescriptionsForForth()
 	}
