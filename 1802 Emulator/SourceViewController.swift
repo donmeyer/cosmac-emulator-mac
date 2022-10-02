@@ -154,7 +154,7 @@ class SourceViewController: NSViewController {
 		
 		let start = (textView?.textStorage?.length)!
 		
-		let font = NSFont.init(name: "Consolas", size: 13)
+		let font = NSFont.init(name: "Monaco", size: 13)
 		let astr = NSAttributedString.init(string: s, attributes: [NSAttributedString.Key.font : font!])
 		textView?.textStorage?.append( astr )
 		textView?.textStorage?.append( NSAttributedString.init(string: "\n") )
